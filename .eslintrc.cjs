@@ -17,5 +17,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "indent": ["error", 2],
+    "semi": ["error", "always"],
   },
 }

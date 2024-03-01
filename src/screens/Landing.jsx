@@ -10,5 +10,5 @@ export const Landing = () => {
         <Input type='text' placeholder='' />
       </InputGroup>
     </>
-  )
-}
+  );
+};
