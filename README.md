@@ -1,8 +1,43 @@
-# React + Vite
+# InGreed.io frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Installation
+```sh
+npm install
+```
+or use docker.
 
-Currently, two official plugins are available:
+### Local development
+```sh
+npm run dev
+```
+and to run eslint
+```sh
+npm run lint
+# or to auto fix issues
+npm run lint-fix
+```
+instead of running app locally you can use docker
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Docker Development
+```sh
+docker compose up -d
+```
+if you need to rebuild your container (ex. after adding some libraries to project)
+```sh
+docker compose build
+```
+
+### Directory structure
+```
+.
+
+├── public
+│   └── // Static media files ex. images
+├── src
+│   ├── App.jsx
+│   ├── components
+│   │   └── // Components - reusable code used to build screens
+│   └── screens
+│       └── // Screens - different views, routing happens between them.
+└── package.json
+```
