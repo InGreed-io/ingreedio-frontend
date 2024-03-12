@@ -1,5 +1,11 @@
 # InGreed.io frontend
 
+### Tech stack
+React + Vite
+Testing Framework: Jest
+UI Framework: Chakra UI
+Contenerization: Docker
+
 ### Installation
 ```sh
 npm install

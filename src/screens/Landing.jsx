@@ -1,14 +1,9 @@
-import { InputGroup, Input, InputLeftElement } from "@chakra-ui/input";
+import { Searchbar } from "../components/Searchbar";
+
 export const Landing = () => {
   return (
     <>
-      <p>Landing!!</p>
-      <InputGroup>
-        <InputLeftElement>
-          Test
-        </InputLeftElement>
-        <Input type='text' placeholder='' />
-      </InputGroup>
+      <Searchbar />
     </>
   );
 };
