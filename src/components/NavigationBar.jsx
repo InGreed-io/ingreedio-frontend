@@ -1,15 +1,15 @@
 import {
   Box, Image, Button, Center, ButtonGroup,
   Grid
-} from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const NavigationBar = () => {
   return (
     <Grid templateColumns='repeat(3, 1fr)' gap={6}>
       <Box alignSelf="center" justifySelf="start">
         <Link to="/">
-          <Image src="/logo.svg" />
+          <Image h="92px" src="/logo.png" />
         </Link>
       </Box>
       <Center>
@@ -30,7 +30,7 @@ export const NavigationBar = () => {
           <Button variant="link">
                         Log In
           </Button>
-          <Button>
+          <Button px="5">
                         Sign Up
           </Button>
         </ButtonGroup>
