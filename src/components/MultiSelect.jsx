@@ -20,6 +20,9 @@ export const MultiSelect = ({ options, controlProps }) => {
           ...provided,
           display: "none",
         }),
+        valueContainer: (provided) => ({
+          ...provided,
+        }),
         control: (provided) => ({
           ...provided,
           ...controlProps

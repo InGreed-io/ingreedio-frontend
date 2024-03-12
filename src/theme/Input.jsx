@@ -10,6 +10,12 @@ const baseStyle = definePartsStyle({
     borderWidth: 2,
     boxSizing: "content-box",
   },
+  addon: {
+    boxSizing: "border-box",
+  },
+  element: {
+    boxSizing: "border-box",
+  }
 });
 
 const primary = definePartsStyle({
@@ -18,7 +24,8 @@ const primary = definePartsStyle({
     color: "brand.greenishGray",
     borderWidth: 2,
     textAlign: "start",
-    background: "brand.secondary"
+    background: "brand.secondary",
+    width: "auto",
   },
 });
 
@@ -65,7 +72,7 @@ export const Input = defineMultiStyleConfig({
         h: 51,
         minH: 51,
         maxH: 51,
-        px: 3,
+        px: 5,
         fontSize: 17,
         borderRadius: 30,
       },

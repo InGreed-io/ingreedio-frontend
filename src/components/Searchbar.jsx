@@ -1,5 +1,5 @@
 import { Input } from "@chakra-ui/input";
-import { Button, Center, Flex } from "@chakra-ui/react";
+import { Button, Center, Flex, Stack, Text } from "@chakra-ui/react";
 import { SingleSelect } from "./SingleSelect";
 import { MultiSelect } from "./MultiSelect";
 import { categories } from "../mocks/categories";
@@ -9,11 +9,41 @@ export const Searchbar = () => {
   return (
     <>
       <Center>
-        <Flex maxW={1050} justifyContent="center" alignItems="stretch" gap={5} >
-          <SingleSelect options={categories} controlProps={{ w: "200px"}} />
-          <Input placeholder="Search phrase"
-            size="lg" />
-          <MultiSelect options={ingredients} controlProps={{ w: "400px" }} />          
+        <Flex gap={3} minW={1050} maxW={1050} justifyContent="space-evenly" alignItems="stretch">
+          <Stack minW="220px" gap={0}>
+            <SingleSelect options={categories} />
+            <Text fontSize={20}
+              color="brand.greenishGray"
+              alignSelf="start"
+              pl={2}
+              fontFamily="Playfair Display"
+              fontWeight="900">
+                Category
+            </Text>
+          </Stack>
+          <Stack minW="200px" gap={0}>
+            <Input placeholder="Search phrase"
+              size="lg" />
+            <Text fontSize={20}
+              color="brand.greenishGray"
+              alignSelf="start"
+              pl={2}
+              fontFamily="Playfair Display"
+              fontWeight="900">
+                Search phrase
+            </Text>
+          </Stack>
+          <Stack minW="500px" gap={0}>
+            <MultiSelect options={ingredients} />          
+            <Text fontSize={20}
+              color="brand.greenishGray"
+              alignSelf="start"
+              pl={2}
+              fontFamily="Playfair Display"
+              fontWeight="900">
+                Ingredients
+            </Text>
+          </Stack>
           <Button size="lg">
               Search
           </Button>
