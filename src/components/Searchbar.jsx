@@ -9,8 +9,14 @@ export const Searchbar = () => {
   return (
     <>
       <Center>
-        <Flex gap={3} minW={1050} maxW={1050} justifyContent="space-evenly" alignItems="stretch">
-          <Stack minW="220px" gap={0}>
+        <Flex
+          gap={3}
+          maxW={{base: "100%", sm: 400, md: 700, lg: 900, xl: 1050}}
+          wrap="wrap"
+          justifyContent="space-evenly"
+          alignItems="stretch"
+        >
+          <Stack w={{base: "90%", sm: 190, md: 300, lg: 400, xl: 200}} gap={0}>
             <SingleSelect options={categories} />
             <Text fontSize={20}
               color="brand.greenishGray"
@@ -21,7 +27,7 @@ export const Searchbar = () => {
                 Category
             </Text>
           </Stack>
-          <Stack minW="200px" gap={0}>
+          <Stack w={{base: "90%", sm: 190, md: 300, lg: 400, xl: 200}} gap={0}>
             <Input placeholder="Search phrase"
               size="lg" />
             <Text fontSize={20}
@@ -33,7 +39,7 @@ export const Searchbar = () => {
                 Search phrase
             </Text>
           </Stack>
-          <Stack minW="500px" gap={0}>
+          <Stack minW={{base: "90%", sm: 280, md: 500, lg: 700, xl: 400}} gap={0}>
             <MultiSelect options={ingredients} />          
             <Text fontSize={20}
               color="brand.greenishGray"
@@ -44,7 +50,7 @@ export const Searchbar = () => {
                 Ingredients
             </Text>
           </Stack>
-          <Button size="lg">
+          <Button maxW={100} size="lg">
               Search
           </Button>
         </Flex>
