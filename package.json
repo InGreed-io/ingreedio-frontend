@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "api": "mock_server/mock_server 8080",
+    "api": "go build -o mock_server/mock_server mock_server/main.go && mock_server/mock_server 8080",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx --report-unused-disable-directives --fix",

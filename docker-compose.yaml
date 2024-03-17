@@ -1,6 +1,15 @@
 services:
   frontend-app:
+    depends_on:
+      - mock-api
     build: .
     ports:
       - "8081:8081"
-
+    environment:
+      - VITE_API_URI=http://localhost:8080
+  mock-api:
+    build: ./mock_server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src/mocks:/src/mocks
