@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box, Image, Button, Center, ButtonGroup,
   Grid, Flex, IconButton
@@ -14,7 +15,7 @@ export const NavigationBar = () => {
       <Grid p={4} templateColumns='repeat(3, 1fr)' display={{base: "none", md: "grid"}} gap={6}>
         <Box alignSelf="center" justifySelf="start">
           <Link to="/">
-            <Image h="50px" src="/logo.png" />
+            <Image h="50px" src="/logo.png" alt="Logo" data-testid="logo"/>
           </Link>
         </Box>
         <Center>
@@ -45,7 +46,7 @@ export const NavigationBar = () => {
         <Flex p={4} justifyContent={"space-between"} alignItems={"center"}>
           <Box>
             <Link to="/">
-              <Image h="40px" src="/logo.png" />
+              <Image h="40px" src="/logo.png" alt="Logo" data-testid="logo-hamburgermenu"/>
             </Link>
           </Box>
           <IconButton
