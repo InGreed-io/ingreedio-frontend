@@ -20,25 +20,35 @@ export const NavigationBar = () => {
         </Box>
         <Center>
           <ButtonGroup gap="5" variant="link">
-            <Button>
+            <Link to="/about">
+            <Button aria-label="About Us">
                           About Us
             </Button>
-            <Button>
+            </Link>
+            <Link to="/pricing">
+            <Button aria-label="Pricing">
                           Pricing
             </Button>
-            <Button>
+            </Link>
+            <Link to="/tos">
+            <Button aria-label="Terms and Conditions">
                           Terms and Conditions
             </Button>
+            </Link>
           </ButtonGroup>
         </Center>
         <Box alignSelf="center" justifySelf="end">
           <ButtonGroup gap="5">
-            <Button variant="link">
+            <Link to="/login" style={{alignSelf: "center"}}>
+            <Button variant="link" aria-label="Log In">
                           Log In
             </Button>
-            <Button px="5">
+            </Link>
+            <Link to="/signup">
+            <Button px="5" aria-label="Sign Up">
                           Sign Up
             </Button>
+            </Link>
           </ButtonGroup>
         </Box>
       </Grid>
@@ -46,7 +56,7 @@ export const NavigationBar = () => {
         <Flex p={4} justifyContent={"space-between"} alignItems={"center"}>
           <Box>
             <Link to="/">
-              <Image h="40px" src="/logo.png" alt="Logo" data-testid="logo-hamburgermenu"/>
+              <Image h="40px" src="/logo.png" alt="Logo" data-testid="logo-hidden"/>
             </Link>
           </Box>
           <IconButton
@@ -67,23 +77,33 @@ export const NavigationBar = () => {
           mb={10}
         >
           <ButtonGroup flexDirection={"column"} gap={2} spacing={0} p={2} variant="link">
-            <Button>
+          <Link to="/about">
+            <Button aria-label='About Us Hidden'>
               About Us
             </Button>
-            <Button>
+            </Link>
+            <Link to="/pricing">
+            <Button aria-label='Pricing Hidden'>
               Pricing
             </Button>
-            <Button>
+            </Link>
+            <Link to="/tos">
+            <Button aria-label='Terms and Conditions Hidden'>
               Terms and Conditions
             </Button>
+            </Link>
           </ButtonGroup>
           <ButtonGroup justifyContent={"center"} mt={3}>
-            <Button variant={"link"} px={3}>
+            <Link to="/login">
+            <Button variant={"link"} px={3} aria-label="Log In Hidden">
               Log In
             </Button>
-            <Button size={"sm"} p={3}>
+            </Link>
+            <Link to="/signup">
+            <Button size={"sm"} p={3} aria-label="Sign Up Hidden">
               Sign Up
             </Button>
+            </Link>
           </ButtonGroup>
         </Box>
       </Box>

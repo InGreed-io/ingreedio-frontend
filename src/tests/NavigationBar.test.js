@@ -5,105 +5,101 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NavigationBar } from '../components/NavigationBar';
 
+
 describe('NavigationBar Tests', () => {
-  test('should render logo', () => {
+  beforeEach(() => {
     render(
       <Router>
-        <NavigationBar />
+          <NavigationBar />
       </Router>
     );
+  });
 
-    const menuToggleButton = screen.getByLabelText('Open Menu');
+  test('should render logo', () => {
+    const primaryLogo = screen.getByTestId('logo');    
+    const hiddenLogo = screen.getByTestId('logo-hidden');
 
-    // Simulate a user click to open the menu
-    userEvent.click(menuToggleButton);
-
-    const primaryLogo = screen.getByTestId('logo');
     expect(primaryLogo).toBeInTheDocument();
-
-    const hiddenLogo = screen.getByTestId('logo-hamburgermenu');
-    expect(hiddenLogo).not.toBeInTheDocument(); // Ensure no hidden logo is found
+    expect(hiddenLogo).toBeInTheDocument();
   });
 
   test('should render navigation links', () => {
-    render(
-      <Router>
-        <NavigationBar />
-      </Router>
-    );
-    const aboutLink = screen.getByRole("button", { name: "About Us" });
-    const pricingLink = screen.getByRole("button", { name: "Pricing" });
-    const termsLink = screen.getByRole("button", { name: "Terms and Conditions" });
+
+    const aboutLink = screen.getByLabelText("About Us");
+    const pricingLink = screen.getByLabelText("Pricing");
+    const termsLink = screen.getByLabelText("Terms and Conditions");
 
     expect(aboutLink).toBeInTheDocument();
     expect(pricingLink).toBeInTheDocument();
     expect(termsLink).toBeInTheDocument();
   });
 
-  test('navigation links are clickable', () => {
-    render(
-      <Router>
-        <NavigationBar />
-      </Router>
-    );
-    const aboutLink = screen.getByRole("button", { name: "About Us" });
-    const pricingLink = screen.getByRole("button", { name: "Pricing" });
-    const termsLink = screen.getByRole("button", { name: "Terms and Conditions" });
+  test('navigation links should be clickable and redirect', () => {
+
+    const aboutLink = screen.getByLabelText("About Us");
+    const pricingLink = screen.getByLabelText("Pricing");
+    const termsLink = screen.getByLabelText("Terms and Conditions");
+    const aboutLinkHidden = screen.getByLabelText("About Us Hidden");
+    const pricingLinkHidden = screen.getByLabelText("Pricing Hidden");
+    const termsLinkHidden = screen.getByLabelText("Terms and Conditions Hidden");
 
     fireEvent.click(aboutLink);
     expect(window.location.pathname).toBe('/about');
-
+    
     fireEvent.click(pricingLink);
     expect(window.location.pathname).toBe('/pricing');
 
     fireEvent.click(termsLink);
     expect(window.location.pathname).toBe('/tos');
-  });
 
-  test('should render login and sign up buttons', () => {
-    render(
-      <Router>
-        <NavigationBar />
-      </Router>
-    );
-    const loginButton = screen.getByRole("button", { name: "Log In" });
-    const signUpButton = screen.getByRole("button", { name: "Sign Up" });
-
-    expect(loginButton).toBeInTheDocument();
-    expect(signUpButton).toBeInTheDocument();
-  });
-
-  test('login and sign up buttons should be clickable', () => {
-    render(
-      <Router>
-        <NavigationBar />
-      </Router>
-    );
-    const loginButton = screen.getByRole("button", { name: "Log In" });
-    const signUpButton = screen.getByRole("button", { name: "Sign Up" });
-
-    fireEvent.click(loginButton);
-    // TODO: assertions for login functionality
-
-    fireEvent.click(signUpButton);
-    // TODO: assertions for sign up functionality
-  });
-
-  test('mobile menu should be togglable', () => {
-    render(
-      <Router>
-        <NavigationBar />
-      </Router>
-    );
     const hamburgerIcon = screen.getByLabelText('Open Menu');
     fireEvent.click(hamburgerIcon);
 
-    const aboutLink = screen.getByRole("button", { name: "About Us" });
-    const pricingLink = screen.getByRole("button", { name: "Pricing" });
-    const termsLink = screen.getByRole("button", { name: "Terms and Conditions" });
+    fireEvent.click(aboutLinkHidden);
+    expect(window.location.pathname).toBe('/about');
 
-    expect(aboutLink).toBeInTheDocument();
-    expect(pricingLink).toBeInTheDocument();
-    expect(termsLink).toBeInTheDocument();
+    fireEvent.click(pricingLinkHidden);
+    expect(window.location.pathname).toBe('/pricing');
+
+    fireEvent.click(termsLinkHidden);
+    expect(window.location.pathname).toBe('/tos');
+  });
+
+  test('should render login and sign up buttons', () => {
+
+    const loginButton = screen.getByLabelText("Log In");
+    const signUpButton = screen.getByLabelText("Sign Up");
+    const loginButtonHidden = screen.getByLabelText("Log In Hidden");
+    const signUpButtonHidden = screen.getByLabelText("Sign Up Hidden");
+
+    expect(loginButton).toBeInTheDocument();
+    expect(signUpButton).toBeInTheDocument();
+    expect(loginButtonHidden).toBeInTheDocument();
+    expect(signUpButtonHidden).toBeInTheDocument();
+  });
+
+  test('login buttons should redirect to /login', () => {
+
+    const loginButton = screen.getByLabelText("Log In");
+    const loginButtonHidden = screen.getByLabelText("Log In Hidden");
+
+    fireEvent.click(loginButton);
+    expect(window.location.pathname).toBe('/login');
+
+    fireEvent.click(loginButtonHidden);
+    expect(window.location.pathname).toBe('/login');
+
+  });
+
+  test('sign up buttons should direct to /signup', () => {
+
+    const signUpButton = screen.getByLabelText("Sign Up");
+    const signUpButtonHidden = screen.getByLabelText("Sign Up Hidden");
+
+    fireEvent.click(signUpButton);
+    expect(window.location.pathname).toBe('/signup');
+
+    fireEvent.click(signUpButtonHidden);
+    expect(window.location.pathname).toBe('/signup');
   });
 });

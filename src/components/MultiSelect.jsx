@@ -1,3 +1,4 @@
+import React from 'react';
 import { Select } from "chakra-react-select";
 
 export const MultiSelect = ({ options, controlProps, onChange, defaultValue, name }) => {
@@ -9,6 +10,7 @@ export const MultiSelect = ({ options, controlProps, onChange, defaultValue, nam
       onChange={onChange}
       isMulti
       options={options}
+      aria-label="Multi select"
       chakraStyles={{
         downChevron: (provided) => ({
           ...provided,

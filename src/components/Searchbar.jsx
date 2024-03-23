@@ -1,3 +1,4 @@
+import React from 'react';
 import { Input } from "@chakra-ui/input";
 import { Button, Center, Flex, FormControl, FormLabel, Stack } from "@chakra-ui/react";
 import { SingleSelect } from "./SingleSelect";
@@ -69,6 +70,7 @@ export const Searchbar = () => {
               <FormControl isRequired>
                 <Input placeholder="Search phrase"
                   name="searchPhrase"
+                  aria-label="Search phrase"
                   w={{base: "90%", sm: 140, md: 250, lg: 350, xl: 150}}
                   defaultValue={searchData.searchPhrase}
                   onChange={

@@ -1,8 +1,10 @@
+import React from 'react';
 import { Select } from "chakra-react-select";
 
 export const SingleSelect = ({ options, controlProps, onChange, defaultValue, name }) => {
   return (
     <Select
+      aria-label="Select"
       selectedOptionStyle="check"
       defaultValue={defaultValue}
       name={name}
