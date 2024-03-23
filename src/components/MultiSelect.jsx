@@ -1,4 +1,3 @@
-import React from 'react';
 import { Select } from "chakra-react-select";
 
 export const MultiSelect = ({ options, controlProps, onChange, defaultValue, name }) => {

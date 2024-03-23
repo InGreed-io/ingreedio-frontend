@@ -1,4 +1,3 @@
-import React from 'react';
 import { Input } from "@chakra-ui/input";
 import { Button, Center, Flex, FormControl, FormLabel, Stack } from "@chakra-ui/react";
 import { SingleSelect } from "./SingleSelect";

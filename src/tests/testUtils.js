@@ -1,7 +1,6 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '../theme.jsx';
+import { render } from "@testing-library/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../theme.jsx";
 
 const AllTheProviders = ({ children }) => {
   return (
@@ -17,6 +16,6 @@ const customRender = (ui, options) =>
     ...options,
   });
 
-export * from '@testing-library/react';
+export * from "@testing-library/react";
 
 export { customRender as render };
