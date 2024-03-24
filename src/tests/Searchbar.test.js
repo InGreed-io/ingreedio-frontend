@@ -29,15 +29,16 @@ jest.mock("../utils/api", () => ({
 
 
 describe("Searchbar Tests", () => {
-  
-  test("should render form elements", async () => {
-
+  beforeEach(async () => {
     await act(async () => {
       render(
         <Router>
           <Searchbar />
         </Router>
       );});
+  });
+  
+  test("should render form elements", async () => {
 
     expect(screen.getByLabelText("Select")).toBeInTheDocument();
     expect(screen.getByLabelText("Search phrase")).toBeInTheDocument();
@@ -46,12 +47,7 @@ describe("Searchbar Tests", () => {
   });
 
   test("should update search phrase when input changes", async () => {
-    const screen = await act(async () => {
-      return render(
-        <Router>
-          <Searchbar />
-        </Router>
-      );});
+
     const searchInput = screen.getByLabelText("Search phrase");
   
     fireEvent.change(searchInput, { target: { value: "Test search" } });
@@ -60,12 +56,7 @@ describe("Searchbar Tests", () => {
   });
 
   test("should select a category from dropdown", async () => {
-    const screen = await act(async () => {
-      return render(
-        <Router>
-          <Searchbar />
-        </Router>
-      );});
+
     const categorySelect = screen.getByLabelText("Category");
 
     fireEvent.change(categorySelect, { target: { value: "Dietary Supplements" } });
@@ -76,12 +67,7 @@ describe("Searchbar Tests", () => {
   });
 
   test("should only allow selecting categories from the endpoint", async () => {
-    const screen = await act(async () => {
-      return render(
-        <Router>
-          <Searchbar />
-        </Router>
-      );});
+
     const categorySelect = screen.getByLabelText("Category");
 
     fireEvent.change(categorySelect, { target: { value: "Magic potions" } });
@@ -93,13 +79,7 @@ describe("Searchbar Tests", () => {
   });
   
   test("should select multiple ingredients from multi-select", async () => {
-    const screen = await act(async () => {
-      return render(
-        <Router>
-          <Searchbar />
-        </Router>
-      );
-    });
+
     const ingredientSelect = screen.getByLabelText("Multi select");
   
     fireEvent.change(ingredientSelect, {
@@ -113,13 +93,6 @@ describe("Searchbar Tests", () => {
 
   });
   test("should only allow selecting ingredients from the endpoint", async () => {
-    const screen = await act(async () => {
-      return render(
-        <Router>
-          <Searchbar />
-        </Router>
-      );
-    });
   
     const ingredientSelect = screen.getByLabelText("Multi select");
   
