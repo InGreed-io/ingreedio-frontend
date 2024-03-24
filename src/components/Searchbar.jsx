@@ -69,6 +69,7 @@ export const Searchbar = () => {
               <FormControl isRequired>
                 <Input placeholder="Search phrase"
                   name="searchPhrase"
+                  aria-label="Search phrase"
                   w={{base: "90%", sm: 140, md: 250, lg: 350, xl: 150}}
                   defaultValue={searchData.searchPhrase}
                   onChange={

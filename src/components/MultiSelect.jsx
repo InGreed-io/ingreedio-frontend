@@ -9,6 +9,7 @@ export const MultiSelect = ({ options, controlProps, onChange, defaultValue, nam
       onChange={onChange}
       isMulti
       options={options}
+      aria-label="Multi select"
       chakraStyles={{
         downChevron: (provided) => ({
           ...provided,
