@@ -1,20 +1,86 @@
-import { VStack, HStack, Input, Text, Button } from "@chakra-ui/react"
+import { VStack, HStack, Box, Input, Text, Button, FormControl, FormErrorMessage, useToast } from "@chakra-ui/react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 export const AuthForm = (props) => {
-// { title, onSubmit, isRegister, onEmailChange, onPassword }
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [repeatError, setRepeatError] = useState('');
+    const toast = useToast();
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setEmailError('Please enter a valid email address.');
+        } else {
+            setEmailError('');
+        }
+    }
+
+    const validatePassword = (password) => {
+
+        if (password.length < 8) {
+            setPasswordError('Password must be at least 8 characters long.');
+            return;
+        }
+        if (!/[a-z]/.test(password)) {
+            setPasswordError('Password must contain at least one lowercase letter.');
+            return;
+        }
+        if (!/[A-Z]/.test(password)) {
+            setPasswordError('Password must contain at least one uppercase letter.');
+            return;
+        }
+        if (!/\d/.test(password)) {
+            setPasswordError('Password must contain at least one number.');
+            return;
+        }
+        if (!/[@$!%*?&]/.test(password)) {
+            setPasswordError('Password must contain at least one special character (@, $, !, %, *, ?, or &).');
+            return;
+        }
+
+        setPasswordError('');
+        return true;
+    }
+    const validateRepeatPassword = (repeatPassword) => {
+        if (!(repeatPassword === props.passwordValue)) {
+            setRepeatError("Passwords must match.");
+            return;
+        }
+        setRepeatError('');
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (emailError || passwordError || (props.isRegister && repeatError)) {
+            toast({
+                title: 'Error.',
+                description: "Please check if all fields are filled correctly.",
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+              });
+        } else {
+            props.onSubmit();
+        }
+    };
+
+
+
     return (
         <VStack
             display="flex"
             as="form"
-            onSubmit={props.onSubmit}
-            h={props.isRegister ? "420px" : "390px"}
+            onSubmit={handleSubmit}
+            h={props.isRegister ? "450px" : "390px"}
             w="480px"
             bg="brand.secondary"
             borderRadius={40}
             padding="70px"
-            paddingTop={props.isRegister ? "50px" : "70px"}
-            spacing="20px">
+            paddingTop={props.isRegister ? "40px" : "70px"}
+            spacing="20px"
+            position="relative">
             <Text
                 fontFamily="Playfair Display"
                 fontWeight={900}
@@ -23,28 +89,48 @@ export const AuthForm = (props) => {
                 color="brand.greenishGray">
                 {props.title}
             </Text>
-            <Input
-                background="brand.background"
-                placeholder="Email"
-                width="90%" 
-                value={props.emailValue}
-                onChange={props.onEmailChange}/>
-                
-            <Input
-                background="brand.background"
-                placeholder="Password"
-                width="90%"
-                type="password" 
-                value={props.passwordValue}
-                onChange={props.onPasswordChange}/>
-            {props.isRegister && (
+            <FormControl isRequired isInvalid={emailError}>
                 <Input
                     background="brand.background"
-                    placeholder="Repeat Password"
+                    placeholder="Email"
+                    type="email"
+                    width="90%"
+                    value={props.emailValue}
+                    onChange={(e) => {
+                        props.onEmailChange(e);
+                        validateEmail(e.target.value)
+                    }} />
+                <FormErrorMessage marginLeft="10px" marginTop="0px">{emailError}</FormErrorMessage>
+            </FormControl>
+            <FormControl isRequired isInvalid={passwordError}>
+                <Input
+                    background="brand.background"
+                    placeholder="Password"
                     width="90%"
                     type="password"
-                    value={props.repeatPasswordValue}
-                    onChange={props.onRepeatPasswordChange}/>
+                    value={props.passwordValue}
+                    onChange={(e) => {
+                        props.onPasswordChange(e);
+                        validatePassword(e.target.value)
+                    }} />
+                <FormErrorMessage marginLeft="10px" marginTop="0px">{passwordError}</FormErrorMessage>
+
+            </FormControl>
+            {props.isRegister && (
+                <FormControl isRequired isInvalid={repeatError}>
+                    <Input
+                        background="brand.background"
+                        placeholder="Repeat Password"
+                        width="90%"
+                        type="password"
+                        value={props.repeatPasswordValue}
+                        onChange={(e) => {
+                            props.onRepeatPasswordChange(e);
+                            validateRepeatPassword(e.target.value)
+                        }} />
+                    <FormErrorMessage marginLeft="10px" marginTop="0px">{repeatError}</FormErrorMessage>
+
+                </FormControl>
             )}
 
             <HStack justify={"end"} w="100%" spacing="5%">

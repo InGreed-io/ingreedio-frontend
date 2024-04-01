@@ -1,4 +1,4 @@
-import {AbsoluteCenter, Box, Flex, Spacer} from '@chakra-ui/react';
+import {AbsoluteCenter, Box, Spacer, useToast} from '@chakra-ui/react';
 import { NavigationBar } from '../components/NavigationBar';
 import { AuthForm } from '../components/AuthForm';
 import { useState } from 'react';
@@ -7,12 +7,13 @@ export const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const toast = useToast();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
         console.log("Email: " + email);
         console.log("Pass: " + password);
         // api login logic
+
     };
 
     return(
