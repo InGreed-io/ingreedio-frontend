@@ -57,7 +57,7 @@ describe("AuthForm Tests", () => {
     expect(getByText("Passwords must match.")).toBeInTheDocument();
   });
 
-  test("should show no errors when valid email and password are entered", async () => {
+  it("should show no errors when valid email and password are entered", async () => {
 
     const { getByPlaceholderText, queryByText } = render(<AuthForm {...registerProps}/>);
     const emailInput = getByPlaceholderText("Email");
