@@ -1,4 +1,4 @@
-import { AbsoluteCenter, Box, Flex } from '@chakra-ui/react';
+import { AbsoluteCenter, Box } from '@chakra-ui/react';
 import { NavigationBar } from '../components/NavigationBar';
 import { AuthForm } from '../components/AuthForm';
 import { useState } from 'react';
@@ -10,10 +10,7 @@ export const SignUp = () => {
 
     const handleSubmit = () => {
         // api register logic
-        console.log("Register form!")
-        console.log("Email: " + email);
-        console.log("Password: " + password);
-        console.log("Repeat password: " + repeatPassword);
+        
     };
 
     return (

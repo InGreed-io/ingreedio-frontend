@@ -1,4 +1,4 @@
-import { VStack, HStack, Box, Input, Text, Button, FormControl, FormErrorMessage, useToast } from "@chakra-ui/react"
+import { VStack, HStack, Input, Text, Button, FormControl, FormErrorMessage, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
@@ -60,7 +60,7 @@ export const AuthForm = (props) => {
                 status: 'error',
                 duration: 5000,
                 isClosable: true,
-              });
+            });
         } else {
             props.onSubmit();
         }
@@ -114,7 +114,6 @@ export const AuthForm = (props) => {
                         validatePassword(e.target.value)
                     }} />
                 <FormErrorMessage marginLeft="10px" marginTop="0px">{passwordError}</FormErrorMessage>
-
             </FormControl>
             {props.isRegister && (
                 <FormControl isRequired isInvalid={repeatError}>
@@ -129,7 +128,6 @@ export const AuthForm = (props) => {
                             validateRepeatPassword(e.target.value)
                         }} />
                     <FormErrorMessage marginLeft="10px" marginTop="0px">{repeatError}</FormErrorMessage>
-
                 </FormControl>
             )}
 
@@ -145,6 +143,7 @@ export const AuthForm = (props) => {
                     {props.isRegister ? "Register" : "Login"}
                 </Button>
             </HStack>
+
         </VStack>
     )
 }
