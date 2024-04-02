@@ -31,7 +31,7 @@ describe("Searchbar Tests", () => {
   beforeEach(async () => {
     await act(async () => {
       render(
-          <Searchbar />
+        <Searchbar />
       );});
   });
   

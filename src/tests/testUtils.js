@@ -7,7 +7,7 @@ const AllTheProviders = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
       <Router>
-      {children}
+        {children}
       </Router>
     </ChakraProvider>
   );

@@ -6,7 +6,7 @@ import { NavigationBar } from "../components/NavigationBar";
 describe("NavigationBar Tests", () => {
   beforeEach(() => {
     render(
-        <NavigationBar />
+      <NavigationBar />
     );
   });
 
