@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "name": "Herbal Essence Renewing Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.7,
+    "ratingsCount": 1200,
+    "featured": true,
+    "favourite": true
+  },
+  {
+    "id": 2,
+    "name": "Pantene Pro-V Daily Moisture Renewal Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.5,
+    "ratingsCount": 950,
+    "featured": false,
+    "favourite": false
+  },
+  {
+    "id": 3,
+    "name": "L'Oréal Paris Elvive Dream Lengths Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.3,
+    "ratingsCount": 800,
+    "featured": true,
+    "favourite": true
+  },
+  {
+    "id": 4,
+    "name": "Head & Shoulders Classic Clean Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.2,
+    "ratingsCount": 600,
+    "featured": false,
+    "favourite": false
+  },
+  {
+    "id": 5,
+    "name": "Dove Nutritive Solutions Daily Moisture Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.6,
+    "ratingsCount": 1100,
+    "featured": true,
+    "favourite": true
+  },
+  {
+    "id": 6,
+    "name": "Garnier Fructis Sleek & Shine Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.4,
+    "ratingsCount": 750,
+    "featured": false,
+    "favourite": false
+  },
+  {
+    "id": 7,
+    "name": "TRESemmé Moisture Rich Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.3,
+    "ratingsCount": 850,
+    "featured": true,
+    "favourite": true
+  },
+  {
+    "id": 8,
+    "name": "Aveeno Scalp Soothing Rose Water & Chamomile Blend Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.8,
+    "ratingsCount": 1300,
+    "featured": false,
+    "favourite": false
+  },
+  {
+    "id": 9,
+    "name": "OGX Renewing Argan Oil of Morocco Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.7,
+    "ratingsCount": 1150,
+    "featured": true,
+    "favourite": true
+  },
+  {
+    "id": 10,
+    "name": "Suave Professionals Coconut Oil Infusion Shampoo",
+    "iconUrl": "shampoo.jpg",
+    "rating": 4.1,
+    "ratingsCount": 500,
+    "featured": false,
+    "favourite": true
+  }
+]
+

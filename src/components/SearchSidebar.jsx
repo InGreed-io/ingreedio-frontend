@@ -1,13 +1,12 @@
 import { Input } from "@chakra-ui/input";
-import { Button, Center, Flex, FormControl, FormLabel, Stack } from "@chakra-ui/react";
+import { Button, Center, Flex, FormControl, FormLabel, Box, Stack } from "@chakra-ui/react";
 import { SingleSelect } from "./SingleSelect";
 import { MultiSelect } from "./MultiSelect";
 import { initialSearchData, searchReducer } from "../reducers/searchReducer";
 import { useEffect, useReducer, useState } from "react";
-import { Form } from "react-router-dom";
 import { apiGet } from "../utils/api";
 
-export const Searchbar = () => {
+export const SearchSidebar = () => {
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
 
   const [ingredients, setIngredients] = useState([]);
@@ -28,17 +27,17 @@ export const Searchbar = () => {
   }, []);
 
   return (
-    <>
+    <Box position="sticky" top={30}>
       <Center>
-        <Form method="get" action="/products">
+        <form>
           <Flex
             gap={3}
-            flexWrap="wrap"
-            p={10}
-            justifyContent="space-between"
+            maxW={"100%"}
+            wrap="wrap"
+            justifyContent="space-evenly"
             alignItems="stretch"
           >
-            <Stack minW={200} gap={0} flexGrow={2}>
+            <Stack w={"90%"} gap={0}>
               <FormControl>
                 <SingleSelect
                   name="category"
@@ -56,17 +55,17 @@ export const Searchbar = () => {
                   pl={2}
                   fontFamily="Playfair Display"
                   fontWeight="900">
-                  Category
+                    Category
                 </FormLabel>
               </FormControl>
             </Stack>
-            <Stack minW={200} flexGrow={2}>
+            <Stack w={"90%"}>
               <FormControl isRequired>
                 <Input placeholder="Search phrase"
                   name="searchPhrase"
                   aria-label="Search phrase"
+                  w={"90%"}
                   defaultValue={searchData.searchPhrase}
-                  w={"100%"}
                   onChange={
                     (e) => dispatchSearchData({
                       type: "updateSearchPhrase",
@@ -80,11 +79,11 @@ export const Searchbar = () => {
                   pl={2}
                   fontFamily="Playfair Display"
                   fontWeight="900">
-                  Search phrase
+                    Search phrase
                 </FormLabel>
               </FormControl>
             </Stack>
-            <Stack minW={400} gap={0} flexGrow={3}>
+            <Stack minW={"90%"} gap={0}>
               <FormControl isRequired>
                 <MultiSelect
                   name="ingredients"
@@ -102,16 +101,16 @@ export const Searchbar = () => {
                   pl={2}
                   fontFamily="Playfair Display"
                   fontWeight="900">
-                  Ingredients
+                    Ingredients
                 </FormLabel>
               </FormControl>
             </Stack>
-            <Button type="submit" maxW={100} justifySelf={"flex-end"} flexGrow={1} size="lg">
-              Search
+            <Button type="submit" maxW={100} size="lg">
+                Search
             </Button>
           </Flex>
-        </Form>
+        </form>
       </Center>
-    </>
+    </Box>
   );
 };
