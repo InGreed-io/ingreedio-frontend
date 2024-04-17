@@ -13,7 +13,7 @@ export const ProductList = () => {
       .then(items => {
         setProducts(items);
       });
-  });
+  }, []);
 
   return (
     <>
