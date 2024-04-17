@@ -6,16 +6,17 @@ import { useSearchParams } from "react-router-dom";
 export const ProductListing = () => {
   const [searchParams] = useSearchParams();
 
-  const searchDataFallback = {
-    ingredients: searchParams.getAll("ingredients"),
+  const searchParamsFallback = {
+    ingredientsIds: searchParams.getAll("ingredients"),
     searchPhrase: searchParams.get("searchPhrase"),
-    category: searchParams.get("category"),
+    categoryId: searchParams.get("category"),
   };
 
   return (
     <>
       <Grid templateColumns="30% 1fr" alignItems={"flex-start"}>
-        <Searchbar searchDataFallback={searchDataFallback} />
+        <Searchbar
+          searchParamsFallback={searchParamsFallback} />
         <ProductList />
       </Grid>
     </>

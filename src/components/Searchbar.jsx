@@ -3,16 +3,18 @@ import { Button, Flex, FormControl, Box, FormLabel, Stack } from "@chakra-ui/rea
 import { SingleSelect } from "./SingleSelect";
 import { MultiSelect } from "./MultiSelect";
 import { initialSearchData, searchReducer } from "../reducers/searchReducer";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useLayoutEffect, useReducer, useState } from "react";
 import { Form } from "react-router-dom";
 import { apiGet } from "../utils/api";
 
-export const Searchbar = ({ searchDataFallback }) => {
+export const Searchbar = ({ searchParamsFallback }) => {
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
-
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  // console.log(searchParamsFallback);
+  // console.log(searchData);
+  // console.log(ingredients);
   useEffect(() => {
     apiGet("categories")
       .then(items => {
@@ -25,7 +27,25 @@ export const Searchbar = ({ searchDataFallback }) => {
         items = items.map(({ id, name }) => ({ value: id, label: name }));
         setIngredients(items);
       });
+
   }, []);
+
+  useEffect(() => {
+    if (ingredients.length > 0 &&
+      searchParamsFallback &&
+      searchParamsFallback.ingredientsIds.filter(x => x).length > 0 &&
+      searchData.ingredients.filter(x => x).length === 0) {
+      dispatchSearchData({
+        type: "updateIngredients",
+        ingredients: searchParamsFallback.ingredientsIds
+        .map(ingId => ingredients.find(ing => ing.value === ingId)),
+      })
+      console.log("done")
+    }
+
+  }, [ingredients]);
+
+  console.log("searchData: ", searchData);
 
   return (
     <Box position={"sticky"} top={30} w={"100%"}>
@@ -46,7 +66,7 @@ export const Searchbar = ({ searchDataFallback }) => {
                 onChange={
                   (category) => dispatchSearchData({
                     type: "updateCategory",
-                    category
+                    category,
                   })
                 }
                 options={categories} />
