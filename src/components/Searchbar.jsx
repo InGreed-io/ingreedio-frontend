@@ -11,10 +11,8 @@ export const Searchbar = ({ searchParamsFallback }) => {
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(undefined);
 
-  // console.log(searchParamsFallback);
-  // console.log(searchData);
-  // console.log(ingredients);
   useEffect(() => {
     apiGet("categories")
       .then(items => {
@@ -31,20 +29,38 @@ export const Searchbar = ({ searchParamsFallback }) => {
   }, []);
 
   useEffect(() => {
-    if (ingredients.length > 0 &&
-      searchParamsFallback &&
-      searchParamsFallback.ingredientsIds.filter(x => x).length > 0 &&
-      searchData.ingredients.filter(x => x).length === 0) {
-      dispatchSearchData({
-        type: "updateIngredients",
-        ingredients: searchParamsFallback.ingredientsIds
-        .map(ingId => ingredients.find(ing => ing.value === ingId)),
-      })
-      console.log("done")
+    // if (ingredients.length > 0 &&
+    //   searchParamsFallback &&
+    //   searchParamsFallback.ingredientsIds.filter(x => x).length > 0 &&
+    //   searchData.ingredients.filter(x => x).length === 0) {
+    //   dispatchSearchData({
+    //     type: "updateIngredients",
+    //     ingredients: searchParamsFallback.ingredientsIds
+    //     .map(ingId => ingredients.find(ing => ing.value === ingId)),
+    //   })
+    //   console.log("done")
+    // }
+
+    if(searchParamsFallback) {
+      if(searchParamsFallback.searchPhrase && !searchData.searchPhrase) {
+        dispatchSearchData({
+          type: "updateSearchPhrase",
+          searchPhrase: searchParamsFallback.searchPhrase,
+        });
+      }
+
+      if(searchParamsFallback.categoryId && !searchData.category) {
+        dispatchSearchData({
+          type: "updateCategory",
+          category: { value: searchParamsFallback.categoryId },
+        });
+      }
     }
+
 
   }, [ingredients]);
 
+  setSelectedCategory(categories.find(cat => cat.value === searchData.category));
   console.log("searchData: ", searchData);
 
   return (
@@ -62,7 +78,7 @@ export const Searchbar = ({ searchParamsFallback }) => {
             <FormControl>
               <SingleSelect
                 name="category"
-                defaultValue={searchData.category}
+                value={selectedCategory}
                 onChange={
                   (category) => dispatchSearchData({
                     type: "updateCategory",
