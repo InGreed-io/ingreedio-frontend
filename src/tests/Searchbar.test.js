@@ -1,5 +1,4 @@
 import "@testing-library/jest-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import { Searchbar } from "../components/Searchbar";
 import { render, screen, fireEvent, waitFor } from "./testUtils";
 import { act } from "react-dom/test-utils";
@@ -32,9 +31,7 @@ describe("Searchbar Tests", () => {
   beforeEach(async () => {
     await act(async () => {
       render(
-        <Router>
-          <Searchbar />
-        </Router>
+        <Searchbar />
       );});
   });
   

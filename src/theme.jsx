@@ -11,6 +11,7 @@ export const theme = extendTheme({
       darkGray: "#333333",
       greenishGray: "#4E554F",
       white: "#FFFFFF",
+      background: "#F5F5E0"
     }
   },
   components: {

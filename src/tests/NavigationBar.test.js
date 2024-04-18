@@ -1,15 +1,12 @@
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { render, screen, fireEvent } from "./testUtils";
 import { NavigationBar } from "../components/NavigationBar";
 
 
 describe("NavigationBar Tests", () => {
   beforeEach(() => {
     render(
-      <Router>
-        <NavigationBar />
-      </Router>
+      <NavigationBar />
     );
   });
 
