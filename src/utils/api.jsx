@@ -6,9 +6,9 @@ export const apiGet = (endpoint) =>
 
 export const apiPost = (endpoint, body) =>
   fetch(`${apiUri}/${endpoint}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(body)
   })
