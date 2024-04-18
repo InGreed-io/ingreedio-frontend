@@ -16,7 +16,6 @@ export const Login = () => {
     // api login logic
     apiPost("api/Authentication/Login", { email, password })
       .then((response) => {
-        console.log(response);
         if(response.errors)
         {
           toast({
