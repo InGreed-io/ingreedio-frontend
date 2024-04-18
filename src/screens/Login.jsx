@@ -1,15 +1,47 @@
-import {AbsoluteCenter, Box, Spacer} from "@chakra-ui/react";
+import {AbsoluteCenter, Box, Spacer, useToast} from "@chakra-ui/react";
 import { NavigationBar } from "../components/NavigationBar";
 import { AuthForm } from "../components/AuthForm";
 import { useState } from "react";
+import { apiPost } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // api login logic
+    apiPost("api/Authentication/Login", { email, password })
+      .then((response) => {
+        console.log(response);
+        if(response.errors)
+        {
+          toast({
+            title: "Error.",
+            description: "Please check if all fields are filled correctly.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          throw new Error("Login failed");
+        }
+        const token = response.token; 
+        sessionStorage.setItem("token", token);
+        toast({
+          title: "Success",
+          description: "Logged in successfuly.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/");
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   };
 
   return(
