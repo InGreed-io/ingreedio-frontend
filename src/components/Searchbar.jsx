@@ -69,7 +69,6 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                 name="ingredients"
                 placeholder="Ingredients..."
                 value={searchData.ingredients}
-                defaultValue={searchData.ingredients}
                 onChange={
                   (ingredients) => {
                     return dispatchSearchData({
@@ -86,7 +85,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                         limit: 5
                       })
                       .then(items => {
-                        items = items.map(({ id, name }) => ({ value: id, label: name }));
+                        items = items.content.map(({ id, name }) => ({ value: id, label: name }));
                         callback(items);
                       });
                   }

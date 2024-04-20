@@ -3,7 +3,7 @@ import { ProductCard } from "./ProductCard";
 import { useEffect, useState } from "react";
 import { apiGet } from "../../utils/api";
 
-export const ProductList = ({ searchData, searchParams, limit }) => {
+export const ProductList = ({ searchData, searchParams, limit, sortBy }) => {
   const [products, setProducts] = useState(null);
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -19,7 +19,7 @@ export const ProductList = ({ searchData, searchParams, limit }) => {
         page: page,
         limit: limit,
         categoryId: searchData.categoryId,
-        sortBy: 0
+        sortBy: sortBy,
       })
       .then(items => {
         setPageCount(items.pageCount);
@@ -35,7 +35,6 @@ export const ProductList = ({ searchData, searchParams, limit }) => {
             <Stack
               mb={20}
               fontSize={"20px"}
-              fontFamily="Playfair Display"
               color={"brand.greenishGray"}
               fontWeight={900} >
               <Grid

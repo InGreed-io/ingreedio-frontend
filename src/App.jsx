@@ -1,5 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
+import { Login } from "./screens/Login";
+import { SignUp } from "./screens/SignUp";
 import { Landing } from "./screens/Landing";
 import { ProductListing } from "./screens/ProductListing";
 import { Layout } from "./screens/Layout";
