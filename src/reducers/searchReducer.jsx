@@ -1,20 +1,30 @@
 export const searchReducer = (searchData, action) => {
-  switch(action.type) {
-  case "updateIngredients": {
-    searchData.ingredients = action.ingredients;
-
-    return searchData;
-  }
-  case "updateCategory": {
-    searchData.category = action.category.value;
-
-    return searchData;
-  }
-  case "updateSearchPhrase": {
-    searchData.searchPhrase = action.searchPhrase;
-
-    return searchData;
-  }
+  switch (action.type) {
+    case "update": {
+      return {
+        ingredients: action.ingredients,
+        category: action.category,
+        searchPhrase: action.searchPhrase,
+      }
+    }
+    case "updateIngredients": {
+      return {
+        ...searchData,
+        ingredients: action.ingredients
+      }
+    }
+    case "updateCategory": {
+      return {
+        ...searchData,
+        category: action.category
+      }
+    }
+    case "updateSearchPhrase": {
+      return {
+        ...searchData,
+        searchPhrase: action.searchPhrase
+      }
+    }
   }
 };
 

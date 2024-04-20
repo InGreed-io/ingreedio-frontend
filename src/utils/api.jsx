@@ -1,7 +1,7 @@
 const apiUri = import.meta.env.VITE_API_URI;
 
-export const apiGet = (endpoint) =>
-  fetch(`${apiUri}/${endpoint}`)
+export const apiGet = (endpoint, searchParams) =>
+  fetch(`${apiUri}/${endpoint}?` + new URLSearchParams(searchParams))
     .then(data => data.json());
 
 export const apiPost = (endpoint, body) =>

@@ -1,75 +1,17 @@
 import { Input } from "@chakra-ui/input";
 import { Button, Flex, FormControl, Box, FormLabel, Stack } from "@chakra-ui/react";
 import { SingleSelect } from "./SingleSelect";
-import { MultiSelect } from "./MultiSelect";
-import { initialSearchData, searchReducer } from "../reducers/searchReducer";
-import { useEffect, useLayoutEffect, useReducer, useState } from "react";
 import { Form } from "react-router-dom";
 import { apiGet } from "../utils/api";
+import { AsyncMultiSelect } from "./AsyncMultiSelect";
 
-export const Searchbar = ({ searchParamsFallback }) => {
-  const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
-  const [ingredients, setIngredients] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(undefined);
-
-  useEffect(() => {
-    apiGet("categories")
-      .then(items => {
-        items = items.map(({ id, name }) => ({ value: id, label: name }));
-        setCategories(items);
-      });
-
-    apiGet("ingredients")
-      .then(items => {
-        items = items.map(({ id, name }) => ({ value: id, label: name }));
-        setIngredients(items);
-      });
-
-  }, []);
-
-  useEffect(() => {
-    // if (ingredients.length > 0 &&
-    //   searchParamsFallback &&
-    //   searchParamsFallback.ingredientsIds.filter(x => x).length > 0 &&
-    //   searchData.ingredients.filter(x => x).length === 0) {
-    //   dispatchSearchData({
-    //     type: "updateIngredients",
-    //     ingredients: searchParamsFallback.ingredientsIds
-    //     .map(ingId => ingredients.find(ing => ing.value === ingId)),
-    //   })
-    //   console.log("done")
-    // }
-
-    if(searchParamsFallback) {
-      if(searchParamsFallback.searchPhrase && !searchData.searchPhrase) {
-        dispatchSearchData({
-          type: "updateSearchPhrase",
-          searchPhrase: searchParamsFallback.searchPhrase,
-        });
-      }
-
-      if(searchParamsFallback.categoryId && !searchData.category) {
-        dispatchSearchData({
-          type: "updateCategory",
-          category: { value: searchParamsFallback.categoryId },
-        });
-      }
-    }
-
-
-  }, [ingredients]);
-
-  setSelectedCategory(categories.find(cat => cat.value === searchData.category));
-  console.log("searchData: ", searchData);
-
+export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categories }) => {
   return (
-    <Box position={"sticky"} top={30} w={"100%"}>
+    <Box>
       <Form method="get" action="/products">
         <Flex
           gap={3}
           flexWrap="wrap"
-          p={5}
           w={"100%"}
           justifyContent="space-around"
           alignItems="stretch"
@@ -78,7 +20,7 @@ export const Searchbar = ({ searchParamsFallback }) => {
             <FormControl>
               <SingleSelect
                 name="category"
-                value={selectedCategory}
+                value={searchData.category}
                 onChange={
                   (category) => dispatchSearchData({
                     type: "updateCategory",
@@ -123,16 +65,33 @@ export const Searchbar = ({ searchParamsFallback }) => {
           </Stack>
           <Stack minW={200} gap={0} flexBasis={300} flexGrow={3} flexShrink={0}>
             <FormControl isRequired>
-              <MultiSelect
+              <AsyncMultiSelect
                 name="ingredients"
+                placeholder="Ingredients..."
+                value={searchData.ingredients}
                 defaultValue={searchData.ingredients}
                 onChange={
-                  (ingredients) => dispatchSearchData({
-                    type: "updateIngredients",
-                    ingredients
-                  })
+                  (ingredients) => {
+                    return dispatchSearchData({
+                      type: "updateIngredients",
+                      ingredients
+                    });
+                  }
                 }
-                options={ingredients} />
+                loadOptions={
+                  (inputValue, callback) => {
+                    apiGet("ingredients", {
+                        query: inputValue,
+                        page: 0,
+                        limit: 5
+                      })
+                      .then(items => {
+                        items = items.map(({ id, name }) => ({ value: id, label: name }));
+                        callback(items);
+                      });
+                  }
+                }
+                defaultOptions={ingredients} />
               <FormLabel fontSize={20}
                 color="brand.greenishGray"
                 alignSelf="start"

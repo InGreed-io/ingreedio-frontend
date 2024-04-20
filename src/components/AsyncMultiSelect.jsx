@@ -1,16 +1,17 @@
-import { Select } from "chakra-react-select";
+import { AsyncSelect } from "chakra-react-select";
 
-export const MultiSelect = ({ placeholder, options, controlProps, onChange, value, defaultValue, name }) => {
+export const AsyncMultiSelect = ({ placeholder, controlProps, onChange, loadOptions, value, defaultValue, defaultOptions, name }) => {
   return (
-    <Select
+    <AsyncSelect
       placeholder={placeholder}
       size="lg"
       name={name}
       defaultValue={defaultValue}
       value={value}
       onChange={onChange}
+      loadOptions={loadOptions}
+      defaultOptions={defaultOptions}
       isMulti
-      options={options}
       aria-label="Multi select"
       chakraStyles={{
         downChevron: (provided) => ({
