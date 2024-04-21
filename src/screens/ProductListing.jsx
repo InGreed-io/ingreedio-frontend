@@ -14,7 +14,7 @@ export const ProductListing = () => {
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [searchParams] = useSearchParams();
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const [sortBy, setSortBy] = useState(0);
+  const [sortBy, setSortBy] = useState("Featured");
 
   const searchParamsFallback = {
     ingredientsIds: searchParams.getAll("ingredients"),
@@ -66,7 +66,7 @@ export const ProductListing = () => {
         });
       }
     }
-  }, [ingredients]);
+  });
 
   return (
     <>
