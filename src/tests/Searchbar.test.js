@@ -6,26 +6,26 @@ import { act } from "react-dom/test-utils";
 jest.mock("../utils/api", () => ({
   apiGet: jest.fn().mockImplementation((endpoint) => {
     switch (endpoint) {
-      case "categories":
-        return Promise.resolve([
-          { id: "1", name: "Cosmetics" },
-          { id: "2", name: "Dietary Supplements" },
-          { id: "3", name: "Medicines" },
-          { id: "4", name: "Food" },
-        ]);
-      case "ingredients":
-        return Promise.resolve({
-          content: [
-            { id: "1", name: "Coconut oil" },
-            { id: "2", name: "Cocoa" },
-            { id: "3", name: "Coconut" },
-            { id: "4", name: "Cocoa butter" },
-          ],
-          pageCount: 5,
-          limit: 5,
-        });
-      default:
-        return Promise.resolve([]);
+    case "categories":
+      return Promise.resolve([
+        { id: "1", name: "Cosmetics" },
+        { id: "2", name: "Dietary Supplements" },
+        { id: "3", name: "Medicines" },
+        { id: "4", name: "Food" },
+      ]);
+    case "ingredients":
+      return Promise.resolve({
+        content: [
+          { id: "1", name: "Coconut oil" },
+          { id: "2", name: "Cocoa" },
+          { id: "3", name: "Coconut" },
+          { id: "4", name: "Cocoa butter" },
+        ],
+        pageCount: 5,
+        limit: 5,
+      });
+    default:
+      return Promise.resolve([]);
     }
   }),
 }));
