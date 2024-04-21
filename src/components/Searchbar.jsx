@@ -80,10 +80,10 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                 loadOptions={
                   (inputValue, callback) => {
                     apiGet("ingredients", {
-                        query: inputValue,
-                        page: 0,
-                        limit: 5
-                      })
+                      query: inputValue,
+                      page: 0,
+                      limit: 5
+                    })
                       .then(items => {
                         items = items.content.map(({ id, name }) => ({ value: id, label: name }));
                         callback(items);

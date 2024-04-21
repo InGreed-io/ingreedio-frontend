@@ -1,5 +1,4 @@
 import { AbsoluteCenter, Box, useToast } from "@chakra-ui/react";
-import { NavigationBar } from "../components/NavigationBar";
 import { AuthForm } from "../components/AuthForm";
 import { useState } from "react";
 import { apiPost } from "../utils/api";

@@ -1,4 +1,4 @@
-import { GridItem, Stack, Center, Image, Text } from "@chakra-ui/react";
+import { GridItem, Stack, Image, Text } from "@chakra-ui/react";
 
 export const ProductCard = ({ product }) => {
   return (

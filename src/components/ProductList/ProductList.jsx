@@ -24,8 +24,8 @@ export const ProductList = ({ searchData, searchParams, limit, sortBy }) => {
       .then(items => {
         setPageCount(items.pageCount);
         setProducts(items.content);
-      })
-  }, [searchData, page]);
+      });
+  }, [searchData, page, sortBy, limit]);
 
   return (
     <>
