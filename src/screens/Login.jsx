@@ -1,5 +1,4 @@
-import {AbsoluteCenter, Box, Spacer, useToast} from "@chakra-ui/react";
-import { NavigationBar } from "../components/NavigationBar";
+import {AbsoluteCenter, Box, useToast} from "@chakra-ui/react";
 import { AuthForm } from "../components/AuthForm";
 import { useState } from "react";
 import { apiPost } from "../utils/api";
@@ -14,7 +13,7 @@ export const Login = () => {
 
   const handleSubmit = async () => {
     // api login logic
-    apiPost("api/Authentication/Login", { email, password })
+    apiPost("Authentication/Login", { email, password })
       .then((response) => {
         if(response.errors)
         {
@@ -27,7 +26,7 @@ export const Login = () => {
           });
           throw new Error("Login failed");
         }
-        const token = response.token; 
+        const token = response.token;
         sessionStorage.setItem("token", token);
         toast({
           title: "Success",
@@ -45,23 +44,21 @@ export const Login = () => {
 
   return(
     <>
-      <NavigationBar />
-      <Spacer/>
       <AbsoluteCenter display={"flex"}>
 
         {/* Background rectangles*/}
-        <Box 
-          bg="brand.primary"  
-          zIndex={-1} 
+        <Box
+          bg="brand.primary"
+          zIndex={-1}
           position={"absolute"}
-          w="380px" h="150px" 
-          transform="translate(40%,-30%)" 
+          w="380px" h="150px"
+          transform="translate(40%,-30%)"
           borderRadius={50} />
-        <Box bg="brand.primary"  
-          zIndex={-1} 
+        <Box bg="brand.primary"
+          zIndex={-1}
           position={"absolute"}
-          w="380px" h="150px" 
-          transform="translate(-15%,190%)" 
+          w="380px" h="150px"
+          transform="translate(-15%,190%)"
           borderRadius={50}/>
 
         {/* Form */}

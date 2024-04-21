@@ -1,11 +1,36 @@
 import { Stack, Text, Spacer } from "@chakra-ui/react";
-import { NavigationBar } from "../components/NavigationBar";
 import { Searchbar } from "../components/Searchbar";
+import { initialSearchData, searchReducer } from "../reducers/searchReducer";
+import { useReducer, useState, useEffect } from "react";
+import { apiGet } from "../utils/api";
 
 export const Landing = () => {
+  const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
+  const [ingredients, setIngredients] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    apiGet("categories")
+      .then(items => {
+        items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
+        setCategories(items);
+      });
+  }, []);
+
+  useEffect(() => {
+    apiGet("ingredients", {
+      query: "",
+      page: 0,
+      limit: 5,
+    })
+      .then(items => {
+        items = items.content.map(({ id, name }) => ({ value: id.toString(), label: name }));
+        setIngredients(items);
+      });
+  }, []);
+
   return (
     <>
-      <NavigationBar />
       <Spacer />
       <Stack marginBottom={20}
         fontFamily="Playfair Display"
@@ -22,7 +47,12 @@ export const Landing = () => {
           ingredients
         </Text>
       </Stack>
-      <Searchbar />
+      <Searchbar
+        searchData={searchData}
+        dispatchSearchData={dispatchSearchData}
+        ingredients={ingredients}
+        categories={categories}
+      />
       <Spacer />
     </>
   );
