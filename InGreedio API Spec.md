@@ -83,6 +83,9 @@ Query params:
 POST /product/{id}/favourite
 user authenticated
 
+DELETE /product/{id}/favourite
+user authenticated
+
 POST /product/{product_id}/reviews
 user authenticated
 ```json
