@@ -22,14 +22,14 @@ const ingredients = [
 jest.mock("../utils/api", () => ({
   apiGet: jest.fn().mockImplementation((endpoint) => {
     switch (endpoint) {
-      case "ingredients":
-        return Promise.resolve({
-          content: categories.map(cat => ({ id: cat.value, name: cat.label })),
-          pageCount: 5,
-          limit: 5,
-        });
-      default:
-        return Promise.resolve([]);
+    case "ingredients":
+      return Promise.resolve({
+        content: categories.map(cat => ({ id: cat.value, name: cat.label })),
+        pageCount: 5,
+        limit: 5,
+      });
+    default:
+      return Promise.resolve([]);
     }
   }),
 }));
