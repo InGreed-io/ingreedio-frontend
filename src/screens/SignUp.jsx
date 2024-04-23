@@ -26,7 +26,7 @@ export const SignUp = () => {
           });
           throw new Error("SingUp failed");
         }
-        const token = response.token; 
+        const token = response.token;
         sessionStorage.setItem("token", token);
         toast({
           title: "Success",
@@ -39,7 +39,7 @@ export const SignUp = () => {
       })
       .catch((error) =>{
         console.error(error);
-      }); 
+      });
   };
 
   return (
