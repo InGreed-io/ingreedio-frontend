@@ -181,6 +181,8 @@ DELETE /preferences/{id}
 
 # Panel endpoints
 ### Products
+DELETE panel/products/{id} Admin, moderator or product owner auth
+
 GET panel/products
 
 Admin and moderator can list all products.
