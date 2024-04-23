@@ -1,14 +1,15 @@
 import { render } from "@testing-library/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter as Router } from "react-router-dom";
 import theme from "../theme.jsx";
+
+jest.mock("../utils/values", () => ({
+  getApiUri: jest.fn().mockImplementation(() => "http://api.ingreed.io/test")
+}));
 
 const AllTheProviders = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Router>
-        {children}
-      </Router>
+      {children}
     </ChakraProvider>
   );
 };

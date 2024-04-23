@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { AuthForm } from "../components/AuthForm";
 import { render, fireEvent } from "./testUtils";
+import { BrowserRouter } from "react-router-dom";
 
 const loginProps = {
   title: "Login",
@@ -25,7 +26,7 @@ const registerProps = {
 
 describe("AuthForm Tests", () => {
   it("should render Login AuthForm correctly", () => {
-    const { getByPlaceholderText, getByRole } = render(<AuthForm {...loginProps} />);
+    const { getByPlaceholderText, getByRole } = render(<BrowserRouter><AuthForm {...loginProps} /></BrowserRouter>);
 
     expect(getByPlaceholderText("Email")).toBeInTheDocument();
     expect(getByPlaceholderText("Password")).toBeInTheDocument();
@@ -33,7 +34,7 @@ describe("AuthForm Tests", () => {
   });
 
   it("should render Register AuthForm correctly", () => {
-    const { getByPlaceholderText, getByText, getByRole } = render(<AuthForm {...registerProps} />);
+    const { getByPlaceholderText, getByText, getByRole } = render(<BrowserRouter><AuthForm {...registerProps} /></BrowserRouter>);
 
     expect(getByPlaceholderText("Email")).toBeInTheDocument();
     expect(getByPlaceholderText("Password")).toBeInTheDocument();
@@ -43,7 +44,7 @@ describe("AuthForm Tests", () => {
   });
 
   it("should show error messages when invalid email or password is entered", async () => {
-    const { getByPlaceholderText, getByText } = render(<AuthForm {...registerProps} />);
+    const { getByPlaceholderText, getByText } = render(<BrowserRouter><AuthForm {...registerProps} /></BrowserRouter>);
     const emailInput = getByPlaceholderText("Email");
     const passwordInput = getByPlaceholderText("Password");
     const repeatPasswordInput = getByPlaceholderText("Repeat Password");
@@ -59,11 +60,11 @@ describe("AuthForm Tests", () => {
 
   it("should show no errors when valid email and password are entered", async () => {
 
-    const { getByPlaceholderText, queryByText } = render(<AuthForm {...registerProps}/>);
+    const { getByPlaceholderText, queryByText } = render(<BrowserRouter><AuthForm {...registerProps} /></BrowserRouter>);
     const emailInput = getByPlaceholderText("Email");
     const passwordInput = getByPlaceholderText("Password");
     const repeatPasswordInput = getByPlaceholderText("Repeat Password");
-    
+
     fireEvent.change(emailInput, { target: { value: "polny@barmleczny.com" } });
     fireEvent.change(passwordInput, { target: { value: "GoudaFromRadom1@" } });
     fireEvent.change(repeatPasswordInput, { target: { value: "GoudaFromRadom1@" } });

@@ -1,17 +1,19 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "./testUtils";
 import { NavigationBar } from "../components/NavigationBar";
-
+import { BrowserRouter } from "react-router-dom";
 
 describe("NavigationBar Tests", () => {
   beforeEach(() => {
     render(
-      <NavigationBar />
+      <BrowserRouter>
+        <NavigationBar />
+      </BrowserRouter>
     );
   });
 
   test("should render logo", () => {
-    const primaryLogo = screen.getByTestId("logo");    
+    const primaryLogo = screen.getByTestId("logo");
     const hiddenLogo = screen.getByTestId("logo-hidden");
 
     expect(primaryLogo).toBeInTheDocument();
@@ -40,7 +42,7 @@ describe("NavigationBar Tests", () => {
 
     fireEvent.click(aboutLink);
     expect(window.location.pathname).toBe("/about");
-    
+
     fireEvent.click(pricingLink);
     expect(window.location.pathname).toBe("/pricing");
 
