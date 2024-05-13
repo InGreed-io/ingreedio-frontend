@@ -2,9 +2,11 @@ export const searchReducer = (searchData, action) => {
   switch (action.type) {
   case "update": {
     return {
+      ...searchData,
       ingredients: action.ingredients,
       category: action.category,
-      searchPhrase: action.searchPhrase,
+      query: action.query,
+      sortBy: action.sortBy
     };
   }
   case "updateIngredients": {
@@ -19,10 +21,16 @@ export const searchReducer = (searchData, action) => {
       category: action.category
     };
   }
-  case "updateSearchPhrase": {
+  case "updateQuery": {
     return {
       ...searchData,
-      searchPhrase: action.searchPhrase
+      query: action.query
+    };
+  }
+  case "updateSortBy": {
+    return {
+      ...searchData,
+      sortBy: action.sortBy
     };
   }
   }
@@ -30,6 +38,7 @@ export const searchReducer = (searchData, action) => {
 
 export const initialSearchData = {
   category: undefined,
-  searchPhrase: null,
+  query: null,
   ingredients: [],
+  sortBy: "Featured",
 };

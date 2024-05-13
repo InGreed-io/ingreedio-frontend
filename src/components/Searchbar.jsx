@@ -5,7 +5,7 @@ import { Form } from "react-router-dom";
 import { apiGet } from "../utils/api";
 import { AsyncMultiSelect } from "./AsyncMultiSelect";
 
-export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categories }) => {
+export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categories, withButton = true }) => {
   return (
     <Box>
       <Form method="get" action="/products">
@@ -19,7 +19,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
           <Stack minW={100} gap={0} flexGrow={1} flexShrink={0}>
             <FormControl>
               <SingleSelect
-                name="category"
+                name="categoryId"
                 value={searchData.category}
                 onChange={
                   (category) => dispatchSearchData({
@@ -38,18 +38,18 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
               </FormLabel>
             </FormControl>
           </Stack>
-          <Stack minW={100} flexGrow={1} justifyContent={"stretch"} flexShrink={0}>
+          <Stack minW={100} flexGrow={1} justifyContent={"stretch"} flexShrink={1}>
             <FormControl isRequired>
               <Input placeholder="Search phrase"
-                name="searchPhrase"
+                name="query"
                 aria-label="Search phrase"
-                defaultValue={searchData.searchPhrase}
+                defaultValue={searchData.query}
                 h={"58.2"}
                 w={"100%"}
                 onChange={
                   (e) => dispatchSearchData({
-                    type: "updateSearchPhrase",
-                    searchPhrase: e.target.value,
+                    type: "updateQuery",
+                    query: e.target.value,
                   })
                 }
                 size="lg" />
@@ -63,7 +63,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
               </FormLabel>
             </FormControl>
           </Stack>
-          <Stack minW={200} gap={0} flexBasis={300} flexGrow={3} flexShrink={0}>
+          <Stack minW={200} gap={0} flexBasis={300} flexGrow={3} flexShrink={1}>
             <FormControl isRequired>
               <AsyncMultiSelect
                 name="ingredients"
@@ -85,7 +85,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                       limit: 5
                     })
                       .then(items => {
-                        items = items.content.map(({ id, name }) => ({ value: id, label: name }));
+                        items = items.contents.map(({ id, name }) => ({ value: id, label: name }));
                         callback(items);
                       });
                   }
@@ -101,9 +101,13 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
               </FormLabel>
             </FormControl>
           </Stack>
-          <Button type="submit" maxW={100} size="lg">
-            Search
-          </Button>
+          {
+            withButton ?
+              <Button type="submit" maxW={100} size="lg">
+                Search
+              </Button>
+              : undefined
+          }
         </Flex>
       </Form>
     </Box>
