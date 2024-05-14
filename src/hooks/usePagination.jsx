@@ -16,6 +16,7 @@ function usePagination(endpoint, setContents, queryParams = {}, startPage = 0, e
     }
   }, [entriesPerPage, queryParams]);
 
+  /* eslint-disable */
   useEffect(() => {
     apiGet(endpoint, { ...queryParams, page: page, limit: entriesPerPage })
       .then(items => {
@@ -27,6 +28,7 @@ function usePagination(endpoint, setContents, queryParams = {}, startPage = 0, e
         }
       });
   }, [page, pageResetted]);
+  /* eslint-enable */
 
   const next = () => {
     setPage(Math.min(maxPage, page + 1));

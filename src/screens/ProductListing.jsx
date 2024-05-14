@@ -30,10 +30,52 @@ export const ProductListing = () => {
         items = items.contents.map(({ id, name }) => ({ value: id.toString(), label: name }));
         setIngredients(items);
       });
+
   }, []);
 
+  /* eslint-disable */
   useEffect(() => {
-    if (searchData.category) {
+    const searchParamsFallback = {
+      ingredientsIds: searchParams.getAll("ingredients"),
+      query: searchParams.get("query"),
+      categoryId: searchParams.get("categoryId"),
+      sortBy: searchParams.get("sortBy"),
+    };
+
+    if (searchParamsFallback && ingredients.length > 0 && categories.length > 0) {
+      const newSearchData = { ingredients: [] };
+
+      if (!searchData.query && searchParamsFallback.query) {
+        newSearchData.query = searchParamsFallback.query;
+      }
+
+      if (!searchData.category && searchParamsFallback.categoryId) {
+        newSearchData.category = categories.find(cat => cat.value === searchParamsFallback.categoryId);
+      }
+
+      if (searchData.ingredients.filter(x => x).length === 0 &&
+        searchParamsFallback.ingredientsIds.filter(x => x).length > 0) {
+        newSearchData.ingredients = searchParamsFallback.ingredientsIds
+          .map(ingId => ingredients.find(ing => ing.value === ingId));
+      }
+
+      newSearchData.sortBy = !searchParamsFallback.sortBy ? searchData.sortBy : searchParamsFallback.sortBy;
+
+      if (newSearchData.category || newSearchData.query || newSearchData.ingredients.length > 0) {
+        dispatchSearchData({
+          type: "update",
+          category: newSearchData.category,
+          query: newSearchData.query,
+          ingredients: newSearchData.ingredients,
+          sortBy: newSearchData.sortBy,
+        });
+      }
+    }
+  }, [ingredients, categories]);
+  /* eslint-enable */
+
+  useEffect(() => {
+    if (searchData.category && searchData.query.length > 0) {
       setSearchParams({
         categoryId: searchData.category.value,
         query: searchData.query,
@@ -42,43 +84,6 @@ export const ProductListing = () => {
       });
     }
   }, [searchData, setSearchParams]);
-
-  const searchParamsFallback = {
-    ingredientsIds: searchParams.getAll("ingredients"),
-    query: searchParams.get("query"),
-    categoryId: searchParams.get("categoryId"),
-    sortBy: searchParams.get("sortBy"),
-  };
-
-  if (searchParamsFallback && ingredients.length > 0 && categories.length > 0) {
-    const newSearchData = { ingredients: [] };
-
-    if (!searchData.query && searchParamsFallback.query) {
-      newSearchData.query = searchParamsFallback.query;
-    }
-
-    if (!searchData.category && searchParamsFallback.categoryId) {
-      newSearchData.category = categories.find(cat => cat.value === searchParamsFallback.categoryId);
-    }
-
-    if (searchData.ingredients.filter(x => x).length === 0 &&
-      searchParamsFallback.ingredientsIds.filter(x => x).length > 0) {
-      newSearchData.ingredients = searchParamsFallback.ingredientsIds
-        .map(ingId => ingredients.find(ing => ing.value === ingId));
-    }
-
-    newSearchData.sortBy = !searchParamsFallback.sortBy ? searchData.sortBy : searchParamsFallback.sortBy;
-
-    if (newSearchData.category || newSearchData.query || newSearchData.ingredients.length > 0) {
-      dispatchSearchData({
-        type: "update",
-        category: newSearchData.category,
-        query: newSearchData.query,
-        ingredients: newSearchData.ingredients,
-        sortBy: newSearchData.sortBy,
-      });
-    }
-  }
 
   return (
     <>

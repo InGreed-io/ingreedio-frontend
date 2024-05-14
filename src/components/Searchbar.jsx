@@ -47,10 +47,12 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                 h={"58.2"}
                 w={"100%"}
                 onChange={
-                  (e) => dispatchSearchData({
-                    type: "updateQuery",
-                    query: e.target.value,
-                  })
+                  (e) => {
+                    dispatchSearchData({
+                      type: "updateQuery",
+                      query: e.target.value,
+                    });
+                  }
                 }
                 size="lg" />
               <FormLabel fontSize={20}
