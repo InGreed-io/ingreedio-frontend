@@ -40,10 +40,11 @@ export const ProductDetails = ({ product }) => {
             flexDirection="column"
             flexWrap="wrap">
             <Flex flexDirection="row"
-                justify="space-evenly">
+                justify="start"
+                flexWrap="wrap">
                 <Image src={iconUrl}
                     borderRadius={25}
-                    h="400px"
+                    maxH="400px"
                     margin="40px"
                     marginLeft="0px"
                     boxShadow="4px 4px 20px rgba(0, 0, 0, 0.25)" />
