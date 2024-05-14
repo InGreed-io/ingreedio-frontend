@@ -40,18 +40,18 @@ export const ProductDetails = ({ product }) => {
             flexDirection="column"
             flexWrap="wrap">
             <Flex flexDirection="row"
-                justify="start"
-                flexWrap="wrap">
+                justify="start">
                 <Image src={iconUrl}
                     borderRadius={25}
-                    maxH="400px"
+                    h="400px"
                     margin="40px"
                     marginLeft="0px"
                     boxShadow="4px 4px 20px rgba(0, 0, 0, 0.25)" />
                 <Flex flexDirection="column"
                     justify="start"
                     textAlign="start"
-                    padding="40px">
+                    padding="40px"
+                    flexWrap="wrap">
                     <Text
                         fontFamily="Playfair Display"
                         color="#000000"
