@@ -17,20 +17,11 @@ export const ProductDetails = ({ product }) => {
        companyName,
        description
      } = product;
+
+     // mock ingredient for now
      const ingredients = ["Milk"];
 
-    // const prod = {
-    //     name: "Cow Milk",
-    //     iconUrl: "https://mlekovita.com.pl/media/cache/product_view/uploads/images/i3bRQpfKXVq01voDWA7x/8616-mleko-i-love-milk-3-5-3d.jpg",
-    //     rating: 4.3,
-    //     ratingsCount: 5,
-    //     ingredients: ["Milk", "Milk", "Milk", "Milk"],
-    //     featured: true,
-    //     favourite: true,
-    //     companyName: "Mlekovita",
-    //     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    // };
-
+    // mock review for now
     const review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
     return (
@@ -40,17 +31,20 @@ export const ProductDetails = ({ product }) => {
             flexDirection="column"
             flexWrap="wrap">
             <Flex flexDirection="row"
-                justify="start">
+                justify="space-between"
+                flexWrap="wrap">
                 <Image src={iconUrl}
                     borderRadius={25}
                     h="400px"
                     margin="40px"
                     marginLeft="0px"
+                    marginRight="80px"
                     boxShadow="4px 4px 20px rgba(0, 0, 0, 0.25)" />
                 <Flex flexDirection="column"
                     justify="start"
                     textAlign="start"
                     padding="40px"
+                    paddingLeft="0px"
                     flexWrap="wrap">
                     <Text
                         fontFamily="Playfair Display"
@@ -101,6 +95,7 @@ export const ProductDetails = ({ product }) => {
             <Flex
             flexDirection="row"
             flexWrap="wrap">
+            {/* Mock reviews for now */}
             <ReviewBox name="Konrad" content={review}/>
             <ReviewBox name="Borys" content={review}/>
             <ReviewBox name="Marek" content={review}/>
