@@ -32,6 +32,7 @@ export const ProductDetails = ({ product }) => {
         <Image src={iconUrl}
           borderRadius={25}
           h="400px"
+          w="400px"
           margin="40px"
           marginLeft="0px"
           marginRight="80px"
