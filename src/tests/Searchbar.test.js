@@ -24,7 +24,7 @@ jest.mock("../utils/api", () => ({
     switch (endpoint) {
     case "ingredients":
       return Promise.resolve({
-        content: categories.map(cat => ({ id: cat.value, name: cat.label })),
+        contents: categories.map(cat => ({ id: cat.value, name: cat.label })),
         pageCount: 5,
         limit: 5,
       });
