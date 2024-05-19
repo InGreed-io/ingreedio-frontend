@@ -4,6 +4,8 @@ import { Landing } from "./screens/Landing";
 import { ProductListing } from "./screens/ProductListing";
 import { Layout } from "./screens/Layout";
 import { ProductScreen } from "./screens/ProductScreen";
+import { Details } from "./screens/Details";
+
 export const routerConfig = ([
   {
     element: <Layout />,
@@ -26,7 +28,11 @@ export const routerConfig = ([
       },
       {
         path: "/product/:productId",
-        element: <ProductScreen />
+        element: <ProductScreen />,
+      },
+      {
+        path: "/details",
+        element: <Details />,
       },
     ],
   }
