@@ -3,11 +3,14 @@ import { AuthForm } from "../components/AuthForm";
 import { useState } from "react";
 import { apiPost } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../components/AuthProvider";
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const { setToken } = useContext(AuthContext);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ export const SignUp = () => {
         }
         const token = response.token;
         sessionStorage.setItem("token", token);
+        setToken(token);
         toast({
           title: "Success",
           description: "Account registered.",

@@ -1,13 +1,14 @@
 import {AbsoluteCenter, Box, useToast} from "@chakra-ui/react";
 import { AuthForm } from "../components/AuthForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { apiPost } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../components/AuthProvider";
 
 export const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setToken } = useContext(AuthContext);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ export const Login = () => {
         }
         const token = response.token;
         sessionStorage.setItem("token", token);
+        setToken(token);
         toast({
           title: "Success",
           description: "Logged in successfuly.",

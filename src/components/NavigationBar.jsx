@@ -1,68 +1,103 @@
 import {
   Box, Image, Button, Center, ButtonGroup,
-  Grid, Flex, IconButton
+  Grid, Flex, IconButton, useToast
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./AuthProvider";
 
 export const NavigationBar = () => {
   const [displayMenu, changeDisplayMenu] = useState("none");
+  const toast = useToast();
+  const { username, setToken, loading } = useContext(AuthContext);
+  if (loading) {
+    return null;
+  }
+
+  const logout = () => {
+    sessionStorage.removeItem("token");
+    setToken(null);
+    toast({
+      title: "Logged out",
+      description: "Logged out successfuly.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
 
   return (
     <>
-      <Grid p={4} templateColumns='repeat(3, 1fr)' display={{base: "none", md: "grid"}} gap={6}>
+      <Grid p={4} templateColumns='repeat(3, 1fr)' display={{ base: "none", md: "grid" }} gap={6}>
         <Box alignSelf="center" justifySelf="start">
           <Link to="/">
-            <Image h="50px" src="/logo.png" alt="Logo" data-testid="logo"/>
+            <Image h="50px" src="/logo.png" alt="Logo" data-testid="logo" />
           </Link>
         </Box>
         <Center>
           <ButtonGroup gap="5" variant="link">
             <Link to="/about">
               <Button aria-label="About Us">
-                          About Us
+                About Us
               </Button>
             </Link>
             <Link to="/pricing">
               <Button aria-label="Pricing">
-                          Pricing
+                Pricing
               </Button>
             </Link>
             <Link to="/tos">
               <Button aria-label="Terms and Conditions">
-                          Terms and Conditions
+                Terms and Conditions
               </Button>
             </Link>
           </ButtonGroup>
         </Center>
         <Box alignSelf="center" justifySelf="end">
           <ButtonGroup gap="5">
-            <Link to="/login" style={{alignSelf: "center"}}>
-              <Button variant="link" aria-label="Log In">
-                          Log In
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button px="5" aria-label="Sign Up">
-                          Sign Up
-              </Button>
-            </Link>
+            {username ?
+              <>
+                <Link to="/details" style={{ alignSelf: "center" }}>
+                  <Button variant="link" aria-label="User Details">
+                    {username}
+                  </Button>
+                </Link>
+                <Link to="/">
+                  <Button px="5" onClick={logout} aria-label="Log Out">
+                    Log out
+                  </Button>
+                </Link>
+              </>
+              :
+              <>
+                <Link to="/login" style={{ alignSelf: "center" }}>
+                  <Button variant="link" aria-label="Log In">
+                    Log In
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button px="5" aria-label="Sign Up">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            }
           </ButtonGroup>
         </Box>
       </Grid>
-      <Box display={{base: "block", md: "none"}}>
+      <Box display={{ base: "block", md: "none" }}>
         <Flex p={4} justifyContent={"space-between"} alignItems={"center"}>
           <Box>
             <Link to="/">
-              <Image h="40px" src="/logo.png" alt="Logo" data-testid="logo-hidden"/>
+              <Image h="40px" src="/logo.png" alt="Logo" data-testid="logo-hidden" />
             </Link>
           </Box>
           <IconButton
             variant={"solid"}
             background={"none"}
             aria-label="Open Menu"
-            _hover={{background: "none"}}
+            _hover={{ background: "none" }}
             icon={
               <HamburgerIcon />
             }
@@ -78,31 +113,46 @@ export const NavigationBar = () => {
           <ButtonGroup flexDirection={"column"} gap={2} spacing={0} p={2} variant="link">
             <Link to="/about">
               <Button aria-label='About Us Hidden'>
-              About Us
+                About Us
               </Button>
             </Link>
             <Link to="/pricing">
               <Button aria-label='Pricing Hidden'>
-              Pricing
+                Pricing
               </Button>
             </Link>
             <Link to="/tos">
               <Button aria-label='Terms and Conditions Hidden'>
-              Terms and Conditions
+                Terms and Conditions
               </Button>
             </Link>
           </ButtonGroup>
           <ButtonGroup justifyContent={"center"} mt={3}>
-            <Link to="/login">
-              <Button variant={"link"} px={3} aria-label="Log In Hidden">
-              Log In
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button size={"sm"} p={3} aria-label="Sign Up Hidden">
-              Sign Up
-              </Button>
-            </Link>
+            {username ?
+              <>
+                <Link to="/details">
+                  <Button variant={"link"} px={3} aria-label="User Details Hidden">
+                    {username}
+                  </Button>
+                </Link>
+                <Button size={"sm"} onClick={logout} p={3} aria-label="Log Out Hidden">
+                  Log out
+                </Button>
+              </>
+              :
+              <>
+                <Link to="/login">
+                  <Button variant={"link"} px={3} aria-label="Log In Hidden">
+                    Log In
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button size={"sm"} p={3} aria-label="Sign Up Hidden">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            }
           </ButtonGroup>
         </Box>
       </Box>

@@ -17,19 +17,26 @@ function buildParams(data) {
   return params.toString();
 }
 
+const getToken = () => sessionStorage.getItem("token");
+
 export const apiGet = async (endpoint, searchParams) => {
   let url = `${getApiUri()}/${endpoint}`;
   if (searchParams) {
     url += "?" + buildParams(searchParams);
   }
-  return fetch(url).then(data => data.json());
+  return fetch(url,
+    {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${getToken()}` }
+    }).then(data => data.json());
 };
 
 export const apiPost = (endpoint, body) =>
   fetch(`${getApiUri()}/${endpoint}`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
     },
     body: JSON.stringify(body)
   })
