@@ -12,15 +12,8 @@ export const ProductListing = () => {
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const [sortBy, setSortBy] = useState("Featured");
-
-  const searchParamsFallback = {
-    ingredientsIds: searchParams.getAll("ingredients"),
-    searchPhrase: searchParams.get("searchPhrase"),
-    categoryId: searchParams.get("category"),
-  };
 
   useEffect(() => {
     apiGet("categories")
@@ -34,17 +27,26 @@ export const ProductListing = () => {
       limit: 5,
     })
       .then(items => {
-        items = items.content.map(({ id, name }) => ({ value: id.toString(), label: name }));
+        items = items.contents.map(({ id, name }) => ({ value: id.toString(), label: name }));
         setIngredients(items);
       });
+
   }, []);
 
+  /* eslint-disable */
   useEffect(() => {
+    const searchParamsFallback = {
+      ingredientsIds: searchParams.getAll("ingredients"),
+      query: searchParams.get("query"),
+      categoryId: searchParams.get("categoryId"),
+      sortBy: searchParams.get("sortBy"),
+    };
+
     if (searchParamsFallback && ingredients.length > 0 && categories.length > 0) {
       const newSearchData = { ingredients: [] };
 
-      if (!searchData.searchPhrase && searchParamsFallback.searchPhrase) {
-        newSearchData.searchPhrase = searchParamsFallback.searchPhrase;
+      if (!searchData.query && searchParamsFallback.query) {
+        newSearchData.query = searchParamsFallback.query;
       }
 
       if (!searchData.category && searchParamsFallback.categoryId) {
@@ -57,16 +59,31 @@ export const ProductListing = () => {
           .map(ingId => ingredients.find(ing => ing.value === ingId));
       }
 
-      if (newSearchData.category || newSearchData.searchPhrase || newSearchData.ingredients.length > 0) {
+      newSearchData.sortBy = !searchParamsFallback.sortBy ? searchData.sortBy : searchParamsFallback.sortBy;
+
+      if (newSearchData.category || newSearchData.query || newSearchData.ingredients.length > 0) {
         dispatchSearchData({
           type: "update",
           category: newSearchData.category,
-          searchPhrase: newSearchData.searchPhrase,
+          query: newSearchData.query,
           ingredients: newSearchData.ingredients,
+          sortBy: newSearchData.sortBy,
         });
       }
     }
-  });
+  }, [ingredients, categories]);
+  /* eslint-enable */
+
+  useEffect(() => {
+    if (searchData.category && searchData.query.length > 0) {
+      setSearchParams({
+        categoryId: searchData.category.value,
+        query: searchData.query,
+        ingredients: searchData.ingredients.map(ingredients => ingredients.value),
+        sortBy: searchData.sortBy,
+      });
+    }
+  }, [searchData, setSearchParams]);
 
   return (
     <>
@@ -74,8 +91,13 @@ export const ProductListing = () => {
         <Stack position={"sticky"} top={30} w={"100%"} p={5} gap={5}>
           <Stack gap={0}>
             <SingleSelect
-              onChange={(option) => setSortBy(option.value)}
-              value={sortMethods.find(met => met.value === sortBy)}
+              onChange={(option) => {
+                dispatchSearchData({
+                  type: "updateSortBy",
+                  sortBy: option.value,
+                });
+              }}
+              value={sortMethods.find(met => met.value === searchData.sortBy)}
               options={sortMethods}
             />
             <Text fontSize={20}
@@ -107,13 +129,17 @@ export const ProductListing = () => {
             dispatchSearchData={dispatchSearchData}
             ingredients={ingredients}
             categories={categories}
+            withButton={false}
           />
         </Stack>
-        <ProductList
-          searchData={searchParamsFallback}
-          searchParams={searchParams}
-          sortBy={sortBy}
-          limit={productsPerPage} />
+        { searchData.category ?
+          <ProductList
+            searchData={searchData}
+            productsPerPage={productsPerPage}
+          />
+          :
+          undefined
+        }
       </Grid>
     </>
   );

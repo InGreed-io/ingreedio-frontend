@@ -24,7 +24,7 @@ export const Landing = () => {
       limit: 5,
     })
       .then(items => {
-        items = items.content.map(({ id, name }) => ({ value: id.toString(), label: name }));
+        items = items.contents.map(({ id, name }) => ({ value: id.toString(), label: name }));
         setIngredients(items);
       });
   }, []);

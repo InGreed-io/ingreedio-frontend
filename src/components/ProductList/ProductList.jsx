@@ -1,31 +1,35 @@
 import { Grid, Center, Spinner, Text, Flex, Stack, Button } from "@chakra-ui/react";
 import { ProductCard } from "./ProductCard";
-import { useEffect, useState } from "react";
-import { apiGet } from "../../utils/api";
+import { useEffect, useRef, useState } from "react";
+import usePagination from "../../hooks/usePagination";
 
-export const ProductList = ({ searchData, searchParams, limit, sortBy }) => {
+export const ProductList = ({ searchData, productsPerPage }) => {
+  const mountedRef = useRef(false);
+  const [queryParams, setQueryParams] = useState(
+    {
+      query: searchData.query,
+      categoryId: searchData.category?.value,
+      ingredients: searchData.ingredients.map(ingredient => ingredient.value),
+      sortBy: searchData.sortBy,
+    }
+  );
   const [products, setProducts] = useState(null);
-  const [page, setPage] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
-
+  const [next, prev, page, maxPage] = usePagination("products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
+  
   useEffect(() => {
-    setPage(0);
-  }, [searchParams]);
-
-  useEffect(() => {
-    apiGet("products",
-      {
-        query: searchData.searchPhrase,
-        page: page,
-        limit: limit,
-        categoryId: searchData.categoryId,
-        sortBy: sortBy,
-      })
-      .then(items => {
-        setPageCount(items.pageCount);
-        setProducts(items.content);
-      });
-  }, [searchData, page, sortBy, limit]);
+    if (mountedRef.current && searchData.category && searchData.query.length > 0) {
+      setQueryParams(
+        {
+          query: searchData.query,
+          categoryId: searchData.category?.value,
+          ingredients: searchData.ingredients.map(ingredient => ingredient.value),
+          sortBy: searchData.sortBy,
+        }
+      );
+    } else {
+      mountedRef.current = true;
+    }
+  }, [searchData]);
 
   return (
     <>
@@ -56,18 +60,14 @@ export const ProductList = ({ searchData, searchParams, limit, sortBy }) => {
                 <Button
                   size={"md"}
                   isDisabled={page === 0}
-                  onClick={() => {
-                    setPage(page - 1);
-                  }}
+                  onClick={prev}
                 >Prev</Button>
                 <Text>
                   {page}
                 </Text>
                 <Button
-                  isDisabled={page === pageCount - 1}
-                  onClick={() => {
-                    setPage(page + 1);
-                  }}
+                  isDisabled={page === maxPage}
+                  onClick={next}
                   size={"md"}>Next</Button>
               </Flex>
             </Stack>
