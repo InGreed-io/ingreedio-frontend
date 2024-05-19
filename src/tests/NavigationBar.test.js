@@ -2,12 +2,15 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "./testUtils";
 import { NavigationBar } from "../components/NavigationBar";
 import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "../components/AuthProvider";
 
 describe("NavigationBar Tests", () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <NavigationBar />
+        <AuthProvider>
+          <NavigationBar />
+        </AuthProvider>
       </BrowserRouter>
     );
   });
