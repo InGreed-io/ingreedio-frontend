@@ -1,6 +1,6 @@
 import {
   Box, Image, Button, Center, ButtonGroup,
-  Grid, Flex, IconButton
+  Grid, Flex, IconButton, useToast
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useContext, useState } from "react";
@@ -9,6 +9,7 @@ import { AuthContext } from "./AuthProvider";
 
 export const NavigationBar = () => {
   const [displayMenu, changeDisplayMenu] = useState("none");
+  const toast = useToast();
   const { username, setToken, loading } = useContext(AuthContext);
   if (loading) {
     return null;
@@ -17,6 +18,13 @@ export const NavigationBar = () => {
   const logout = () => {
     sessionStorage.removeItem("token");
     setToken(null);
+    toast({
+      title: "Logged out",
+      description: "Logged out successfuly.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   return (
