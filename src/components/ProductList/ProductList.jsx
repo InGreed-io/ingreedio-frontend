@@ -50,7 +50,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
               >
                 {products.map((product) => {
                   return (
-                    <Link to={`/product/${product.id}`}>
+                    <Link key={product.id} to={`/product/${product.id}`}>
                       <ProductCard product={product} key={product.id} />
                     </Link>
                   );

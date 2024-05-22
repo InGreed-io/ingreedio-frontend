@@ -4,7 +4,7 @@ export const AsyncMultiSelect = ({ placeholder, controlProps, onChange, loadOpti
   return (
     <AsyncSelect
       placeholder={placeholder}
-      size={size ? size : 'lg'}
+      size={size ? size : "lg"}
       name={name}
       defaultValue={defaultValue}
       value={value}

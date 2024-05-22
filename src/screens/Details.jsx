@@ -13,9 +13,9 @@ export const Details = () => {
 
   const { token, loading } = useContext(AuthContext);
 
-  const handleAddCategory = (e) => {
-      // todo
-  }
+  const handleAddCategory = () => {
+    // todo
+  };
 
 
 
@@ -55,13 +55,13 @@ export const Details = () => {
               zIndex='3'
               borderRadius='30px'>
               {
-              categories.map(category =>
-                <MenuItem 
-                key={category}
-                borderRadius='inherit' 
-                fontWeight="700"
-                onClick={handleAddCategory}>{category}</MenuItem>)
-                }
+                categories.map(category =>
+                  <MenuItem 
+                    key={category}
+                    borderRadius='inherit' 
+                    fontWeight="700"
+                    onClick={handleAddCategory}>{category}</MenuItem>)
+              }
             </MenuList>
           </Menu>
 
@@ -69,8 +69,8 @@ export const Details = () => {
         <Divider borderWidth="1px" borderColor="#000" />
         <Accordion allowToggle reduceMotion>
           {
-          categories.map(category =>
-            <PreferencesAccordion key={category} type={category} />)
+            categories.map(category =>
+              <PreferencesAccordion key={category} type={category} />)
           }
 
         </Accordion>

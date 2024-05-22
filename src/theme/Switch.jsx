@@ -1,7 +1,7 @@
 import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 import { switchAnatomy } from "@chakra-ui/anatomy";
 
-const { definePartsStyle, defineMultiStyleConfig } =
+const { defineMultiStyleConfig } =
     createMultiStyleConfigHelpers(switchAnatomy.keys);
 
 export const Switch = defineMultiStyleConfig({
