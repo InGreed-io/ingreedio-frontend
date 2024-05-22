@@ -47,3 +47,9 @@
 .read-the-docs {
   color: #888;
 }
+
+/* shameless hack to make chakra behave how I want 
+  when hiding accordion panel behind its button :) */
+.chakra-collapse {
+  overflow: visible !important;
+}
