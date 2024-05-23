@@ -98,7 +98,7 @@ export const Details = () => {
             <Text>Get special offers and new products listing directly to your email</Text>
           </Flex>
 
-          <SimpleGrid columns={[1, null, null, 2]} alignItems="center" justifyItems="start"
+          <SimpleGrid gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" alignItems="center" justifyItems="start"
             rowGap="1em"
             columnGap="1em"
             fontWeight="700"
