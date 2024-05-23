@@ -32,7 +32,6 @@ export const Details = () => {
       fontFamily="Inter"
       textColor="brand.greenishGray"
       h="90vh"
-      overflow="scroll"
     >
       <Flex flexDirection='column'>
         <Flex

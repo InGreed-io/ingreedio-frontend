@@ -1,10 +1,10 @@
 import { AsyncSelect } from "chakra-react-select";
 
-export const AsyncMultiSelect = ({ placeholder, controlProps, onChange, loadOptions, value, defaultValue, defaultOptions, name, size, variant }) => {
+export const AsyncMultiSelect = ({ placeholder, controlProps, onChange, loadOptions, value, defaultValue, defaultOptions, name, size="lg", variant }) => {
   return (
     <AsyncSelect
       placeholder={placeholder}
-      size={size ? size : "lg"}
+      size={size}
       name={name}
       defaultValue={defaultValue}
       value={value}
