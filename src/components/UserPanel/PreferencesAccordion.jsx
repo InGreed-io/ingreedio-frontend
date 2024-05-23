@@ -9,13 +9,14 @@ export const PreferencesAccordion = ({ type }) => {
       background="transparent"
       fontWeight="700"
       fontSize="20px">
-      <AccordionButton
+      <Flex
         position='relative'
         zIndex="2"
-        px="0px">
-        <Flex
-          flex='1'
+        px="0px"
+        my='0.5em'>
+        <AccordionButton
           px='1em'
+          flex='1'
           textAlign='center'
           h='2em'
           backgroundColor="brand.primary"
@@ -25,12 +26,16 @@ export const PreferencesAccordion = ({ type }) => {
           alignItems="center"
           justifyContent="space-between"
           verticalAlign="middle"
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)">
+          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+          _hover={{ background: "" }}
+          mr='-100px'
+        >
           <Text>{type} preferences </Text>
-          <Button variant="secondary" h='27px' w='88px'>Delete</Button>
-        </Flex>
+        </AccordionButton>
+        <Button mr='10px'
+          variant="secondary" alignSelf="center" h='27px' w='88px'>Delete</Button>
 
-      </AccordionButton>
+      </Flex>
       <AccordionPanel
         pt='0px'
         pb={4}
@@ -53,8 +58,8 @@ export const PreferencesAccordion = ({ type }) => {
             <AsyncMultiSelect
               placeholder="Add preferred ingredient"
               size='sm'
-              name='Preferred' 
-              variant='white'/>
+              name='Preferred'
+              variant='white' />
           </Flex>
           <Divider h='95%' orientation="vertical" borderWidth="1px" borderColor='brand.greenishGray'></Divider>
           <Flex w="100%" pl='1em' pr='1em' flexDirection='column'>
@@ -63,7 +68,7 @@ export const PreferencesAccordion = ({ type }) => {
               placeholder="Add prohibited ingredient"
               size='sm'
               name='Preferred'
-              variant='white'/>
+              variant='white' />
           </Flex>
         </Flex>
       </AccordionPanel>
