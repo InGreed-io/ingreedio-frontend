@@ -25,8 +25,8 @@ export const Details = () => {
 
   return (
     <Flex
-      marginLeft="11%"
-      marginRight="11%"
+      marginLeft={["0%", null, null , "11%"]} // add margin if width > 992px (Chakra stuff)
+      marginRight={["0%", null, null , "11%"]}
       flexDirection="column"
       justify="space-between"
       fontFamily="Inter"
@@ -98,7 +98,7 @@ export const Details = () => {
             <Text>Get special offers and new products listing directly to your email</Text>
           </Flex>
 
-          <SimpleGrid columns={[1, 2]} alignItems="center" justifyItems="start"
+          <SimpleGrid columns={[1, null, null, 2]} alignItems="center" justifyItems="start"
             rowGap="1em"
             columnGap="1em"
             fontWeight="700"
