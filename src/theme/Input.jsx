@@ -28,10 +28,21 @@ const primary = definePartsStyle({
   },
 });
 
+const white = definePartsStyle({
+  field: {
+    borderColor: "brand.greenishGray",
+    color: "brand.greenishGray",
+    borderWidth: 2,
+    textAlign: "start",
+    bg: "brand.white",
+    width: "auto",
+  },
+});
+
 export const Input = defineMultiStyleConfig({
   baseStyle,
   variants: {
-    primary,
+    primary, white
   },
   sizes: {
     sm: definePartsStyle({

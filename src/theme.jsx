@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { Button } from "./theme/Button";
 import { Input } from "./theme/Input";
 import { Menu } from "./theme/Menu";
+import {Switch} from "./theme/Switch";
 
 export const theme = extendTheme({
   colors: {
@@ -18,5 +19,6 @@ export const theme = extendTheme({
     Button,
     Input,
     Menu,
+    Switch
   }
 });

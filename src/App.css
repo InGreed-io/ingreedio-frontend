@@ -3,6 +3,7 @@
   text-align: center;
   background: linear-gradient(-45deg, #E8F9D2, rgba(238, 238, 201, 0));
   min-height: 100vh;
+  overflow: auto; /* resolves the background clipping on mobile globally */
 }
 
 .logo {
@@ -46,4 +47,10 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* shameless hack to make chakra behave how I want 
+  when hiding accordion panel behind its button :) */
+.chakra-collapse {
+  overflow: visible !important;
 }

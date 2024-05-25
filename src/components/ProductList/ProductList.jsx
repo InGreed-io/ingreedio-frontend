@@ -2,6 +2,7 @@ import { Grid, Center, Spinner, Text, Flex, Stack, Button } from "@chakra-ui/rea
 import { ProductCard } from "./ProductCard";
 import { useEffect, useRef, useState } from "react";
 import usePagination from "../../hooks/usePagination";
+import { Link } from "react-router-dom";
 
 export const ProductList = ({ searchData, productsPerPage }) => {
   const mountedRef = useRef(false);
@@ -15,7 +16,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
   );
   const [products, setProducts] = useState(null);
   const [next, prev, page, maxPage] = usePagination("products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
-  
+
   useEffect(() => {
     if (mountedRef.current && searchData.category && searchData.query.length > 0) {
       setQueryParams(
@@ -49,7 +50,9 @@ export const ProductList = ({ searchData, productsPerPage }) => {
               >
                 {products.map((product) => {
                   return (
-                    <ProductCard product={product} key={product.id} />
+                    <Link key={product.id} to={`/product/${product.id}`}>
+                      <ProductCard product={product}/>
+                    </Link>
                   );
                 })}
               </Grid>
