@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
 const Rating = React.forwardRef(
@@ -60,6 +60,8 @@ const Rating = React.forwardRef(
     );
   }
 );
+
+Rating.displayName = "Rating";
 
 export default Rating;
 

@@ -14,16 +14,16 @@ import {
   Flex,
   Stack,
   useDisclosure,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 import { Form } from "react-router-dom";
 import Rating from "./Rating";
-import { useContext, useState } from 'react';
-import { AuthContext } from '../AuthProvider';
+import { useContext, useState } from "react";
+import { AuthContext } from "../AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { apiPost, apiGet } from "../../utils/api";
 
 export const ReviewModal = ({ productId, setReviews }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, token } = useContext(AuthContext);
   const navigate = useNavigate();
   const [reviewError, setReviewError] = useState(null);
@@ -46,7 +46,7 @@ export const ReviewModal = ({ productId, setReviews }) => {
       }
     ).then(() => {
       onClose();
-        setReviewError(null);
+      setReviewError(null);
 
       apiGet(`products/${productId}/reviews`)
         .then(data => {
@@ -54,24 +54,24 @@ export const ReviewModal = ({ productId, setReviews }) => {
         });
     }).catch((e) => {
       switch (e.status) {
-        case 400:
-          setReviewError("Your must set rating from 1 to 5 stars!");
-          break;
-        case 401:
-          setReviewError("You need to be logged in to post a review!");
-          break;
-        case 403:
-          setReviewError("You need to be logged in as a user to post a review!");
-          break;
-        default:
-          setReviewError("Unexpected error occured!");
+      case 400:
+        setReviewError("Your must set rating from 1 to 5 stars!");
+        break;
+      case 401:
+        setReviewError("You need to be logged in to post a review!");
+        break;
+      case 403:
+        setReviewError("You need to be logged in as a user to post a review!");
+        break;
+      default:
+        setReviewError("Unexpected error occured!");
       }
     });
   };
 
   return (
     <>
-      <Button mb={10} alignSelf={'center'} size={"lg"} onClick={wrappedOnOpen}>Write new review</Button>
+      <Button mb={10} alignSelf={"center"} size={"lg"} onClick={wrappedOnOpen}>Write new review</Button>
 
       <Modal size={"xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -115,5 +115,5 @@ export const ReviewModal = ({ productId, setReviews }) => {
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
