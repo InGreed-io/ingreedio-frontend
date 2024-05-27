@@ -1,24 +1,19 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { Flex, Text, Image, Stack } from "@chakra-ui/react";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
+import { ReviewModal } from "./ReviewModal";
 
-export const ProductDetails = ({ product }) => {
-
+export const ProductDetails = ({ product, reviews, setReviews }) => {
   if (!product) return null;
 
   const {
+    id,
     name,
     iconUrl,
-    //ingredients,
+    ingredients,
     companyName,
     description
   } = product;
-
-  // mock ingredient for now
-  const ingredients = ["Milk"];
-
-  // mock review for now
-  const review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
   return (
     <Flex
@@ -73,7 +68,7 @@ export const ProductDetails = ({ product }) => {
         color="brand.primary"
         fontWeight={900}
         fontSize={36}>
-                Ingredients:
+        Ingredients:
       </Text>
 
       <Flex
@@ -87,17 +82,19 @@ export const ProductDetails = ({ product }) => {
         fontSize={36}
         margin="25px"
         marginLeft="0px">
-                Reviews:
+        Reviews:
       </Text>
-      <Flex
-        flexDirection="row"
-        flexWrap="wrap">
-        {/* Mock reviews for now */}
-        <ReviewBox name="Konrad" content={review}/>
-        <ReviewBox name="Borys" content={review}/>
-        <ReviewBox name="Marek" content={review}/>
-        <ReviewBox name="Bartosz" content={review}/>
-      </Flex>
+      <ReviewModal productId={id} setReviews={setReviews} />
+      <Stack width={"100%"}>
+        <Flex
+          flexDirection="row"
+          flexWrap="wrap">
+          {reviews?.length > 0 ?
+            reviews.map((review) => <ReviewBox key={review.id} name={review.username} content={review.text} />)
+            :
+            <Text>You can be first to review this product!</Text>}
+        </Flex>
+      </Stack>
     </Flex>
   );
 };

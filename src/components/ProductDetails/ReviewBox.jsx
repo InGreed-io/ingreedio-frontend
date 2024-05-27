@@ -9,7 +9,7 @@ export const ReviewBox = ({ name, content }) => {
 
     <Flex
       flexDirection="column"
-      bg='#D9D9D9'
+      bg='brand.white'
       textAlign="start"
       padding="15px"
       paddingLeft="20px"
@@ -19,12 +19,13 @@ export const ReviewBox = ({ name, content }) => {
       marginBottom="2em">
       <Flex
         flexDirection="row"
-        justifyContent="space-between">
+        justifyContent="space-between"
+        gap={10}>
                 
         <Text
           fontFamily="Playfair Display"
           fontWeight="900"
-          fontSize="36">
+          fontSize="24">
           {name}
         </Text>
         <Icon as={FlagRounded} 

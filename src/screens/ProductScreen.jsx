@@ -6,6 +6,7 @@ import { Text } from "@chakra-ui/react";
 
 export const ProductScreen = () => {
   const [product, setProduct] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { productId } = useParams();
   useEffect(() => {
@@ -13,6 +14,10 @@ export const ProductScreen = () => {
     apiGet(`products/${productId}`)
       .then(data => {
         setProduct(data);
+      });
+    apiGet(`products/${productId}/reviews`)
+      .then(data => {
+        setReviews(data.contents);
         setIsLoading(false);
       });
   }
@@ -21,5 +26,5 @@ export const ProductScreen = () => {
 
   if (isLoading) return <Text>Loading...</Text>;
 
-  return <ProductDetails product={product} />;
+  return <ProductDetails product={product} reviews={reviews} setReviews={setReviews} />;
 };
