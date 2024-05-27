@@ -151,7 +151,7 @@ PATCH /users/{id}
 ```
 
 ### Preferences
-GET /users/{id}/preferences
+GET /users/preferences
 ```json
 [
 	{
