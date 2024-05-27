@@ -71,7 +71,7 @@ export const ReviewModal = ({ productId, setReviews }) => {
 
   return (
     <>
-      <Button mb={10} alignSelf={"center"} size={"lg"} onClick={wrappedOnOpen}>Write new review</Button>
+      <Button mb={10} alignSelf={"start"} size={"lg"} onClick={wrappedOnOpen}>Write new review</Button>
 
       <Modal size={"xl"} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
