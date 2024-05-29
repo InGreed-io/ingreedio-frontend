@@ -20,27 +20,27 @@ export const ReviewBox = ({ id, name, content, rating }) => {
       })
       .catch((e) => {
         switch (e.status) {
-          case 401:
-            toast({
-              title: "Error.",
-              description: "You need to be logged in to post a review!",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
-            break;
-          default:
-            toast({
-              title: "Error.",
-              description: "Unexpected error occured!",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
+        case 401:
+          toast({
+            title: "Error.",
+            description: "You need to be logged in to post a review!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+        default:
+          toast({
+            title: "Error.",
+            description: "Unexpected error occured!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         }
 
       });
-  }
+  };
 
   return (
     <Flex
@@ -69,7 +69,7 @@ export const ReviewBox = ({ id, name, content, rating }) => {
             color="brand.greenishGray" />
         </Button>
       </Flex>
-      <StaticRating size={8} rating={rating} />
+      <StaticRating size={6} rating={rating} />
       <Text
         fontFamily="Inter"
         fontWeight="300"

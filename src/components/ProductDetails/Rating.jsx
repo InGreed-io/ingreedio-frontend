@@ -17,18 +17,18 @@ const RatingIcon = ({ fill, size }) => {
 const scale = 5;
 
 export const StaticRating = ({ rating, size }) => {
-    const stars = [];
+  const stars = [];
 
-    for (let i = 1; i <= scale; i++) {
-      stars.push(<RatingIcon key={i} idx={i} fill={i <= rating} size={size} />);
-    }
+  for (let i = 1; i <= scale; i++) {
+    stars.push(<RatingIcon key={i} idx={i} fill={i <= rating} size={size} />);
+  }
 
-    return (
-      <Flex gap={size / 4}>
-        {stars}
-      </Flex>
-    );
-}
+  return (
+    <Flex gap={size / 4}>
+      {stars}
+    </Flex>
+  );
+};
 
 const Rating = React.forwardRef(
   ({ size }, ref) => {

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ProductDetails } from "../components/ProductDetails/ProductDetails";
 import { useParams } from "react-router-dom";
 import { apiGet } from "../utils/api";
-import { Text } from "@chakra-ui/react";
 import usePagination from "../hooks/usePagination";
 
 export const ProductScreen = () => {

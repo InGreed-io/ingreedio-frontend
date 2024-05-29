@@ -2,7 +2,6 @@ import { Flex, Text, Image, Stack, Button } from "@chakra-ui/react";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
-import { useState } from "react";
 
 export const ProductDetails = ({ product, reviews, setReviews, prev, next, page, maxPage }) => {
   if (!product) return null;
