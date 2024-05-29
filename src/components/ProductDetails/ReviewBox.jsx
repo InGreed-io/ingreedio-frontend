@@ -1,21 +1,41 @@
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
 import { apiPatch } from "../../utils/api";
 
 export const ReviewBox = ({ id, name, content, setError }) => {
+  const toast = useToast();
+
   const reportReview = () => {
     apiPatch(`review/${id}/report`)
       .then(() => {
-        setError("");
+        toast({
+          title: "Success.",
+          description: "Review has been reported sucessfully!",
+          status: "sucess",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((e) => {
         switch (e.status) {
           case 401:
-            setError("You need to be logged in to post a review!");
+            toast({
+              title: "Error.",
+              description: "You need to be logged in to post a review!",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
             break;
           default:
-            setError("Unexpected error occured!");
+            toast({
+              title: "Error.",
+              description: "Unexpected error occured!",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
         }
 
       });

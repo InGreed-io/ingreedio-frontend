@@ -7,8 +7,6 @@ import { useState } from "react";
 export const ProductDetails = ({ product, reviews, setReviews, prev, next, page, maxPage }) => {
   if (!product) return null;
 
-  const [reviewsError, setReviewsError] = useState("");
-
   const {
     id,
     name,
@@ -89,14 +87,11 @@ export const ProductDetails = ({ product, reviews, setReviews, prev, next, page,
       </Text>
       <ReviewModal productId={id} setReviews={setReviews} />
       <Stack width={"100%"}>
-        { reviewsError?.length > 0 ?
-          <Text color={"red"}>{reviewsError}</Text>
-        : undefined}
         <Flex
           flexDirection="row"
           flexWrap="wrap">
           {reviews?.length > 0 ?
-            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} setError={setReviewsError} />)
+            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} />)
             :
             <Text>You can be first to review this product!</Text>}
         </Flex>
