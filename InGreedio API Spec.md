@@ -12,8 +12,8 @@ GET /categories
 ### Ingredients
 GET /ingredients
 	1. query - search phrase (string)
-	2. page - int (from 0)
-	3. limit - int 
+	2. pageIndex - int (from 0)
+	3. pageSize - int 
 ```json
 [
 	{
@@ -31,8 +31,8 @@ Query params:
 3. ingredients - array of ids (ints)
 4. preferenceId - id of user preference (available if logged in) (int?)
 5. sortBy - ["featured", "rating", "ratingCount", "bestMatch"]
-6. page - int (from 0)
-7. limit - int
+6. pageIndex - int (from 0)
+7. pageSize - int
 ```json
 [
 	{
@@ -66,8 +66,8 @@ GET /products/{id}
 
 GET /product/{product_id}/reviews
 Query params:
-1. page - int (from 0)
-2. limit - int
+1. pageIndex - int (from 0)
+2. pageSize - int
 ```json
 [
 	{
@@ -200,8 +200,8 @@ Query params:
 3. ingredients - array of ids (ints)
 4. preferenceId - id of user preference (available if logged in) (int?)
 5. sortBy - ["featured", "rating", "ratingCount", "bestMatch"]
-6. page - int (from 0)
-7. limit - int
+6. pageIndex - int (from 0)
+7. pageSize - int
 ```json
 [
 	{
@@ -261,8 +261,8 @@ PUT panel/products/{id}
 
 GET panel/product/{product_id}/reviews
 Query params:
-1. page - int (from 0)
-2. limit - int
+1. pageIndex - int (from 0)
+2. pageSize - int
 ```json
 [
 	{
