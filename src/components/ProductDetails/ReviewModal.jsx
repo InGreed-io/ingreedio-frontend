@@ -83,12 +83,7 @@ export const ReviewModal = ({ productId, setReviews }) => {
               <Flex flexDirection={"column"} gap={10}>
                 <Stack>
                   <FormControl isRequired>
-                    <Rating
-                      size={8}
-                      scale={5}
-                      fillColor="gold"
-                      strokeColor="grey"
-                    />
+                    <Rating size={8} />
                   </FormControl>
                 </Stack>
 

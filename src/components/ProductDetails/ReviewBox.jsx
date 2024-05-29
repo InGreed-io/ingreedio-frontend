@@ -1,9 +1,10 @@
 import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
+import { StaticRating } from "./Rating";
 import { apiPatch } from "../../utils/api";
 
-export const ReviewBox = ({ id, name, content, setError }) => {
+export const ReviewBox = ({ id, name, content, rating }) => {
   const toast = useToast();
 
   const reportReview = () => {
@@ -42,8 +43,6 @@ export const ReviewBox = ({ id, name, content, setError }) => {
   }
 
   return (
-    // TODO: add stars from reviews
-
     <Flex
       flexDirection="column"
       bg='brand.white'
@@ -70,6 +69,7 @@ export const ReviewBox = ({ id, name, content, setError }) => {
             color="brand.greenishGray" />
         </Button>
       </Flex>
+      <StaticRating size={8} rating={rating} />
       <Text
         fontFamily="Inter"
         fontWeight="300"

@@ -1,9 +1,37 @@
 import React, { useState } from "react";
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Stack, Flex } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
+const RatingIcon = ({ fill, size }) => {
+  return (
+    <StarIcon
+      w={size}
+      h={size}
+      color={"gold"}
+      stroke={"grey"}
+      fillOpacity={fill ? "100%" : "0"}
+    />
+  );
+};
+
+const scale = 5;
+
+export const StaticRating = ({ rating, size }) => {
+    const stars = [];
+
+    for (let i = 1; i <= scale; i++) {
+      stars.push(<RatingIcon key={i} idx={i} fill={i <= rating} size={size} />);
+    }
+
+    return (
+      <Flex gap={size / 4}>
+        {stars}
+      </Flex>
+    );
+}
+
 const Rating = React.forwardRef(
-  ({ size, scale, fillColor, strokeColor }, ref) => {
+  ({ size }, ref) => {
     const [rating, setRating] = useState("");
     const buttons = [];
 
@@ -18,19 +46,6 @@ const Rating = React.forwardRef(
       }
     };
 
-    const RatingIcon = ({ fill }) => {
-      return (
-        <StarIcon
-          color={fillColor}
-          w={size}
-          h={size}
-          stroke={strokeColor}
-          onClick={onClick}
-          fillOpacity={fill ? "100%" : "0"}
-        />
-      );
-    };
-
     const RatingButton = ({ idx, fill }) => {
       return (
         <Box
@@ -43,7 +58,7 @@ const Rating = React.forwardRef(
           onClick={() => onClick(idx)}
           _focus={{ outline: 0 }}
         >
-          <RatingIcon fill={fill} />
+          <RatingIcon fill={fill} size={size} />
         </Box>
       );
     };

@@ -91,7 +91,7 @@ export const ProductDetails = ({ product, reviews, setReviews, prev, next, page,
           flexDirection="row"
           flexWrap="wrap">
           {reviews?.length > 0 ?
-            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} />)
+            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} rating={review.rating} />)
             :
             <Text>You can be first to review this product!</Text>}
         </Flex>
