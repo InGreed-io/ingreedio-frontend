@@ -26,7 +26,7 @@ export const ReviewModal = ({ productId, setReviews }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, token } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [reviewError, setReviewError] = useState(null);
+  const [reviewError, setReviewError] = useState("");
 
   const wrappedOnOpen = () => {
     if (loading || !token) {
@@ -46,7 +46,7 @@ export const ReviewModal = ({ productId, setReviews }) => {
       }
     ).then(() => {
       onClose();
-      setReviewError(null);
+      setReviewError("");
 
       apiGet(`products/${productId}/reviews`)
         .then(data => {

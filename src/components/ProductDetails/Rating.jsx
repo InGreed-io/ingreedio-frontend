@@ -4,7 +4,7 @@ import { StarIcon } from "@chakra-ui/icons";
 
 const Rating = React.forwardRef(
   ({ size, scale, fillColor, strokeColor }, ref) => {
-    const [rating, setRating] = useState(null);
+    const [rating, setRating] = useState("");
     const buttons = [];
 
     const onClick = idx => {

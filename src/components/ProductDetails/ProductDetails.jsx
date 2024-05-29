@@ -1,10 +1,13 @@
-import { Flex, Text, Image, Stack } from "@chakra-ui/react";
+import { Flex, Text, Image, Stack, Button } from "@chakra-ui/react";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
+import { useState } from "react";
 
-export const ProductDetails = ({ product, reviews, setReviews }) => {
+export const ProductDetails = ({ product, reviews, setReviews, prev, next, page, maxPage }) => {
   if (!product) return null;
+
+  const [reviewsError, setReviewsError] = useState("");
 
   const {
     id,
@@ -86,13 +89,33 @@ export const ProductDetails = ({ product, reviews, setReviews }) => {
       </Text>
       <ReviewModal productId={id} setReviews={setReviews} />
       <Stack width={"100%"}>
+        { reviewsError?.length > 0 ?
+          <Text color={"red"}>{reviewsError}</Text>
+        : undefined}
         <Flex
           flexDirection="row"
           flexWrap="wrap">
           {reviews?.length > 0 ?
-            reviews.map((review) => <ReviewBox key={review.id} name={review.username} content={review.text} />)
+            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} setError={setReviewsError} />)
             :
             <Text>You can be first to review this product!</Text>}
+        </Flex>
+        <Flex
+          justifyContent={"center"}
+          gap={5}
+          alignItems={"center"}>
+          <Button
+            size={"md"}
+            isDisabled={page === 0}
+            onClick={prev}
+          >Prev</Button>
+          <Text>
+            {page}
+          </Text>
+          <Button
+            isDisabled={page === maxPage}
+            onClick={next}
+            size={"md"}>Next</Button>
         </Flex>
       </Stack>
     </Flex>

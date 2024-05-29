@@ -1,11 +1,28 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Button } from "@chakra-ui/react";
 import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
+import { apiPatch } from "../../utils/api";
 
-export const ReviewBox = ({ name, content }) => {
+export const ReviewBox = ({ id, name, content, setError }) => {
+  const reportReview = () => {
+    apiPatch(`review/${id}/report`)
+      .then(() => {
+        setError("");
+      })
+      .catch((e) => {
+        switch (e.status) {
+          case 401:
+            setError("You need to be logged in to post a review!");
+            break;
+          default:
+            setError("Unexpected error occured!");
+        }
+
+      });
+  }
+
   return (
-
-  // todo add stars from reviews, writing reviews and flagging reviews
+    // TODO: add stars from reviews
 
     <Flex
       flexDirection="column"
@@ -21,16 +38,17 @@ export const ReviewBox = ({ name, content }) => {
         flexDirection="row"
         justifyContent="space-between"
         gap={10}>
-                
         <Text
           fontFamily="Playfair Display"
           fontWeight="900"
           fontSize="24">
           {name}
         </Text>
-        <Icon as={FlagRounded} 
-          fontSize="2em"
-          color="brand.greenishGray"/>
+        <Button bg={"brand.white"} onClick={reportReview}>
+          <Icon as={FlagRounded}
+            fontSize="2em"
+            color="brand.greenishGray" />
+        </Button>
       </Flex>
       <Text
         fontFamily="Inter"

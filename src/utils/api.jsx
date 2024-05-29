@@ -79,3 +79,32 @@ export const apiPost = async (endpoint, body) => {
   }
 };
 
+export const apiPatch = async (endpoint, body) => {
+  try {
+    const response = await fetch(`${getApiUri()}/${endpoint}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${getToken()}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      let error;
+      if (response.status >= 400 && response.status < 500) {
+        error = new Error(`Client error: ${response.status} - ${response.statusText}`);
+      } else {
+        error = new Error(`Server error: ${response.status}`);
+      }
+
+      error.status = response.status;
+      throw error;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("API POST request error:", error);
+    throw error;
+  }
+};
