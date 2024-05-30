@@ -3,7 +3,7 @@ import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
 
-export const ProductDetails = ({ product, reviews, setReviews, prev, next, page, maxPage }) => {
+export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted }) => {
   if (!product) return null;
 
   const {
@@ -84,7 +84,7 @@ export const ProductDetails = ({ product, reviews, setReviews, prev, next, page,
         marginLeft="0px">
         Reviews:
       </Text>
-      <ReviewModal productId={id} setReviews={setReviews} />
+      <ReviewModal productId={id} setPageResetted={setPageResetted} />
       <Stack width={"100%"}>
         <Flex
           flexDirection="row"

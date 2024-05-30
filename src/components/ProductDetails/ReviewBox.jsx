@@ -12,8 +12,8 @@ export const ReviewBox = ({ id, name, content, rating }) => {
       .then(() => {
         toast({
           title: "Success.",
-          description: "Review has been reported sucessfully!",
-          status: "sucess",
+          description: "Review has been reported successfully!",
+          status: "success",
           duration: 5000,
           isClosable: true,
         });

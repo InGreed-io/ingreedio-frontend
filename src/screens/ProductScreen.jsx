@@ -9,8 +9,7 @@ export const ProductScreen = () => {
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [queryParams] = useState({});
-  const [productPerPage] = useState(4);
-  const [next, prev, page, maxPage] = usePagination(`products/${productId}/reviews`, (contents) => setReviews(contents), queryParams, 0, productPerPage);
+  const [next, prev, page, maxPage, setPageResetted] = usePagination(`products/${productId}/reviews`, (contents) => setReviews(contents), queryParams, 0, 4);
   useEffect(() => {
     apiGet(`products/${productId}`)
       .then(data => {
@@ -20,5 +19,5 @@ export const ProductScreen = () => {
   , [productId]);
 
 
-  return <ProductDetails product={product} reviews={reviews} setReviews={setReviews} prev={prev} next={next} maxPage={maxPage} page={page} />;
+  return <ProductDetails product={product} reviews={reviews} prev={prev} next={next} setPageResetted={setPageResetted} maxPage={maxPage} page={page} />;
 };

@@ -20,9 +20,9 @@ import Rating from "./Rating";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { apiPost, apiGet } from "../../utils/api";
+import { apiPost } from "../../utils/api";
 
-export const ReviewModal = ({ productId, setReviews }) => {
+export const ReviewModal = ({ productId, setPageResetted }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, token } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -46,12 +46,9 @@ export const ReviewModal = ({ productId, setReviews }) => {
       }
     ).then(() => {
       onClose();
+      setPageResetted(p => !p);
       setReviewError("");
 
-      apiGet(`products/${productId}/reviews`)
-        .then(data => {
-          setReviews(data.contents);
-        });
     }).catch((e) => {
       switch (e.status) {
       case 400:

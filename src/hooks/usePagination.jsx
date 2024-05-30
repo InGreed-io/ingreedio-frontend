@@ -38,7 +38,7 @@ function usePagination(endpoint, setContents, queryParams, startPage = 0, entrie
     setPage(Math.max(0, page - 1));
   };
 
-  return [next, prev, page, maxPage];
+  return [next, prev, page, maxPage, setPageResetted];
 }
 
 export default usePagination;
