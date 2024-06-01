@@ -55,6 +55,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                   color="brand.greenishGray"
                   alignSelf="start"
                   pl={2}
+                  fontFamily="Playfair Display"
                   fontWeight="900">
                 Preference
                 </FormLabel>
