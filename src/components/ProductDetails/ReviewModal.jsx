@@ -42,7 +42,7 @@ export const ReviewModal = ({ productId, setPageResetted }) => {
     apiPost(`products/${productId}/reviews`,
       {
         rating: parseInt(e.target.rating.value),
-        content: e.target.content.value,
+        text: e.target.content.value,
       }
     ).then(() => {
       onClose();
@@ -86,7 +86,7 @@ export const ReviewModal = ({ productId, setPageResetted }) => {
 
                 <Stack>
                   <FormControl isRequired isInvalid={reviewError}>
-                    <Textarea minH={300} name="content" />
+                    <Textarea maxLength={400} minH={300} fontSize={20} name="content" />
                     {!reviewError ?
                       <FormHelperText>Write your opinion on product!</FormHelperText>
                       :
