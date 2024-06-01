@@ -1,15 +1,51 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
+import { StaticRating } from "./Rating";
+import { apiPatch } from "../../utils/api";
 
-export const ReviewBox = ({ name, content }) => {
+export const ReviewBox = ({ id, name, content, rating }) => {
+  const toast = useToast();
+
+  const reportReview = () => {
+    apiPatch(`review/${id}/report`)
+      .then(() => {
+        toast({
+          title: "Success.",
+          description: "Review has been reported successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .catch((e) => {
+        switch (e.status) {
+        case 401:
+          toast({
+            title: "Error.",
+            description: "You need to be logged in to post a review!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+        default:
+          toast({
+            title: "Error.",
+            description: "Unexpected error occured!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+
+      });
+  };
+
   return (
-
-  // todo add stars from reviews, writing reviews and flagging reviews
-
     <Flex
       flexDirection="column"
-      bg='#D9D9D9'
+      bg='brand.white'
       textAlign="start"
       padding="15px"
       paddingLeft="20px"
@@ -19,18 +55,21 @@ export const ReviewBox = ({ name, content }) => {
       marginBottom="2em">
       <Flex
         flexDirection="row"
-        justifyContent="space-between">
-                
+        justifyContent="space-between"
+        gap={10}>
         <Text
           fontFamily="Playfair Display"
           fontWeight="900"
-          fontSize="36">
+          fontSize="24">
           {name}
         </Text>
-        <Icon as={FlagRounded} 
-          fontSize="2em"
-          color="brand.greenishGray"/>
+        <Button bg={"brand.white"} onClick={reportReview}>
+          <Icon as={FlagRounded}
+            fontSize="2em"
+            color="brand.greenishGray" />
+        </Button>
       </Flex>
+      <StaticRating size={6} rating={rating} />
       <Text
         fontFamily="Inter"
         fontWeight="300"

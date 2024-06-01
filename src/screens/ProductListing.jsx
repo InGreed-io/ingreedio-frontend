@@ -23,8 +23,8 @@ export const ProductListing = () => {
       });
     apiGet("ingredients", {
       query: "",
-      page: 0,
-      limit: 5,
+      pageIndex: 0,
+      pageSize: 5,
     })
       .then(items => {
         items = items.contents.map(({ id, name }) => ({ value: id.toString(), label: name }));

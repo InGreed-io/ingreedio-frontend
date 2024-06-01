@@ -2,24 +2,22 @@ import { useState, useEffect } from "react";
 import { ProductDetails } from "../components/ProductDetails/ProductDetails";
 import { useParams } from "react-router-dom";
 import { apiGet } from "../utils/api";
-import { Text } from "@chakra-ui/react";
+import usePagination from "../hooks/usePagination";
 
 export const ProductScreen = () => {
-  const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [queryParams] = useState({});
+  const [next, prev, page, maxPage, setPageResetted] = usePagination(`products/${productId}/reviews`, (contents) => setReviews(contents), queryParams, 0, 4);
   useEffect(() => {
-    setIsLoading(true);
     apiGet(`products/${productId}`)
       .then(data => {
         setProduct(data);
-        setIsLoading(false);
       });
   }
   , [productId]);
 
 
-  if (isLoading) return <Text>Loading...</Text>;
-
-  return <ProductDetails product={product} />;
+  return <ProductDetails product={product} reviews={reviews} prev={prev} next={next} setPageResetted={setPageResetted} maxPage={maxPage} page={page} />;
 };
