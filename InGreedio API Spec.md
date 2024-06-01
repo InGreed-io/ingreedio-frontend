@@ -173,6 +173,15 @@ GET /users/preferences
 ]
 ```
 
+POST /users/preferences
+```json
+[
+	{
+		"name": string
+	}
+]
+```
+
 PATCH /preferences/{preference_id}/ingredients
 ```json
 {
