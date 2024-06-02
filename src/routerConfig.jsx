@@ -5,6 +5,8 @@ import { ProductListing } from "./screens/ProductListing";
 import { Layout } from "./screens/Layout";
 import { ProductScreen } from "./screens/ProductScreen";
 import { Details } from "./screens/Details";
+import { Navigate } from "react-router-dom";
+import { PanelProductListing } from "./screens/PanelProductsListing";
 
 export const routerConfig = ([
   {
@@ -33,6 +35,14 @@ export const routerConfig = ([
       {
         path: "/details",
         element: <Details />,
+      },
+      {
+        path: "/panel",
+        element: <Navigate to="/panel/products" />,
+      },
+      {
+        path: "/panel/products",
+        element: <PanelProductListing />
       },
     ],
   }

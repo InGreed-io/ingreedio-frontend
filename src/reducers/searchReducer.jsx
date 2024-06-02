@@ -49,7 +49,7 @@ export const searchReducer = (searchData, action) => {
 export const initialSearchData = {
   category: undefined,
   preference: undefined,
-  query: null,
+  query: "",
   ingredients: [],
   sortBy: "Featured",
 };

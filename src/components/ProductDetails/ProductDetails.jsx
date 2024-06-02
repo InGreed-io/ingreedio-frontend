@@ -2,6 +2,7 @@ import { Flex, Text, Image, Stack, Button } from "@chakra-ui/react";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
+import { StaticRating } from "./Rating";
 
 export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted }) => {
   if (!product) return null;
@@ -62,6 +63,10 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             {description}
           </Text>
         </Flex>
+      </Flex>
+      <Flex alignItems={"center"} mb={10} gap={5}>
+        <StaticRating rating={product.rating} size={10} />
+        <Text fontSize={30}>({product.ratingsCount})</Text>
       </Flex>
       <Text
         fontFamily="Playfair Display"

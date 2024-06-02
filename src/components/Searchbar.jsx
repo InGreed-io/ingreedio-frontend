@@ -27,7 +27,8 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                     category,
                   })
                 }
-                options={categories} />
+                defaultValue={{ label: "All Categories", value: "" }}
+                options={[{label: "All Categories", value: "" }, ...categories]} />
               <FormLabel fontSize={20}
                 color="brand.greenishGray"
                 alignSelf="start"

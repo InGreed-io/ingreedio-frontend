@@ -1,4 +1,5 @@
-import { GridItem, Stack, Image, Text, Box } from "@chakra-ui/react";
+import { GridItem, Stack, Image, Text, Box, Flex } from "@chakra-ui/react";
+import { StaticRating } from "../ProductDetails/Rating";
 
 export const ProductCard = ({ product }) => {
   return (
@@ -11,6 +12,10 @@ export const ProductCard = ({ product }) => {
           : null}
         <Image borderRadius={15} src={product.iconUrl} />
         <Text>{product.name}</Text>
+        <Flex alignItems={"center"} justifyContent={"center"} gap={5}>
+          <StaticRating rating={product.rating} size={6} />
+          <Text>({product.ratingsCount})</Text>
+        </Flex>
       </Stack>
     </GridItem>
   );

@@ -8,12 +8,11 @@ import { AuthContext } from "../components/AuthProvider";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setToken } = useContext(AuthContext);
+  const { setToken, setRole } = useContext(AuthContext);
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    // api login logic
     apiPost("Authentication/Login", { email, password })
       .then((response) => {
         if(response.errors)
@@ -27,9 +26,15 @@ export const Login = () => {
           });
           throw new Error("Login failed");
         }
+
         const token = response.token;
         sessionStorage.setItem("token", token);
         setToken(token);
+
+        const role = response.roles[0];
+        sessionStorage.setItem("role", role);
+        setRole(role);
+
         toast({
           title: "Success",
           description: "Logged in successfuly.",
@@ -37,6 +42,7 @@ export const Login = () => {
           duration: 5000,
           isClosable: true,
         });
+
         navigate("/");
       })
       .catch((error) =>{

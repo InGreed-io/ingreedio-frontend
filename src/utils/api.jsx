@@ -42,9 +42,13 @@ export const apiGet = async (endpoint, searchParams) => {
       throw error;
     }
 
+    if (response.status === 204) {
+      return null;  // No content to return
+    }
+
     return await response.json();
   } catch (error) {
-    console.error("API GET request error:", error);
+    console.error("API GET request error:", error, " ", endpoint);
     throw error;
   }
 };
