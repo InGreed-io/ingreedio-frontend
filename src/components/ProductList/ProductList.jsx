@@ -24,6 +24,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
           query: searchData.query,
           categoryId: searchData.category?.value,
           ingredients: searchData.ingredients.map(ingredient => ingredient.value),
+          preferenceId: searchData.preference?.value,
           sortBy: searchData.sortBy,
         }
       );
@@ -51,7 +52,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
                 {products.map((product) => {
                   return (
                     <Link key={product.id} to={`/product/${product.id}`}>
-                      <ProductCard product={product}/>
+                      <ProductCard product={product} />
                     </Link>
                   );
                 })}

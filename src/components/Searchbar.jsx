@@ -5,7 +5,7 @@ import { Form } from "react-router-dom";
 import { apiGet } from "../utils/api";
 import { AsyncMultiSelect } from "./AsyncMultiSelect";
 
-export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categories, withButton = true }) => {
+export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categories, preferences, withButton = true }) => {
   return (
     <Box>
       <Form method="get" action="/products">
@@ -38,6 +38,30 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
               </FormLabel>
             </FormControl>
           </Stack>
+          { preferences ?
+            <Stack minW={100} gap={0} flexGrow={1} flexShrink={0}>
+              <FormControl>
+                <SingleSelect
+                  name="preferenceId"
+                  value={searchData.preference}
+                  onChange={
+                    (preference) => dispatchSearchData({
+                      type: "updatePreference",
+                      preference,
+                    })
+                  }
+                  options={preferences} />
+                <FormLabel fontSize={20}
+                  color="brand.greenishGray"
+                  alignSelf="start"
+                  pl={2}
+                  fontFamily="Playfair Display"
+                  fontWeight="900">
+                Preference
+                </FormLabel>
+              </FormControl>
+            </Stack>
+            : undefined }
           <Stack minW={100} flexGrow={1} justifyContent={"stretch"} flexShrink={1}>
             <FormControl isRequired>
               <Input placeholder="Search phrase"

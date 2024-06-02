@@ -1,13 +1,16 @@
 import { Stack, Text, Spacer } from "@chakra-ui/react";
 import { Searchbar } from "../components/Searchbar";
 import { initialSearchData, searchReducer } from "../reducers/searchReducer";
-import { useReducer, useState, useEffect } from "react";
+import { useReducer, useState, useEffect, useContext } from "react";
 import { apiGet } from "../utils/api";
+import { AuthContext } from "../components/AuthProvider";
 
 export const Landing = () => {
+  const { token, loading } = useContext(AuthContext);
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [preferences, setPreferences] = useState(undefined);
 
   useEffect(() => {
     apiGet("categories")
@@ -15,9 +18,7 @@ export const Landing = () => {
         items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
         setCategories(items);
       });
-  }, []);
 
-  useEffect(() => {
     apiGet("ingredients", {
       query: "",
       pageIndex: 0,
@@ -29,13 +30,26 @@ export const Landing = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!loading && token) {
+      apiGet("user/preferences")
+        .then(items => {
+          items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
+          setPreferences(items);
+        })
+        .catch(() => {
+          setPreferences(undefined);
+        });
+    }
+  }, [loading, token]);
+
   return (
     <>
       <Spacer />
       <Stack marginBottom={20}
         fontFamily="Playfair Display"
         fontWeight={900}
-        fontSize={{base: "35px", sm:"45px", md: "50px", xl: "71px"}}
+        fontSize={{ base: "35px", sm: "45px", md: "50px", xl: "71px" }}
       >
         <Text
           lineHeight={0.5}
@@ -52,6 +66,7 @@ export const Landing = () => {
         dispatchSearchData={dispatchSearchData}
         ingredients={ingredients}
         categories={categories}
+        preferences={preferences}
       />
       <Spacer />
     </>
