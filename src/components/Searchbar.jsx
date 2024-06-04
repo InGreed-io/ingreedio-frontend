@@ -108,11 +108,12 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                   (inputValue, callback) => {
                     apiGet("ingredients", {
                       query: inputValue,
-                      page: 0,
-                      limit: 5
+                      pageIndex: 0,
+                      pageSize: 5,
+                      exclude: searchData.ingredients.map(i => i.value),
                     })
                       .then(items => {
-                        items = items.contents.map(({ id, name }) => ({ value: id, label: name }));
+                        items = items.contents.map(({ id, name }) => ({ value: id, label: name })).concat(searchData.ingredients);
                         callback(items);
                       });
                   }

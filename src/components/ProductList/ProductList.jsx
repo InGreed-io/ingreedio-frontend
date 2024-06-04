@@ -18,7 +18,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
   const [next, prev, page, maxPage] = usePagination("products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
 
   useEffect(() => {
-    if (mountedRef.current && searchData.category && searchData.query.length > 0) {
+    if (mountedRef.current) {
       setQueryParams(
         {
           query: searchData.query,

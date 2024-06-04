@@ -47,15 +47,16 @@ export const ReviewBox = ({ id, name, content, rating }) => {
       flexDirection="column"
       bg='brand.white'
       textAlign="start"
+      w={"100%"}
       padding="15px"
       paddingLeft="20px"
       borderRadius="30px"
       maxWidth="35em"
-      marginRight="2em"
       marginBottom="2em">
       <Flex
         flexDirection="row"
         justifyContent="space-between"
+        flexWrap={"wrap-reverse"}
         gap={10}>
         <Text
           fontFamily="Playfair Display"
@@ -63,11 +64,13 @@ export const ReviewBox = ({ id, name, content, rating }) => {
           fontSize="24">
           {name}
         </Text>
-        <Button bg={"brand.white"} onClick={reportReview}>
+        <Flex justifyContent={"flex-end"}>
+        <Button p={0} bg={"brand.white"} onClick={reportReview}>
           <Icon as={FlagRounded}
             fontSize="2em"
             color="brand.greenishGray" />
         </Button>
+        </Flex>
       </Flex>
       <StaticRating size={6} rating={rating} />
       <Text

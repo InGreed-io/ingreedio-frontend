@@ -1,77 +1,16 @@
 import { ProductList } from "../components/ProductList/ProductList";
-import { Grid, Stack, Text } from "@chakra-ui/react";
+import { Grid, Stack, Text, Spinner, Center } from "@chakra-ui/react";
 import { Searchbar } from "../components/Searchbar";
-import { useSearchParams } from "react-router-dom";
 import { productsPerPageOptions, sortMethods } from "../utils/productListing";
-import { useReducer, useState, useEffect, useContext } from "react";
-import { initialSearchData, searchReducer } from "../reducers/searchReducer";
-import { apiGet } from "../utils/api";
 import { SingleSelect } from "../components/SingleSelect";
-import { AuthContext } from "../components/AuthProvider";
+import useProductListing from "../hooks/useProductListing";
+import { useState } from "react";
 
 export const ProductListing = () => {
-  const { token, loading } = useContext(AuthContext);
-  const [ingredients, setIngredients] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [preferences, setPreferences] = useState(undefined);
-  const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [productsPerPage, setProductsPerPage] = useState(9);
+  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const categoriesData = await apiGet("categories");
-      setCategories(categoriesData.map(({ id, name }) => ({ value: id.toString(), label: name })));
-
-      const ingredientsData = await apiGet("ingredients", { query: "", pageIndex: 0, pageSize: 5 });
-      setIngredients(ingredientsData.contents.map(({ id, name }) => ({ value: id.toString(), label: name })));
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (!loading && token) {
-      const fetchPreferences = async () => {
-        try {
-          const preferencesData = await apiGet("user/preferences");
-          setPreferences(preferencesData.map(({ id, name }) => ({ value: id.toString(), label: name })));
-        } catch {
-          setPreferences(undefined);
-        }
-      };
-
-      fetchPreferences();
-    }
-  }, [loading, token]);
-
-  /* eslint-disable */
-  useEffect(() => {
-    if (!loading && ingredients.length && categories.length) {
-      const newSearchData = {
-        ingredients: searchParams.getAll("ingredients").map(id => ingredients.find(ing => ing.value === id)) || [],
-        query: searchParams.get("query") || searchData.query,
-        category: categories.find(cat => cat.value === searchParams.get("categoryId")) || searchData.category,
-        preference: preferences?.find(pref => pref.value === searchParams.get("preferenceId")) || searchData.preference,
-        sortBy: searchParams.get("sortBy") || searchData.sortBy,
-      };
-
-      dispatchSearchData({ type: "update", ...newSearchData });
-    }
-  }, [loading, ingredients, categories, preferences, searchParams]);
-  /* eslint-enable */
-
-  useEffect(() => {
-    if (!loading && searchData.category && searchData.query) {
-      setSearchParams({
-        categoryId: searchData.category.value,
-        query: searchData.query,
-        ingredients: searchData.ingredients.map(ing => ing.value),
-        preferenceId: searchData.preference?.value,
-        sortBy: searchData.sortBy,
-      });
-    }
-  }, [loading, searchData, setSearchParams]);
+  if (!dataLoaded) return <Center><Spinner /></Center>;
 
   return (
     <Grid templateColumns="30% 1fr" alignItems="flex-start">
@@ -105,9 +44,8 @@ export const ProductListing = () => {
           withButton={false}
         />
       </Stack>
-      {searchData.category && (
-        <ProductList searchData={searchData} productsPerPage={productsPerPage} />
-      )}
+      <ProductList searchData={searchData} productsPerPage={productsPerPage} />
     </Grid>
   );
 };
+

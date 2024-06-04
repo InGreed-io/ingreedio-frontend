@@ -19,6 +19,8 @@ function buildParams(data) {
 
 const getToken = () => sessionStorage.getItem("token");
 
+export const mapToSelectObject = (array) => array.map(o => ({ value: o.id.toString(), label: o.name }));
+
 export const apiGet = async (endpoint, searchParams) => {
   let url = `${getApiUri()}/${endpoint}`;
   if (searchParams) {
