@@ -4,13 +4,21 @@ import { Searchbar } from "../components/Searchbar";
 import { productsPerPageOptions, sortMethods } from "../utils/productListing";
 import { SingleSelect } from "../components/SingleSelect";
 import useProductListing from "../hooks/useProductListing";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../components/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
-export const ProductListing = () => {
+export const FavoriteProductsListing = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
   const { loading, token } = useContext(AuthContext);
-  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(loading, token, true);
+  const navigate = useNavigate();
+  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(loading, token, false);
+
+  useEffect(() => {
+    if(!loading && !token) {
+      navigate("/");
+    }
+  }, [token, loading, navigate]);
 
   if (!dataLoaded) return <Center><Spinner /></Center>;
 
@@ -46,8 +54,7 @@ export const ProductListing = () => {
           withButton={false}
         />
       </Stack>
-      <ProductList searchData={searchData} productsPerPage={productsPerPage} isAuthorized={!!token} endpoint={"products"} />
+      <ProductList searchData={searchData} productsPerPage={productsPerPage} isAuthorized={!!token} endpoint={"user/favourites"} />
     </Grid>
   );
 };
-

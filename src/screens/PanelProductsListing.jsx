@@ -4,7 +4,7 @@ import { productsPerPageOptions, sortMethods } from "../utils/productListing";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SingleSelect } from "../components/SingleSelect";
-import { PanelProductList } from "../components/Panel/PanelProductList";
+import { ProductList } from "../components/ProductList/ProductList";
 import useProductListing from "../hooks/useProductListing";
 import { hasAdminPanelAccess } from "../utils/api";
 import { AuthContext } from "../components/AuthProvider";
@@ -72,9 +72,11 @@ export const PanelProductListing = () => {
             withButton={false}
           />
         </Flex>
-        <PanelProductList
+        <ProductList
           searchData={searchData}
           productsPerPage={productsPerPage}
+          isAuthorized={false}
+          endpoint={"panel/products"}
         />
       </Flex>
     </>
