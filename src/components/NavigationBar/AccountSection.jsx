@@ -1,13 +1,27 @@
 import {
-  Button, ButtonGroup,
+  Button, ButtonGroup, IconButton
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Favorite } from "@mui/icons-material";
 
 export const AccountSection = ({ username, logout, justifyContent = "flex-start", isHidden = false }) => {
   return (
     <ButtonGroup justifyContent={justifyContent} gap="5">
       {username ?
         <>
+          <Link to="/favorites" style={{ alignSelf: "center" }}>
+            <IconButton
+              icon={<Favorite />}
+              boxSize={10}
+              color={"brand.primary"}
+              backgroundColor={"inherit"}
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  fontSize: "2rem"
+                }
+              }}
+            />
+          </Link>
           <Link to="/details" style={{ alignSelf: "center" }}>
             <Button variant="link" aria-label="User Details">
               {username}
@@ -22,12 +36,12 @@ export const AccountSection = ({ username, logout, justifyContent = "flex-start"
         :
         <>
           <Link to="/login" style={{ alignSelf: "center" }}>
-            <Button variant="link" aria-label={`Log In${isHidden ? " Hidden": ""}`}>
+            <Button variant="link" aria-label={`Log In${isHidden ? " Hidden" : ""}`}>
               Log In
             </Button>
           </Link>
           <Link to="/signup">
-            <Button px="5" aria-label={`Sign Up${isHidden ? " Hidden": ""}`}>
+            <Button px="5" aria-label={`Sign Up${isHidden ? " Hidden" : ""}`}>
               Sign Up
             </Button>
           </Link>

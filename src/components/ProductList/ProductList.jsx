@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import usePagination from "../../hooks/usePagination";
 import { Link } from "react-router-dom";
 
-export const ProductList = ({ searchData, productsPerPage }) => {
+export const ProductList = ({ searchData, productsPerPage, isAuthorized, endpoint }) => {
   const mountedRef = useRef(false);
   const [queryParams, setQueryParams] = useState(
     {
@@ -15,7 +15,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
     }
   );
   const [products, setProducts] = useState(null);
-  const [next, prev, page, maxPage] = usePagination("products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
+  const [next, prev, page, maxPage] = usePagination(endpoint, (contents) => setProducts(contents), queryParams, 0, productsPerPage);
 
   useEffect(() => {
     if (mountedRef.current) {
@@ -52,7 +52,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
                 {products.map((product) => {
                   return (
                     <Link key={product.id} to={`/product/${product.id}`}>
-                      <ProductCard product={product} />
+                      <ProductCard product={product} isAuthorized={isAuthorized} />
                     </Link>
                   );
                 })}
