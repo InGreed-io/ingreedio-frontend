@@ -3,7 +3,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-export const AccountSection = ({ username, logout, justifyContent = "flex-start" }) => {
+export const AccountSection = ({ username, logout, justifyContent = "flex-start", isHidden = false }) => {
   return (
     <ButtonGroup justifyContent={justifyContent} gap="5">
       {username ?
@@ -22,12 +22,12 @@ export const AccountSection = ({ username, logout, justifyContent = "flex-start"
         :
         <>
           <Link to="/login" style={{ alignSelf: "center" }}>
-            <Button variant="link" aria-label="Log In">
+            <Button variant="link" aria-label={`Log In${isHidden ? " Hidden": ""}`}>
               Log In
             </Button>
           </Link>
           <Link to="/signup">
-            <Button px="5" aria-label="Sign Up">
+            <Button px="5" aria-label={`Sign Up${isHidden ? " Hidden": ""}`}>
               Sign Up
             </Button>
           </Link>

@@ -70,8 +70,8 @@ export const NavigationBar = () => {
           pb={15}
           mb={10}
         >
-          <NavigationLinks flexDirection={"column"} role={role} />
-          <AccountSection username={username} logout={logout} justifyContent="center" />
+          <NavigationLinks isHidden={true} flexDirection={"column"} role={role} />
+          <AccountSection isHidden={true} username={username} logout={logout} justifyContent="center" />
         </Box>
       </Box>
     </>

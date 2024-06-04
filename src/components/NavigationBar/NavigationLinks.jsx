@@ -5,21 +5,21 @@ import { Link } from "react-router-dom";
 import { hasAdminPanelAccess } from "../../utils/api";
 
 
-export const NavigationLinks = ({ flexDirection, role }) => {
+export const NavigationLinks = ({ flexDirection, role, isHidden = false }) => {
   return (
     <ButtonGroup flexDirection={flexDirection} gap={2} spacing={0} p={2} variant="link" >
       <Link to="/about">
-        <Button aria-label='About Us Hidden'>
+        <Button aria-label={`About Us${isHidden ? " Hidden": ""}`}>
           About Us
         </Button>
       </Link>
       <Link to="/pricing">
-        <Button aria-label='Pricing Hidden'>
+        <Button aria-label={`Pricing${isHidden ? " Hidden": ""}`}>
           Pricing
         </Button>
       </Link>
       <Link to="/tos">
-        <Button aria-label='Terms and Conditions Hidden'>
+        <Button aria-label={`Terms and Conditions${isHidden ? " Hidden": ""}`}>
           Terms and Conditions
         </Button>
       </Link>
