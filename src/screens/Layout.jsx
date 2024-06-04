@@ -1,4 +1,4 @@
-import { NavigationBar } from "../components/NavigationBar";
+import { NavigationBar } from "../components/NavigationBar/NavigationBar";
 import { Flex, Center } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 

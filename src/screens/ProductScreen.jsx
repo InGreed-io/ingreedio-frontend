@@ -10,13 +10,14 @@ export const ProductScreen = () => {
   const [reviews, setReviews] = useState([]);
   const [queryParams] = useState({});
   const [next, prev, page, maxPage, setPageResetted] = usePagination(`products/${productId}/reviews`, (contents) => setReviews(contents), queryParams, 0, 4);
+
   useEffect(() => {
     apiGet(`products/${productId}`)
       .then(data => {
         setProduct(data);
       });
   }
-  , [productId]);
+  , [productId, reviews]);
 
 
   return <ProductDetails product={product} reviews={reviews} prev={prev} next={next} setPageResetted={setPageResetted} maxPage={maxPage} page={page} />;

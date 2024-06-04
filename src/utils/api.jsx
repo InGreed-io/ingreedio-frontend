@@ -1,5 +1,7 @@
 import { getApiUri } from "./values";
 
+export const hasAdminPanelAccess = (role) => ["Admin", "Moderator", "Producer"].includes(role);
+
 function buildParams(data) {
   const params = new URLSearchParams();
 
@@ -18,6 +20,8 @@ function buildParams(data) {
 }
 
 const getToken = () => sessionStorage.getItem("token");
+
+export const mapToSelectObject = (array) => array.map(o => ({ value: o.id.toString(), label: o.name }));
 
 export const apiGet = async (endpoint, searchParams) => {
   let url = `${getApiUri()}/${endpoint}`;
@@ -42,9 +46,13 @@ export const apiGet = async (endpoint, searchParams) => {
       throw error;
     }
 
+    if (response.status === 204) {
+      return null;  // No content to return
+    }
+
     return await response.json();
   } catch (error) {
-    console.error("API GET request error:", error);
+    console.error("API GET request error:", error, " ", endpoint);
     throw error;
   }
 };

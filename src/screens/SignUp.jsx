@@ -1,21 +1,20 @@
-import { AbsoluteCenter, Box, useToast } from "@chakra-ui/react";
+import { AbsoluteCenter, Spinner, Box, useToast, Center } from "@chakra-ui/react";
 import { AuthForm } from "../components/AuthForm";
 import { useState } from "react";
 import { apiPost } from "../utils/api";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../components/AuthProvider";
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const { setToken } = useContext(AuthContext);
+  const { setToken, token, loading } = useContext(AuthContext);
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    // api register logic
     apiPost("Authentication/Register", { email, password })
       .then((response) => {
         if(response.errors)
@@ -39,12 +38,19 @@ export const SignUp = () => {
           duration: 5000,
           isClosable: true,
         });
-        navigate("/");
       })
       .catch((error) =>{
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate(-1);
+    }
+  }, [loading, token, navigate]);
+
+  if (loading || token) return <Center><Spinner /></Center>;
 
   return (
     <>

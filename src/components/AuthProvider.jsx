@@ -16,11 +16,14 @@ function transformEmail(email) {
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     setToken(storedToken);
+    const storedRole = sessionStorage.getItem("role");
+    setRole(storedRole);
     if (storedToken) {
       apiGet("user/details").then((response) => {
         setUsername(transformEmail(response.userName));
@@ -29,10 +32,10 @@ export const AuthProvider = ({ children }) => {
       setUsername(null);
     }
     setLoading(false);
-  }, [token]);
+  }, [token, role]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, username, loading }}>
+    <AuthContext.Provider value={{ token, setToken, username, loading, role, setRole }}>
       {children}
     </AuthContext.Provider>
   );

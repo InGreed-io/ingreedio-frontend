@@ -1,10 +1,10 @@
 import { Grid, Center, Spinner, Text, Flex, Stack, Button } from "@chakra-ui/react";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../ProductList/ProductCard";
 import { useEffect, useRef, useState } from "react";
 import usePagination from "../../hooks/usePagination";
 import { Link } from "react-router-dom";
 
-export const ProductList = ({ searchData, productsPerPage }) => {
+export const PanelProductList = ({ searchData, productsPerPage }) => {
   const mountedRef = useRef(false);
   const [queryParams, setQueryParams] = useState(
     {
@@ -15,16 +15,15 @@ export const ProductList = ({ searchData, productsPerPage }) => {
     }
   );
   const [products, setProducts] = useState(null);
-  const [next, prev, page, maxPage] = usePagination("products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
+  const [next, prev, page, maxPage] = usePagination("panel/products", (contents) => setProducts(contents), queryParams, 0, productsPerPage);
 
   useEffect(() => {
     if (mountedRef.current) {
       setQueryParams(
         {
-          query: searchData.query,
+          query: searchData.query || "",
           categoryId: searchData.category?.value,
           ingredients: searchData.ingredients.map(ingredient => ingredient.value),
-          preferenceId: searchData.preference?.value,
           sortBy: searchData.sortBy,
         }
       );
@@ -52,7 +51,7 @@ export const ProductList = ({ searchData, productsPerPage }) => {
                 {products.map((product) => {
                   return (
                     <Link key={product.id} to={`/product/${product.id}`}>
-                      <ProductCard product={product} />
+                      <ProductCard product={product}/>
                     </Link>
                   );
                 })}

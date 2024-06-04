@@ -27,7 +27,8 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                     category,
                   })
                 }
-                options={categories} />
+                defaultValue={{ label: "All Categories", value: "" }}
+                options={[{label: "All Categories", value: "" }, ...categories]} />
               <FormLabel fontSize={20}
                 color="brand.greenishGray"
                 alignSelf="start"
@@ -107,11 +108,12 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                   (inputValue, callback) => {
                     apiGet("ingredients", {
                       query: inputValue,
-                      page: 0,
-                      limit: 5
+                      pageIndex: 0,
+                      pageSize: 5,
+                      exclude: searchData.ingredients.map(i => i.value),
                     })
                       .then(items => {
-                        items = items.contents.map(({ id, name }) => ({ value: id, label: name }));
+                        items = items.contents.map(({ id, name }) => ({ value: id, label: name })).concat(searchData.ingredients);
                         callback(items);
                       });
                   }

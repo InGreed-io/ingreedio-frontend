@@ -20,18 +20,18 @@ export const Landing = () => {
       });
 
     apiGet("ingredients", {
-      query: "",
       pageIndex: 0,
       pageSize: 5,
+      exclude: searchData.ingredients.map(i => i.value),
     })
       .then(items => {
         items = items.contents.map(({ id, name }) => ({ value: id.toString(), label: name }));
         setIngredients(items);
       });
-  }, []);
+  }, [searchData.ingredients]);
 
   useEffect(() => {
-    if (!loading && token) {
+    if (!loading) {
       apiGet("user/preferences")
         .then(items => {
           items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
