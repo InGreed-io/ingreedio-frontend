@@ -24,23 +24,23 @@ const getToken = () => sessionStorage.getItem("token");
 export const mapToSelectObject = (array) => array.map(o => ({ value: o.id.toString(), label: o.name }));
 
 const handleResponse = async (response) => {
-    if (!response.ok) {
-      let error;
-      if (response.status >= 400 && response.status < 500) {
-        error = new Error(`Client error: ${response.status} - ${response.statusText}`);
-      } else {
-        error = new Error(`Server error: ${response.status}`);
-      }
-
-      error.status = response.status;
-      throw error;
+  if (!response.ok) {
+    let error;
+    if (response.status >= 400 && response.status < 500) {
+      error = new Error(`Client error: ${response.status} - ${response.statusText}`);
+    } else {
+      error = new Error(`Server error: ${response.status}`);
     }
 
-    if (response.status === 204) {
-      return null;  // No content to return
-    }
+    error.status = response.status;
+    throw error;
+  }
 
-    return await response.json();
+  if (response.status === 204) {
+    return null;  // No content to return
+  }
+
+  return await response.json();
 };
 
 export const apiGet = async (endpoint, searchParams) => {

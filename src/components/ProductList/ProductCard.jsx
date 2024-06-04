@@ -17,7 +17,7 @@ export const ProductCard = ({ product, isAuthorized }) => {
       duration: 5000,
       isClosable: true,
     });
-  }
+  };
 
   const favoriteAction = (e) => {
     e.preventDefault();
@@ -35,28 +35,28 @@ export const ProductCard = ({ product, isAuthorized }) => {
         renderErrorToast(`Cannot add ${product.name} to favorites`);
       });
     }
-  }
+  };
 
   return (
     <GridItem bg="brand.white" p={10} borderRadius={15} textAlign="center" position="relative">
       { isAuthorized ?
-      <IconButton
-        icon={isFavorite ? <Favorite /> : <FavoriteBorder />}
-        aria-label="Add to favorites"
-        position="absolute"
-        zIndex={1}
-        boxSize={14}
-        onClick={favoriteAction}
-        top={-5}
-        right={-5}
-        borderRadius="50%"
-        sx={{
-          "& .MuiSvgIcon-root": {
-            fontSize: "2rem"
-          }
-        }}
-      />
-      : undefined }
+        <IconButton
+          icon={isFavorite ? <Favorite /> : <FavoriteBorder />}
+          aria-label="Add to favorites"
+          position="absolute"
+          zIndex={1}
+          boxSize={14}
+          onClick={favoriteAction}
+          top={-5}
+          right={-5}
+          borderRadius="50%"
+          sx={{
+            "& .MuiSvgIcon-root": {
+              fontSize: "2rem"
+            }
+          }}
+        />
+        : undefined }
       <Stack h={"100%"} justifyContent={"space-between"}>
         {product.featured ?
           <Box alignSelf={"flex-start"} fontSize={10}>
