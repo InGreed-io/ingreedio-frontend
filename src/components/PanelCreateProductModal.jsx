@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from "react";
 import {
   Flex,
   Box,
@@ -17,45 +17,45 @@ import {
   Text,
   useDisclosure,
   useToast,
-} from '@chakra-ui/react';
-import { useDropzone } from 'react-dropzone';
-import { apiPostWithFormData, apiGet, mapToSelectObject } from '../utils/api';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { SingleSelect } from './SingleSelect';
-import { AsyncMultiSelect } from './AsyncMultiSelect';
+} from "@chakra-ui/react";
+import { useDropzone } from "react-dropzone";
+import { apiPostWithFormData, apiGet, mapToSelectObject } from "../utils/api";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import { SingleSelect } from "./SingleSelect";
+import { AsyncMultiSelect } from "./AsyncMultiSelect";
 
 const fetchData = async (endpoint, params, callback, setError) => {
   try {
     const data = await apiGet(endpoint, params);
     callback(data);
   } catch {
-    setError('Failed to fetch data');
+    setError("Failed to fetch data");
   }
 };
 
 export const PanelCreateProductModal = ({ setPageResetted }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [category, setCategory] = useState(undefined);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const onDrop = (acceptedFiles, rejectedFiles) => {
-    setError('');
+    setError("");
     if (rejectedFiles.length > 0) {
-      setError('File must be an image and less than 1MB');
+      setError("File must be an image and less than 1MB");
     } else {
       setFile(acceptedFiles[0]);
     }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'image/*': [".jpeg", ".jpg", ".png"] },
+    accept: { "image/*": [".jpeg", ".jpg", ".png"] },
     maxSize: 1048576, // 1MB
     onDrop,
   });
@@ -73,33 +73,29 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
       fetchCategories();
       fetchIngredients(selectedIngredients.map(i => i.value));
     }
-  }, [isOpen, fetchCategories, fetchIngredients]);
-
-  useEffect(() => {
-    fetchIngredients(selectedIngredients.map(i => i.value));
-  }, [selectedIngredients, fetchIngredients]);
+  }, [isOpen, fetchCategories, fetchIngredients, selectedIngredients]);
 
   const handleCreate = async () => {
-    setError('');
+    setError("");
 
     if (!file) {
-      setError('Please upload an image');
+      setError("Please upload an image");
       return;
     }
     if (selectedIngredients.length === 0) {
-      setError('Please select at least one ingredient');
+      setError("Please select at least one ingredient");
       return;
     }
     if (!category) {
-      setError('Please select the category of your product');
+      setError("Please select the category of your product");
       return;
     }
     if (title.length === 0) {
-      setError('Please fill the title');
+      setError("Please fill the title");
       return;
     }
     if (description.length === 0) {
-      setError('Please fill a description');
+      setError("Please fill a description");
       return;
     }
 
@@ -112,7 +108,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
     };
 
     try {
-      await apiPostWithFormData('panel/products', data);
+      await apiPostWithFormData("panel/products", data);
       toast({
         title: "Success",
         description: "Product has been created.",
@@ -130,15 +126,15 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
         duration: 5000,
         isClosable: true,
       });
-      setError('Failed to create product');
+      setError("Failed to create product");
     }
   };
 
   const resetForm = () => {
     setSelectedIngredients([]);
     setCategory(undefined);
-    setTitle('');
-    setDescription('');
+    setTitle("");
+    setDescription("");
     setFile(null);
     setPageResetted(b => !b);
   };
