@@ -79,6 +79,34 @@ export const apiPost = async (endpoint, body) => {
   }
 };
 
+export const apiPostWithFormData = async (endpoint, data) => {
+  const url = `${getApiUri()}/${endpoint}`;
+  const formData = new FormData();
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      if (Array.isArray(value)) {
+        value.forEach(item => formData.append(key, item));
+      } else {
+        formData.append(key, value);
+      }
+    }
+  });
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${getToken()}` },
+      body: formData,
+    });
+
+    return await handleResponse(response);
+  } catch (error) {
+    console.error("API POST request error:", error, " ", endpoint);
+    throw error;
+  }
+};
+
 export const apiPatch = async (endpoint, body) => {
   try {
     const response = await fetch(`${getApiUri()}/${endpoint}`, {

@@ -47,8 +47,8 @@ export const ProductCard = ({ product, isAuthorized }) => {
           zIndex={1}
           boxSize={14}
           onClick={favoriteAction}
-          top={-5}
-          right={-5}
+          top={{base: 5, md: -5}}
+          right={{base: 5, md: -5}}
           borderRadius="50%"
           sx={{
             "& .MuiSvgIcon-root": {

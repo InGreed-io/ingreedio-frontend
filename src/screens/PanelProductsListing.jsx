@@ -4,10 +4,10 @@ import { productsPerPageOptions, sortMethods } from "../utils/productListing";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { SingleSelect } from "../components/SingleSelect";
-import { ProductList } from "../components/ProductList/ProductList";
 import useProductListing from "../hooks/useProductListing";
 import { hasAdminPanelAccess } from "../utils/api";
 import { AuthContext } from "../components/AuthProvider";
+import { PanelProductList } from "../components/ProductList/PanelProductList";
 
 export const PanelProductListing = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const PanelProductListing = () => {
   const { ingredients, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(loading, token, true);
 
   useEffect(() => {
-    if(!loading && (!token || !hasAdminPanelAccess(role))) {
+    if (!loading && (!token || !hasAdminPanelAccess(role))) {
       navigate("/");
     }
   }, [token, role, loading, navigate]);
@@ -72,7 +72,7 @@ export const PanelProductListing = () => {
             withButton={false}
           />
         </Flex>
-        <ProductList
+        <PanelProductList
           searchData={searchData}
           productsPerPage={productsPerPage}
           isAuthorized={false}
