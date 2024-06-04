@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "./testUtils";
-import { NavigationBar } from "../components/NavigationBar/NavigationBar"
+import { NavigationBar } from "../components/NavigationBar/NavigationBar";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../components/AuthProvider";
 
