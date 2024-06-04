@@ -48,7 +48,7 @@ export const SignUp = () => {
     if (token) {
       navigate(-1);
     }
-  }, [loading, token])
+  }, [loading, token, navigate]);
 
   if (loading || token) return <Center><Spinner /></Center>;
 

@@ -32,13 +32,13 @@ export const Login = () => {
         });
       })
       .catch(() => {
-          toast({
-            title: "Error.",
-            description: "Please check if all fields are filled correctly.",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
+        toast({
+          title: "Error.",
+          description: "Please check if all fields are filled correctly.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   };
 
@@ -46,7 +46,7 @@ export const Login = () => {
     if (token) {
       navigate(-1);
     }
-  }, [loading, token])
+  }, [loading, token, navigate]);
 
   if (loading || token) return <Center><Spinner /></Center>;
 

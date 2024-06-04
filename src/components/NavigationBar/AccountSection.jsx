@@ -35,4 +35,4 @@ export const AccountSection = ({ username, logout, justifyContent = "flex-start"
       }
     </ButtonGroup>
   );
-}
+};

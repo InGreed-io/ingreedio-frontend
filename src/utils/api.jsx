@@ -1,5 +1,7 @@
 import { getApiUri } from "./values";
 
+export const hasAdminPanelAccess = (role) => ["Admin", "Moderator", "Producer"].includes(role);
+
 function buildParams(data) {
   const params = new URLSearchParams();
 

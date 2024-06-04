@@ -24,7 +24,7 @@ const searchParamsFromSearchData = (searchData) => ({
 });
 
 function useProductListing(handleSearchParams = true) {
-  const { token, loading } = useContext(AuthContext);
+  const { role, token, loading } = useContext(AuthContext);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
   const [preferences, setPreferences] = useState(undefined);
@@ -89,6 +89,7 @@ function useProductListing(handleSearchParams = true) {
     }
   };
 
+  /* eslint-disable */
   useEffect(() => {
     if (!loading) {
       const mappedSearchParams = mapSearchParams(searchParams);
@@ -117,12 +118,13 @@ function useProductListing(handleSearchParams = true) {
   useEffect(() => {
     if (productsReady) {
       reFetchIngredients(searchData.ingredients.map(i => i.value));
-      if(handleSearchParams)
+      if (handleSearchParams)
         setSearchParams(searchParamsFromSearchData(searchData));
     }
   }, [searchData]);
+  /* eslint-enable */
 
-  return { dataLoaded: productsReady, searchData, dispatchSearchData, ingredients, preferences, categories }
+  return { dataLoaded: productsReady, searchData, dispatchSearchData, ingredients, preferences, categories, token, loading, role };
 }
 
 export default useProductListing;

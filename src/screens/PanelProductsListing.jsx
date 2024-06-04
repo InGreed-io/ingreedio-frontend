@@ -1,14 +1,23 @@
 import { Flex, Stack, Text, Spinner, Center } from "@chakra-ui/react";
 import { Searchbar } from "../components/Searchbar";
 import { productsPerPageOptions, sortMethods } from "../utils/productListing";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SingleSelect } from "../components/SingleSelect";
 import { PanelProductList } from "../components/Panel/PanelProductList";
 import useProductListing from "../hooks/useProductListing";
+import { hasAdminPanelAccess } from "../utils/api";
 
 export const PanelProductListing = () => {
+  const navigate = useNavigate();
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const { ingredients, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(true);
+  const { role, token, loading, ingredients, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(true);
+
+  useEffect(() => {
+    if(!loading && (!token || !hasAdminPanelAccess(role))) {
+      navigate("/");
+    }
+  }, [token, role, loading, navigate]);
 
   if (!dataLoaded) return <Center><Spinner /></Center>;
 

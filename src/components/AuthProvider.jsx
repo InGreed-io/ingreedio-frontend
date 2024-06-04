@@ -13,8 +13,6 @@ function transformEmail(email) {
   return transformedName;
 }
 
-export const hasAdminPanelAccess = (role) => ["Admin", "Moderator", "Producer"].includes(role);
-
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);

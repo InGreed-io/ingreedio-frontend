@@ -65,11 +65,11 @@ export const ReviewBox = ({ id, name, content, rating }) => {
           {name}
         </Text>
         <Flex justifyContent={"flex-end"}>
-        <Button p={0} bg={"brand.white"} onClick={reportReview}>
-          <Icon as={FlagRounded}
-            fontSize="2em"
-            color="brand.greenishGray" />
-        </Button>
+          <Button p={0} bg={"brand.white"} onClick={reportReview}>
+            <Icon as={FlagRounded}
+              fontSize="2em"
+              color="brand.greenishGray" />
+          </Button>
         </Flex>
       </Flex>
       <StaticRating size={6} rating={rating} />

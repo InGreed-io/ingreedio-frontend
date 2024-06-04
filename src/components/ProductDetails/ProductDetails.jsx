@@ -58,13 +58,13 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             <Text fontSize={30}>({product.ratingsCount})</Text>
           </Flex>
           <Box maxW={800}>
-          <Text
-            fontFamily="Inter"
-            color="brand.greenishGray"
-            fontWeight={300}
-            fontSize={24}>
-            {description}
-          </Text>
+            <Text
+              fontFamily="Inter"
+              color="brand.greenishGray"
+              fontWeight={300}
+              fontSize={24}>
+              {description}
+            </Text>
           </Box>
         </Flex>
       </Flex>

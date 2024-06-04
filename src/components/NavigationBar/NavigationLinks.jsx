@@ -2,7 +2,7 @@ import {
   Button, ButtonGroup,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { hasAdminPanelAccess } from "../AuthProvider";
+import { hasAdminPanelAccess } from "../../utils/api";
 
 
 export const NavigationLinks = ({ flexDirection, role }) => {
