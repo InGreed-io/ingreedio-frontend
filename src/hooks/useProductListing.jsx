@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext, useReducer } from "react";
-import { AuthContext } from "../components/AuthProvider";
+import { useState, useEffect, useReducer } from "react";
 import { searchReducer, initialSearchData } from "../reducers/searchReducer";
 import { useSearchParams } from "react-router-dom";
 import { mapToSelectObject } from "../utils/api";
@@ -23,13 +22,12 @@ const searchParamsFromSearchData = (searchData) => ({
   sortBy: searchData.sortBy || initialSearchData.sortBy,
 });
 
-function useProductListing(handleSearchParams = true) {
-  const { role, token, loading } = useContext(AuthContext);
+function useProductListing(authLoading, authToken, handleSearchParams = true) {
+  const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
   const [preferences, setPreferences] = useState(undefined);
-  const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [dataLoading, setDataLoading] = useState(true);
   const [productsReady, setProductsReady] = useState(false);
 
@@ -91,19 +89,19 @@ function useProductListing(handleSearchParams = true) {
 
   /* eslint-disable */
   useEffect(() => {
-    if (!loading) {
+    if (!authLoading) {
       const mappedSearchParams = mapSearchParams(searchParams);
       setDataLoading(true);
 
       Promise.all([
         fetchCategories(),
         fetchIngredients(mappedSearchParams),
-        token && fetchPreferences()
+        authToken && fetchPreferences()
       ]).then(() => {
         setDataLoading(false);
       });
     }
-  }, [loading, token]);
+  }, [authLoading, authToken]);
 
   useEffect(() => {
     if (!dataLoading) {
@@ -124,7 +122,7 @@ function useProductListing(handleSearchParams = true) {
   }, [searchData]);
   /* eslint-enable */
 
-  return { dataLoaded: productsReady, searchData, dispatchSearchData, ingredients, preferences, categories, token, loading, role };
+  return { dataLoaded: productsReady, searchData, dispatchSearchData, ingredients, preferences, categories };
 }
 
 export default useProductListing;
