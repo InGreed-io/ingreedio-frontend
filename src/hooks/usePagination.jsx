@@ -23,7 +23,7 @@ function usePagination(endpoint, setContents, queryParams, startPage = 0, entrie
         if(items.errors) {
           setContents([]);
         } else {
-          setMaxPage(items.metadata.pageCount == 0 ? 0 : items.metadata.pageCount - 1);
+          setMaxPage(items.metadata.pageCount === 0 ? 0 : items.metadata.pageCount - 1);
           setContents(items.contents);
         }
       });
