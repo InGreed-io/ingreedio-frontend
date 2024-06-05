@@ -1,9 +1,14 @@
 name: Build and Deploy to AWS ECR
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      aws-region:
+        type: choice
+        description: AWS Region
+        options:
+          - us-east-1
+          - us-west-1
 
 jobs:
   build-and-push:
