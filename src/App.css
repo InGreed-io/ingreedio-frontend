@@ -27,13 +27,6 @@
   }
 }
 
-@font-face {
-  font-family: 'Playfair Display';
-  src: local('Playfair Display'), url(./fonts/PlayfairDisplay.ttf) format('truetype');
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
-}
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
@@ -48,7 +41,7 @@
   color: #888;
 }
 
-/* shameless hack to make chakra behave how I want 
+/* shameless hack to make chakra behave how I want
   when hiding accordion panel behind its button :) */
 .chakra-collapse {
   overflow: visible !important;
