@@ -1,0 +1,24 @@
+{
+  "title": "Pricing",
+  "description": "Featuring your products in our search results can significantly boost visibility and sales. Here's why you should feature your products with ingreed.io:",
+  "features": [
+    {
+      "title": "Increase Visibility",
+      "description": "Increase your product's visibility to a highly targeted audience."
+    },
+    {
+      "title": "Competitive Edge",
+      "description": "Gain a competitive edge over other brands."
+    },
+    {
+      "title": "Reach Customers",
+      "description": "Reach customers actively looking for products like yours."
+    },
+    {
+      "title": "Affordable",
+      "description": "Only $1 per day to feature your product and maximize your exposure."
+    }
+  ],
+  "price": "1$"
+}
+
