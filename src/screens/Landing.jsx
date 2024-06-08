@@ -49,10 +49,10 @@ export const Landing = () => {
       <Stack marginBottom={20}
         fontFamily="Playfair Display"
         fontWeight={900}
+        gap={0}
         fontSize={{ base: "35px", sm: "45px", md: "50px", xl: "71px" }}
       >
         <Text
-          lineHeight={0.5}
           color="brand.greenishGray"
         >
           Search products by
