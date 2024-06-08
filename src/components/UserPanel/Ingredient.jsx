@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon } from "@chakra-ui/icons";
 
 
 export const Ingredient = ({ name, wanted, onDelete }) => {
