@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, VStack, HStack, Badge, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from '@chakra-ui/react';
-import pricingContent from '../content/pricing.json';
+import { Box, Heading, Text, VStack, HStack, Badge, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon } from "@chakra-ui/react";
+import pricingContent from "../content/pricing.json";
 
 const Pricing = () => {
   return (

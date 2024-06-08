@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
-import content from '../content/aboutUs.json';
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import content from "../content/aboutUs.json";
 
 const AboutUs = () => {
   return (

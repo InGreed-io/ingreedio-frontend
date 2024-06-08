@@ -1,6 +1,5 @@
-import React from 'react';
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
-import termsContent from '../content/termsAndConditions.json';
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import termsContent from "../content/termsAndConditions.json";
 
 const TermsAndConditions = () => {
   return (
