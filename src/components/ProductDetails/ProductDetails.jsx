@@ -1,4 +1,5 @@
 import { Box, Flex, Text, Image, Stack, Button, Center, Spinner } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
@@ -107,14 +108,14 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             size={"md"}
             isDisabled={page === 0}
             onClick={prev}
-          >Prev</Button>
+          ><ChevronLeftIcon fontSize={"lg"} /></Button>
           <Text>
             {page}
           </Text>
           <Button
             isDisabled={page === maxPage}
             onClick={next}
-            size={"md"}>Next</Button>
+            size={"md"}><ChevronRightIcon fontSize={"lg"} /></Button>
         </Flex>
       </Stack>
     </Flex>
