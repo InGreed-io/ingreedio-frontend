@@ -71,11 +71,8 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
       textColor="white"
       background="transparent"
       fontWeight="700"
-      fontSize="20px"
-      position='relative'>
+      fontSize="20px">
       <Flex
-        position='relative'
-        zIndex="2"
         px="0px"
         my='0.5em'>
         <AccordionButton
@@ -123,8 +120,6 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
         pt='0px'
         pb={4}
         px='0px'
-        position='relative'
-        zIndex="1"
       >
         <Flex
           flexDirection={{ base: "column", md: "row"}}
@@ -186,7 +181,6 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
             <AsyncSelect
               menuPortalTarget={document.body}
               styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
-              zIndex='5'
               placeholder="Add prohibited ingredient"
               size='sm'
               name='Prohibited'
