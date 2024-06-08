@@ -122,8 +122,8 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
         px='0px'
       >
         <Flex
-          flexDirection={{ base: "column", md: "row"}}
-          gap={{ base: 5, md: 0}}
+          flexDirection={{ base: "column", md: "row" }}
+          gap={{ base: 5, md: 0 }}
           bg="brand.secondary"
           borderRadius="30px"
           justify="space-between"
@@ -167,7 +167,7 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
                 }
               }
               defaultOptions={ingredients}
-              />
+            />
           </Flex>
           <Divider h='95%' orientation="vertical" borderWidth="1px" borderColor='brand.greenishGray'></Divider>
           <Flex w="100%" pl='1em' pr='1em' flexDirection='column' justify='space-between'>
@@ -204,7 +204,7 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
                 }
               }
               defaultOptions={ingredients}
-              />
+            />
           </Flex>
         </Flex>
       </AccordionPanel>
