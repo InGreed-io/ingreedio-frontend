@@ -11,6 +11,7 @@ import { FavoriteProductsListing } from "./screens/FavoriteProductsListing";
 import TermsAndConditions from "./screens/TermsAndConditions";
 import Pricing from "./screens/Pricing";
 import AboutUs from "./screens/AboutUs";
+import { PanelReviewsListing } from "./screens/PanelReviewsListing";
 
 export const routerConfig = ([
   {
@@ -63,6 +64,10 @@ export const routerConfig = ([
       {
         path: "/panel/products",
         element: <PanelProductListing />
+      },
+      {
+        path: "/panel/reviews/reported",
+        element: <PanelReviewsListing />
       },
     ],
   }
