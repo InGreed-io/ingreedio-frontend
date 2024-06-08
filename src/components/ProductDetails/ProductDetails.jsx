@@ -29,8 +29,6 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
           borderRadius={25}
           w="400px"
           margin="40px"
-          marginLeft="0px"
-          marginRight="80px"
           boxShadow="4px 4px 20px rgba(0, 0, 0, 0.25)" />
         <Flex flexDirection="column"
           justify="start"
@@ -54,7 +52,7 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             {companyName}
           </Text>
           <Flex alignItems={"center"} gap={5}>
-            <StaticRating rating={product.rating} size={10} />
+            <StaticRating rating={product.rating} size={{ base: 8, sm: 10 }} />
             <Text fontSize={30}>({product.ratingsCount})</Text>
           </Flex>
           <Box maxW={800}>

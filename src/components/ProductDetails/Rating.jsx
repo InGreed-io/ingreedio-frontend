@@ -24,7 +24,7 @@ export const StaticRating = ({ rating, size }) => {
   }
 
   return (
-    <Flex gap={size / 4}>
+    <Flex gap={2}>
       {stars}
     </Flex>
   );

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 export const Layout = () => {
   return (
     <Center>
-      <Flex w="100%" maxW="1280px" minH="100vh" flexDirection="column">
+      <Flex p={{ base: 3, md: 0 }} w="100%" maxW="1280px" minH="100vh" flexDirection="column">
         <NavigationBar />
         <Outlet />
       </Flex>
