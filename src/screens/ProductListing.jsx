@@ -15,8 +15,8 @@ export const ProductListing = () => {
   if (!dataLoaded) return <Center><Spinner /></Center>;
 
   return (
-    <Grid templateColumns="30% 1fr" alignItems="flex-start">
-      <Stack position="sticky" top={30} w="100%" p={5} gap={5}>
+    <Grid templateColumns={{ base: "1fr", md: "30% 1fr"}} alignItems="flex-start">
+      <Stack position={{base: "static", md: "sticky"}} top={30} w="100%" p={5} gap={5}>
         <Stack gap={0}>
           <SingleSelect
             onChange={(option) => dispatchSearchData({ type: "updateSortBy", sortBy: option.value })}
