@@ -1,23 +1,42 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../components/AuthProvider";
 import { Navigate } from "react-router-dom";
 import {
-  Button, Flex, Heading, Divider, Text, Accordion, Switch, SimpleGrid, Input, GridItem,
-  Menu, MenuButton, MenuList, MenuItem
+  Button, Flex, Heading, Divider, Text, Accordion, Switch, useDisclosure
 } from "@chakra-ui/react";
 import { PreferencesAccordion } from "../components/UserPanel/PreferencesAccordion";
+import { PreferenceModal } from "../components/UserPanel/PreferenceModal";
+import { apiGet } from "../utils/api";
 
 
 export const Details = () => {
-  const categories = ["Food", "Cosmetics", "Drinks"];
 
+  const [preferences, setPreferences] = useState([]);
   const { token, loading } = useContext(AuthContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleAddCategory = () => {
-    // todo
+  const handleAddPreference = () => {
+    onOpen();
   };
 
+  const handleNewPreference = (newPreference) => {
+    setPreferences([...preferences, newPreference]);
+  };
 
+  const handleDeletePreference = (preferenceId) => {
+    const updatedPreferences = preferences.filter(
+      (preference) => preference.id !== preferenceId
+    );
+    console.log(updatedPreferences);
+    setPreferences(updatedPreferences);
+  };
+
+  useEffect(() => {
+    apiGet("User/preferences")
+      .then((body) => {
+        setPreferences(body);
+      });
+  }, []);
 
   if (loading || !token) {
     return (<Navigate to="/" replace />);
@@ -25,10 +44,10 @@ export const Details = () => {
 
   return (
     <Flex
-      marginLeft={["0%", null, null , "11%"]} // add margin if width > 992px (Chakra stuff)
-      marginRight={["0%", null, null , "11%"]}
+      marginLeft={["0%", null, null, "11%"]} // add margin if width > 992px (Chakra stuff)
+      marginRight={["0%", null, null, "11%"]}
       flexDirection="column"
-      justify="space-between"
+      justify="start"
       fontFamily="Inter"
       textColor="brand.greenishGray"
       h="90vh"
@@ -42,37 +61,27 @@ export const Details = () => {
           <Heading>
             Preferences
           </Heading>
-          <Menu>
-            <MenuButton as={Button}
-              backgroundColor='brand.secondary'
-              color='brand.greenishGray'
-              h='40px'
-              w='100px'
-              px='0px'>
-              Add new
-            </MenuButton>
-            <MenuList
-              zIndex='3'
-              borderRadius='30px'>
-              {
-                categories.map(category =>
-                  <MenuItem 
-                    key={category}
-                    borderRadius='inherit' 
-                    fontWeight="700"
-                    onClick={handleAddCategory}>{category}</MenuItem>)
-              }
-            </MenuList>
-          </Menu>
-
+          <Button
+            backgroundColor='brand.secondary'
+            color='brand.greenishGray'
+            h='40px'
+            w='100px'
+            px='0px'
+            onClick={handleAddPreference}>
+            Add new
+          </Button>
         </Flex>
         <Divider borderWidth="1px" borderColor="#000" />
         <Accordion allowToggle reduceMotion>
           {
-            categories.map(category =>
-              <PreferencesAccordion key={category} type={category} />)
+            preferences.map((preference) =>
+              <PreferencesAccordion key={preference.id}
+                id={preference.id}
+                name={preference.name} 
+                wanted={preference.wanted}
+                unwanted={preference.unwanted}
+                onDelete={handleDeletePreference}/>)
           }
-
         </Accordion>
       </Flex>
       <Flex flexDirection="column" my='2em'>
@@ -97,36 +106,9 @@ export const Details = () => {
             <Switch marginRight="1em" size="lg"></Switch>
             <Text>Get special offers and new products listing directly to your email</Text>
           </Flex>
-
-          <SimpleGrid gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" alignItems="center" justifyItems="start"
-            rowGap="1em"
-            columnGap="1em"
-            fontWeight="700"
-            marginRight="250px"
-          >
-            <GridItem>
-              <Text>Email</Text>
-              <Input type='email' backgroundColor="brand.background" />
-            </GridItem>
-
-            <GridItem>
-              <Button marginTop="2em">Change password</Button>
-            </GridItem>
-
-            <GridItem>
-              <Text>First name</Text>
-              <Input />
-            </GridItem>
-
-            <GridItem>
-              <Text>Last name</Text>
-              <Input />
-            </GridItem>
-
-          </SimpleGrid>
         </Flex>
       </Flex>
+      <PreferenceModal isOpen={isOpen} onClose={onClose} onAdd={handleNewPreference} />
     </Flex>
-
   );
 };
