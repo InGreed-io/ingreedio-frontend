@@ -71,11 +71,8 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
       textColor="white"
       background="transparent"
       fontWeight="700"
-      fontSize="20px"
-      position='relative'>
+      fontSize="20px">
       <Flex
-        position='relative'
-        zIndex="2"
         px="0px"
         my='0.5em'>
         <AccordionButton
@@ -123,11 +120,10 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
         pt='0px'
         pb={4}
         px='0px'
-        position='relative'
-        zIndex="1"
       >
         <Flex
-          flexDirection="row"
+          flexDirection={{ base: "column", md: "row" }}
+          gap={{ base: 5, md: 0 }}
           bg="brand.secondary"
           borderRadius="30px"
           justify="space-between"
@@ -146,6 +142,8 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
               }
             </Flex>
             <AsyncSelect
+              menuPortalTarget={document.body}
+              styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
               placeholder="Add preferred ingredient"
               size='sm'
               name='Preferred'
@@ -169,18 +167,7 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
                 }
               }
               defaultOptions={ingredients}
-              chakraStyles={{
-                option: (provided) => ({
-                  ...provided,
-                  position: "relative",
-                  zIndex: "5"
-                }),
-                menuList: (provided) => ({
-                  ...provided,
-                  position: "relative",
-                  zIndex: "5"
-                })
-              }} />
+            />
           </Flex>
           <Divider h='95%' orientation="vertical" borderWidth="1px" borderColor='brand.greenishGray'></Divider>
           <Flex w="100%" pl='1em' pr='1em' flexDirection='column' justify='space-between'>
@@ -192,8 +179,8 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
               }
             </Flex>
             <AsyncSelect
-              position='relative'
-              zIndex='5'
+              menuPortalTarget={document.body}
+              styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
               placeholder="Add prohibited ingredient"
               size='sm'
               name='Prohibited'
@@ -217,18 +204,7 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
                 }
               }
               defaultOptions={ingredients}
-              chakraStyles={{
-                option: (provided) => ({
-                  ...provided,
-                  position: "relative",
-                  zIndex: "5"
-                }),
-                menuList: (provided) => ({
-                  ...provided,
-                  position: "relative",
-                  zIndex: "5"
-                })
-              }} />
+            />
           </Flex>
         </Flex>
       </AccordionPanel>

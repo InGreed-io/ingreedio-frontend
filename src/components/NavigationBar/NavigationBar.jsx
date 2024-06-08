@@ -33,7 +33,7 @@ export const NavigationBar = () => {
 
   return (
     <>
-      <Grid p={4} templateColumns='repeat(3, 1fr)' display={{ base: "none", md: "grid" }} gap={6}>
+      <Grid p={4} templateColumns='repeat(3, 1fr)' display={{ base: "none", lg: "grid" }} gap={6}>
         <Box alignSelf="center" justifySelf="start">
           <Link to="/">
             <Image h="50px" src="/logo.png" alt="Logo" data-testid="logo" />
@@ -46,7 +46,7 @@ export const NavigationBar = () => {
           <AccountSection username={username} logout={logout} />
         </Box>
       </Grid>
-      <Box display={{ base: "block", md: "none" }}>
+      <Box display={{ base: "block", lg: "none" }}>
         <Flex p={4} justifyContent={"space-between"} alignItems={"center"}>
           <Box>
             <Link to="/">

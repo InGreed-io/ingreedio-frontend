@@ -1,4 +1,5 @@
 import { Box, Flex, Text, Image, Stack, Button, Center, Spinner } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
@@ -29,8 +30,6 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
           borderRadius={25}
           w="400px"
           margin="40px"
-          marginLeft="0px"
-          marginRight="80px"
           boxShadow="4px 4px 20px rgba(0, 0, 0, 0.25)" />
         <Flex flexDirection="column"
           justify="start"
@@ -54,7 +53,7 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             {companyName}
           </Text>
           <Flex alignItems={"center"} gap={5}>
-            <StaticRating rating={product.rating} size={10} />
+            <StaticRating rating={product.rating} size={{ base: 8, sm: 10 }} />
             <Text fontSize={30}>({product.ratingsCount})</Text>
           </Flex>
           <Box maxW={800}>
@@ -94,7 +93,7 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
         <Flex
           flexDirection="row"
           justifyContent={"center"}
-          gap={10}
+          gap={{ base: 0, md: 10 }}
           flexWrap="wrap">
           {reviews?.length > 0 ?
             reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} rating={review.rating} />)
@@ -109,14 +108,14 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
             size={"md"}
             isDisabled={page === 0}
             onClick={prev}
-          >Prev</Button>
+          ><ChevronLeftIcon fontSize={"lg"} /></Button>
           <Text>
             {page}
           </Text>
           <Button
             isDisabled={page === maxPage}
             onClick={next}
-            size={"md"}>Next</Button>
+            size={"md"}><ChevronRightIcon fontSize={"lg"} /></Button>
         </Flex>
       </Stack>
     </Flex>

@@ -1,10 +1,5 @@
 import { Text, Flex } from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/react";
-import { FavoriteBorder } from "@mui/icons-material";
 export const IngredientBox = ({ name }) => {
-
-  // TODO add updating preferences by clicking Heart Icon
-
   return (
     <Flex
       bg="brand.secondary"
@@ -20,9 +15,6 @@ export const IngredientBox = ({ name }) => {
       justifyContent="space-between">
       <Text
         fontWeight={500}>{name}</Text>
-      <Icon as={FavoriteBorder} 
-        color="white"
-        fontSize="2em"/>
     </Flex>
   );
 };

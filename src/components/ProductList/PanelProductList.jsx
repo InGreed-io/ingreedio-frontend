@@ -1,4 +1,5 @@
 import { Grid, Center, Spinner, Text, Flex, Stack, Button } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { ProductCard } from "./ProductCard";
 import { useEffect, useRef, useState } from "react";
 import usePagination from "../../hooks/usePagination";
@@ -67,14 +68,14 @@ export const PanelProductList = ({ searchData, productsPerPage, isAuthorized, en
                   size={"md"}
                   isDisabled={page === 0}
                   onClick={prev}
-                >Prev</Button>
+                ><ChevronLeftIcon fontSize={"lg"} /></Button>
                 <Text>
                   {page}
                 </Text>
                 <Button
                   isDisabled={page === maxPage}
                   onClick={next}
-                  size={"md"}>Next</Button>
+                  size={"md"}><ChevronRightIcon fontSize={"lg"} /></Button>
               </Flex>
             </Stack>
             :
