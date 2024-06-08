@@ -63,16 +63,16 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
     })
       .then((body) => {
         setIngredients(body.contents.map(({ id, name }) => ({ value: id, label: name })));
-        console.log("use efect");
       });
-  },[preferredIngredients, prohibitedIngredients]);
+  }, [preferredIngredients, prohibitedIngredients]);
 
   return (
     <AccordionItem
       textColor="white"
       background="transparent"
       fontWeight="700"
-      fontSize="20px">
+      fontSize="20px"
+      position='relative'>
       <Flex
         position='relative'
         zIndex="2"
@@ -168,7 +168,19 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
                     });
                 }
               }
-              defaultOptions={ingredients} />
+              defaultOptions={ingredients}
+              chakraStyles={{
+                option: (provided) => ({
+                  ...provided,
+                  position: "relative",
+                  zIndex: "5"
+                }),
+                menuList: (provided) => ({
+                  ...provided,
+                  position: "relative",
+                  zIndex: "5"
+                })
+              }} />
           </Flex>
           <Divider h='95%' orientation="vertical" borderWidth="1px" borderColor='brand.greenishGray'></Divider>
           <Flex w="100%" pl='1em' pr='1em' flexDirection='column' justify='space-between'>
@@ -206,6 +218,11 @@ export const PreferencesAccordion = ({ id, name, wanted, unwanted, onDelete }) =
               }
               defaultOptions={ingredients}
               chakraStyles={{
+                option: (provided) => ({
+                  ...provided,
+                  position: "relative",
+                  zIndex: "5"
+                }),
                 menuList: (provided) => ({
                   ...provided,
                   position: "relative",

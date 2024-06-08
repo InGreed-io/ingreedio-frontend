@@ -1,4 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { CloseIcon } from '@chakra-ui/icons';
+
 
 export const Ingredient = ({ name, wanted, onDelete }) => {
 
@@ -7,7 +9,6 @@ export const Ingredient = ({ name, wanted, onDelete }) => {
       textAlign="center"
       justifyContent="space-between"
       alignContent="center"
-      //w='90px'
       borderRadius="30"
       mr="5px"
       mb="5px"
@@ -19,13 +20,14 @@ export const Ingredient = ({ name, wanted, onDelete }) => {
         color='white'
         pr='0.5em'
       >{name}</Text>
+
       <button onClick={onDelete}>
-        <Text 
-          fontSize='16'
-          fontWeight='900'
+        <CloseIcon
+          display='flex'
+          alignSelf='center'
           color='white'
-          pr='5px'
-        >x</Text>
+          h='0.5em'
+          pr='5px' />
       </button>
 
     </Flex>

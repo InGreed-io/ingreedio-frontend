@@ -27,7 +27,6 @@ export const Details = () => {
     const updatedPreferences = preferences.filter(
       (preference) => preference.id !== preferenceId
     );
-    console.log(updatedPreferences);
     setPreferences(updatedPreferences);
   };
 
