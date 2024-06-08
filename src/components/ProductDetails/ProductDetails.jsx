@@ -93,7 +93,7 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
         <Flex
           flexDirection="row"
           justifyContent={"center"}
-          gap={10}
+          gap={{ base: 0, md: 10 }}
           flexWrap="wrap">
           {reviews?.length > 0 ?
             reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} rating={review.rating} />)
