@@ -1,15 +1,49 @@
 import usePagination from "../hooks/usePagination";
-import { useState } from "react";
-import { ReviewBox } from "../components/ProductDetails/ReviewBox";
-import { Flex, Button, Text, useToast, Input } from "@chakra-ui/react";
-import { apiDelete } from "../utils/api";
+import { useState, useRef } from "react";
+import { Flex, Button, Text, useToast, Input, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay } from "@chakra-ui/react";
+import { apiPatch } from "../utils/api";
+import { UserBox } from "../components/UserList/UserBox";
 
 export const PanelUsersListing = () => {
-
     const toast = useToast();
     const [users, setUsers] = useState([]);
-    const [query, setQuery] = useState({emailQuery: ''});
-    const [next, prev, page, maxPage, setPageResetted] = usePagination('Panel/users', (contents) => setUsers(contents), query, 0, 8);
+    const [query, setQuery] = useState({ emailQuery: '' });
+    const [next, prev, page, maxPage] = usePagination('Panel/users', (contents) => setUsers(contents), query, 0, 8);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const onClose = () => setIsDialogOpen(false);
+    const cancelRef = useRef();
+
+    const handleToggleActive = (userId, isDeactivated) => {
+        const endpoint = `Panel/users/${userId}/${isDeactivated ? 'activate' : 'deactivate'}`;
+        apiPatch(endpoint)
+            .then(() => {
+                setUsers(users.map(user =>
+                    user.id === userId ? { ...user, isBlocked: !isDeactivated } : user
+                ));
+                toast({
+                    title: isDeactivated ? "User activated" : "User deactivated",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            })
+            .catch(() => {
+                toast({
+                    title: "Error",
+                    description: "There was an error updating the user status",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            });
+        onClose();
+    };
+
+    const handleOpenDialog = (user) => {
+        setSelectedUser(user);
+        setIsDialogOpen(true);
+    };
 
     return (
         <Flex flexDirection='column' justifyContent='center'>
@@ -18,12 +52,14 @@ export const PanelUsersListing = () => {
                 justifySelf='center'
                 mx='10%'
                 placeholder="Search email..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}>
+                value={query.emailQuery}
+                onChange={(e) => setQuery({ emailQuery: e.target.value })}>
             </Input>
             <Flex flexDirection='row' flexWrap='wrap'>
                 {
-                    users.map(user => <Text>{user.email}   |</Text>)
+                    users.map(user => (
+                        <UserBox key={user.id} user={user} onOpenDialog={handleOpenDialog} />
+                    ))
                 }
             </Flex>
             <Flex
@@ -43,6 +79,35 @@ export const PanelUsersListing = () => {
                     onClick={next}
                     size={"md"}>Next</Button>
             </Flex>
+
+            {selectedUser && (
+                <AlertDialog
+                    isOpen={isDialogOpen}
+                    leastDestructiveRef={cancelRef}
+                    onClose={onClose}
+                >
+                    <AlertDialogOverlay>
+                        <AlertDialogContent>
+                            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                                {selectedUser.isBlocked ? "Activate User" : "Deactivate User"}
+                            </AlertDialogHeader>
+
+                            <AlertDialogBody>
+                                Are you sure you want to {selectedUser.isBlocked ? "activate" : "deactivate"} {selectedUser.email}?
+                            </AlertDialogBody>
+
+                            <AlertDialogFooter>
+                                <Button bg="#F08C8C" onClick={() => handleToggleActive(selectedUser.id, selectedUser.isBlocked)} ml={3}>
+                                    {selectedUser.isBlocked ? "Activate" : "Deactivate"}
+                                </Button>
+                                <Button variant='ghost' ref={cancelRef} onClick={onClose}>
+                                    Cancel
+                                </Button>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialogOverlay>
+                </AlertDialog>
+            )}
         </Flex>
     );
 }
