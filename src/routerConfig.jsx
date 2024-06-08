@@ -8,6 +8,9 @@ import { Details } from "./screens/Details";
 import { Navigate } from "react-router-dom";
 import { PanelProductListing } from "./screens/PanelProductsListing";
 import { FavoriteProductsListing } from "./screens/FavoriteProductsListing";
+import TermsAndConditions from "./screens/TermsAndConditions";
+import Pricing from "./screens/Pricing";
+import AboutUs from "./screens/AboutUs";
 
 export const routerConfig = ([
   {
@@ -20,6 +23,18 @@ export const routerConfig = ([
       {
         path: "/products",
         element: <ProductListing />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "/tos",
+        element: <TermsAndConditions />,
       },
       {
         path: "/login",
