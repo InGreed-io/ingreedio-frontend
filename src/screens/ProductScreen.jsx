@@ -11,8 +11,6 @@ export const ProductScreen = () => {
   const [queryParams] = useState({});
   const [next, prev, page, maxPage, setPageResetted] = usePagination(`products/${productId}/reviews`, (contents) => setReviews(contents), queryParams, 0, 4);
 
-
-
   useEffect(() => {
     apiGet(`products/${productId}`)
       .then(data => {
