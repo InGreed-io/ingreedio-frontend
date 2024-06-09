@@ -2,8 +2,7 @@ import {
   Button, ButtonGroup,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { hasAdminPanelAccess } from "../../utils/api";
-
+import { hasAdminPanelAccess, hasPanelProductsTabAccess, hasPanelReviewsTabAccess, hasPanelUsersTabAccess } from "../../utils/api";
 
 export const NavigationLinks = ({ flexDirection, role, isHidden = false, isPanel = false }) => {
 
@@ -36,21 +35,27 @@ export const NavigationLinks = ({ flexDirection, role, isHidden = false, isPanel
         </>
         :
         <>
-          <Link to="/panel/users">
-            <Button aria-label="Users">
+          { hasPanelUsersTabAccess(role) ?
+            <Link to="/panel/users">
+              <Button aria-label="Users">
               Users
-            </Button>
-          </Link>
-          <Link to="/panel/reported">
-            <Button aria-label="Reported Reviews">
+              </Button>
+            </Link>
+            : undefined }
+          { hasPanelReviewsTabAccess(role) ?
+            <Link to="/panel/reported">
+              <Button aria-label="Reported Reviews">
               Reviews
-            </Button>
-          </Link>
-          <Link to="/panel/products">
-            <Button aria-label="Products">
+              </Button>
+            </Link>
+            : undefined }
+          { hasPanelProductsTabAccess(role) ?
+            <Link to="/panel/products">
+              <Button aria-label="Products">
               Products
-            </Button>
-          </Link>
+              </Button>
+            </Link>
+            : undefined }
         </>
       }
     </ButtonGroup >

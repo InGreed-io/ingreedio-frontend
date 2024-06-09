@@ -2,15 +2,17 @@ import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
 import { StaticRating } from "./Rating";
-import { apiPatch } from "../../utils/api";
+import { apiDelete, apiPatch } from "../../utils/api";
 import { IconButton } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { useOutletContext } from "react-router-dom";
 
-export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
+export const ReviewBox = ({ setPageResetted, review, isPanel, onDelete }) => {
   const toast = useToast();
+  const { userId } = useOutletContext();
 
   const reportReview = () => {
-    apiPatch(`review/${id}/report`)
+    apiPatch(`review/${review.id}/report`)
       .then(() => {
         toast({
           title: "Success.",
@@ -40,7 +42,41 @@ export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
             isClosable: true,
           });
         }
+      });
+  };
 
+  const deleteReview = () => {
+    apiDelete(`review/${review.id}`)
+      .then(() => {
+        toast({
+          title: "Success.",
+          description: "Review has been deleted successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setPageResetted(p => !p);
+      })
+      .catch((e) => {
+        switch (e.status) {
+        case 401:
+          toast({
+            title: "Error.",
+            description: "You need to be logged in to delete a review!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+        default:
+          toast({
+            title: "Error.",
+            description: "Unexpected error occured!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
       });
   };
 
@@ -65,7 +101,7 @@ export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
           fontFamily="Playfair Display"
           fontWeight="900"
           fontSize="24">
-          {name}
+          {review.username}
         </Text>
         {
           isPanel ?
@@ -74,7 +110,7 @@ export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
               w='3em'
               h='3em'
               icon={<DeleteIcon />}
-              onClick={() => onDelete(id)}
+              onClick={() => onDelete(review.id)}
             />
             :
             <Flex justifyContent={"flex-end"}>
@@ -83,17 +119,23 @@ export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
                   fontSize="2em"
                   color="brand.greenishGray" />
               </Button>
+              { userId === review.userId ?
+                <Button p={0} bg={"brand.white"} onClick={deleteReview}>
+                  <Icon as={DeleteIcon}
+                    fontSize="2em"
+                    color="red.400" />
+                </Button>
+                : undefined }
             </Flex>
         }
       </Flex>
-      <StaticRating size={6} rating={rating} />
+      <StaticRating size={6} rating={review.rating} />
       <Text
         fontFamily="Inter"
         fontWeight="300"
         fontSize="24">
-        {content}
+        {review.text}
       </Text>
-
     </Flex>
   );
 };

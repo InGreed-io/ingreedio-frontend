@@ -23,6 +23,7 @@ import { apiPostWithFormData, apiGet, mapToSelectObject } from "../utils/api";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { SingleSelect } from "./SingleSelect";
 import { AsyncMultiSelect } from "./AsyncMultiSelect";
+import { useOutletContext } from "react-router-dom";
 
 const fetchData = async (endpoint, params, callback, setError) => {
   try {
@@ -44,6 +45,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
   const [category, setCategory] = useState(undefined);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
+  const { role } = useOutletContext();
 
   const onDrop = (acceptedFiles, rejectedFiles) => {
     setError("");
@@ -139,6 +141,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
     setPageResetted(b => !b);
   };
 
+  if(role === "Moderator") return null;
   return (
     <>
       <Button onClick={onOpen} paddingX={6} alignSelf={"flex-end"} mr={5}>Create New Product</Button>
@@ -171,6 +174,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
             <FormControl isRequired>
               <FormLabel fontFamily={"Playfair Display"}>Description</FormLabel>
               <Textarea
+                maxLength={500}
                 bg={"brand.background"}
                 borderColor={"brand.primary"}
                 borderWidth={2}

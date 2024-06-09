@@ -12,15 +12,16 @@ import { ReviewModal } from "./ReviewModal";
 import { StaticRating } from "./Rating";
 import { useState, useEffect } from "react";
 import { AsyncSelect } from "chakra-react-select";
-import { apiPatch, apiGet } from "../../utils/api";
+import { apiPatch, apiGet, apiDelete } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted, isEditable = false }) => {
   const [details, setDetails] = useState(product);
-  
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [newTitle, setNewTitle] = useState("");
   const [newDesc, setNewDesc] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const query = "";
   useEffect(() => {
     setDetails(product);
@@ -28,11 +29,11 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
     setNewDesc(product?.description || "");
   }, [product]);
   if (!details) return <Center><Spinner /></Center>;
-  
+
 
   const handleDeleteIngredient = (ingrId) => {
     const updatedIngredients = details.ingredients.filter(ingr => ingr.id !== ingrId);
-    apiPatch(`Panel/products/${details.id}`, {name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description})
+    apiPatch(`Panel/products/${details.id}`, { name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description })
       .then(() => {
         setDetails(prevDetails => ({
           ...prevDetails,
@@ -51,8 +52,8 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
   };
 
   const handleAddIngredient = (ingrId) => {
-    const updatedIngredients = [...details.ingredients, {id: ingrId.value, name: ingrId.label}];
-    apiPatch(`Panel/products/${details.id}`, {name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description})
+    const updatedIngredients = [...details.ingredients, { id: ingrId.value, name: ingrId.label }];
+    apiPatch(`Panel/products/${details.id}`, { name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description })
       .then(() => {
         setDetails(prevDetails => ({
           ...prevDetails,
@@ -74,8 +75,31 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
     onOpen();
   };
 
+  const handleDeleteProduct = () => {
+    apiDelete(`Panel/products/${details.id}`)
+      .then(() => {
+        toast({
+          title: "Success",
+          description: `Product "${details.name}" has been deleted`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate(-1);
+      })
+      .catch(() => {
+        toast({
+          title: "Error.",
+          description: "Error. Check your permissions.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
   const handleUpdateDetails = () => {
-    apiPatch(`Panel/products/${details.id}`, {name: newTitle, ingredients: details.ingredients.map(ingr => ingr.id), description: newDesc})
+    apiPatch(`Panel/products/${details.id}`, { name: newTitle, ingredients: details.ingredients.map(ingr => ingr.id), description: newDesc })
       .then(() => {
         setDetails(prevDetails => ({
           ...prevDetails,
@@ -146,8 +170,9 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
         </Flex>
       </Flex>
       {isEditable ?
-        <Flex w='100%' flexDir='row' justifyContent='end'>
+        <Flex w='100%' gap={2} flexDir='row' justifyContent='end'>
           <Button onClick={handleChangeTitleAndDesc}>Edit product details...</Button>
+          <Button px={5} bg={"red"} onClick={handleDeleteProduct}>Delete Product</Button>
         </Flex>
         : undefined}
       <Text
@@ -225,7 +250,7 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
           gap={{ base: 0, md: 10 }}
           flexWrap="wrap">
           {reviews?.length > 0 ?
-            reviews.map((review) => <ReviewBox key={review.id} id={review.id} name={review.username} content={review.text} rating={review.rating} />)
+            reviews.map((review) => <ReviewBox key={review.id} review={review} setPageResetted={setPageResetted} />)
             :
             <Text>You can be first to review this product!</Text>}
         </Flex>
