@@ -47,8 +47,6 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
   const [categories, setCategories] = useState([]);
   const { role } = useOutletContext();
 
-  if(role === "Moderator") return null;
-
   const onDrop = (acceptedFiles, rejectedFiles) => {
     setError("");
     if (rejectedFiles.length > 0) {
@@ -143,6 +141,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
     setPageResetted(b => !b);
   };
 
+  if(role === "Moderator") return null;
   return (
     <>
       <Button onClick={onOpen} paddingX={6} alignSelf={"flex-end"} mr={5}>Create New Product</Button>
