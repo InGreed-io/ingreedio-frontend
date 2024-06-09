@@ -174,6 +174,7 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
             <FormControl isRequired>
               <FormLabel fontFamily={"Playfair Display"}>Description</FormLabel>
               <Textarea
+                maxLength={500}
                 bg={"brand.background"}
                 borderColor={"brand.primary"}
                 borderWidth={2}
