@@ -3,34 +3,71 @@ import {
   Box, Flex, Text, Image, Stack, Button, Center, Spinner,
   Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, useDisclosure,
   FormControl, FormLabel,
-  Textarea
+  Textarea,
+  useToast
 } from "@chakra-ui/react";
 import { IngredientBox } from "./IngredientBox";
 import { ReviewBox } from "./ReviewBox";
 import { ReviewModal } from "./ReviewModal";
 import { StaticRating } from "./Rating";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AsyncSelect } from "chakra-react-select";
+import { apiPatch, apiGet } from "../../utils/api";
 
 export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted, isEditable = false }) => {
-  if (!product) return <Center><Spinner /></Center>;
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [details, setDetails] = useState(product);
-  const [newTitle, setNewTitle] = useState(product?.name || "");
-  const [newDesc, setNewDesc] = useState(product?.description || "");
+  
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [newTitle, setNewTitle] = useState("");
+  const [newDesc, setNewDesc] = useState("");
+  const query = "";
+  useEffect(() => {
+    setDetails(product);
+    setNewTitle(product?.name || "");
+    setNewDesc(product?.description || "");
+  }, [product]);
+  if (!details) return <Center><Spinner /></Center>;
+  
 
   const handleDeleteIngredient = (ingrId) => {
-    const updatedIngredients = details.ingredients.filter(ingr => ingr !== ingrId);
-    console.log(updatedIngredients);
-    setDetails(prevDetails => ({
-      ...prevDetails,
-      ingredients: updatedIngredients,
-    }));
+    const updatedIngredients = details.ingredients.filter(ingr => ingr.id !== ingrId);
+    apiPatch(`Panel/products/${details.id}`, {name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description})
+      .then(() => {
+        setDetails(prevDetails => ({
+          ...prevDetails,
+          ingredients: updatedIngredients,
+        }))
+          .catch(() => {
+            toast({
+              title: "Error.",
+              description: "Error. Check your permissions.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+      });
   };
 
-  const handleAddIngredient = () => {
-
+  const handleAddIngredient = (ingrId) => {
+    const updatedIngredients = [...details.ingredients, {id: ingrId.value, name: ingrId.label}];
+    apiPatch(`Panel/products/${details.id}`, {name: details.name, ingredients: updatedIngredients.map(ingr => ingr.id), description: details.description})
+      .then(() => {
+        setDetails(prevDetails => ({
+          ...prevDetails,
+          ingredients: updatedIngredients,
+        }))
+          .catch(() => {
+            toast({
+              title: "Error.",
+              description: "Error. Check your permissions.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+      });
   };
 
   const handleChangeTitleAndDesc = () => {
@@ -38,9 +75,23 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
   };
 
   const handleUpdateDetails = () => {
-    console.log("Updated Title:", newTitle);
-    console.log("Updated Description:", newDesc);
-    // update logic here
+    apiPatch(`Panel/products/${details.id}`, {name: newTitle, ingredients: details.ingredients.map(ingr => ingr.id), description: newDesc})
+      .then(() => {
+        setDetails(prevDetails => ({
+          ...prevDetails,
+          name: newTitle,
+          description: newDesc
+        }))
+          .catch(() => {
+            toast({
+              title: "Error.",
+              description: "Error. Check your permissions.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          });
+      });
     onClose();
   };
 
@@ -110,11 +161,49 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
       <Flex
         flexWrap="wrap"
         alignContent='center'>
-        {details.ingredients ? (details.ingredients.map((p, index) => <IngredientBox key={index} name={p} isEditable={isEditable} onDelete={handleDeleteIngredient} />)) : ""}
+        {details.ingredients ? (details.ingredients.map((p, index) => <IngredientBox key={index} id={p.id} name={p.name} isEditable={isEditable} onDelete={handleDeleteIngredient} />)) : ""}
         {isEditable ?
           <AsyncSelect
-            placeholder='New ingredient..'
-            onChange={handleAddIngredient}
+            placeholder='Add ingredient...'
+            onChange={(ingr) => handleAddIngredient(ingr)}
+            value={query}
+            loadOptions={
+              (inputValue, callback) => {
+                apiGet("ingredients", {
+                  query: inputValue,
+                  pageIndex: 0,
+                  pageSize: 5,
+                  exclude: details.ingredients.map(ingr => ingr.id),
+                })
+                  .then(items => {
+                    items = items.contents.map(({ id, name }) => ({ value: id, label: name }));
+                    callback(items);
+                  });
+              }
+            }
+            chakraStyles={{
+              control: (provided) => ({
+                ...provided,
+                borderRadius: 30,
+                borderStyle: "none",
+                height: "50px",
+                width: "240px",
+                margin: "5px",
+                alignItems: "center",
+                paddingLeft: "1em",
+                paddingRight: "1em",
+                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                fontSize: "15px"
+              }),
+              downChevron: (provided) => ({
+                ...provided,
+                visibility: "hidden"
+              }),
+              input: (provided) => ({
+                ...provided,
+                fontSize: "20px"
+              }),
+            }}
           ></AsyncSelect>
           : undefined}
       </Flex>

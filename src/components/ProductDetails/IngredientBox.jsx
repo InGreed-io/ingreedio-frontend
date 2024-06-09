@@ -18,7 +18,7 @@ export const IngredientBox = ({ name, isEditable = false, onDelete }) => {
       <Text
         fontWeight={500}>{name}</Text>
       {isEditable ?
-        <button onClick={() => onDelete(name)}>
+        <button onClick={() => onDelete(id)}>
           <CloseIcon
             display='flex'
             alignSelf='center'
