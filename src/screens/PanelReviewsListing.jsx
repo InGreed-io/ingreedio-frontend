@@ -1,14 +1,26 @@
 import usePagination from "../hooks/usePagination";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ReviewBox } from "../components/ProductDetails/ReviewBox";
 import { Flex, Button, Text, useToast } from "@chakra-ui/react";
 import { apiDelete } from "../utils/api";
+import { AuthContext } from "../components/AuthProvider";
+import { hasAdminPanelAccess } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 export const PanelReviewsListing = () => {
 
     const toast = useToast();
+    const navigate = useNavigate();
     const [reviews, setReviews] = useState([]);
     const [next, prev, page, maxPage] = usePagination('Panel/reviews/reported', (contents) => setReviews(contents), null, 0, 8);
+
+    const { loading, token, role } = useContext(AuthContext);
+  
+    useEffect(() => {
+      if (!loading && (!token || !hasAdminPanelAccess(role))) {
+        navigate("/");
+      }
+    }, [token, role, loading, navigate]);
 
     const handleDeleteReview = (reviewId) => {
         apiDelete(`Panel/reviews/${reviewId}`)
