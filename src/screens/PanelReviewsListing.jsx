@@ -19,7 +19,7 @@ export const PanelReviewsListing = () => {
     } else {
       setIsAuthorized(true);
     }
-  }, [role, isAuthorized]);
+  }, [role, isAuthorized, navigate]);
 
   if(!isAuthorized) return null;
   const handleDeleteReview = (reviewId) => {

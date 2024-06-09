@@ -53,7 +53,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
                   }
                   defaultValue={{ label: "No Preference", value: "" }}
                   options={[{ label: "No Preference", value: "" }, ...preferences]}
-                  />
+                />
                 <FormLabel fontSize={20}
                   color="brand.greenishGray"
                   alignSelf="start"

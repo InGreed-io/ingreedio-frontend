@@ -110,7 +110,7 @@ export const ReviewBox = ({ setPageResetted, review, isPanel, onDelete }) => {
               w='3em'
               h='3em'
               icon={<DeleteIcon />}
-              onClick={() => onDelete(id)}
+              onClick={() => onDelete(review.id)}
             />
             :
             <Flex justifyContent={"flex-end"}>
@@ -120,12 +120,12 @@ export const ReviewBox = ({ setPageResetted, review, isPanel, onDelete }) => {
                   color="brand.greenishGray" />
               </Button>
               { userId === review.userId ?
-              <Button p={0} bg={"brand.white"} onClick={deleteReview}>
-                <Icon as={DeleteIcon}
-                  fontSize="2em"
-                  color="red.400" />
-              </Button>
-              : undefined }
+                <Button p={0} bg={"brand.white"} onClick={deleteReview}>
+                  <Icon as={DeleteIcon}
+                    fontSize="2em"
+                    color="red.400" />
+                </Button>
+                : undefined }
             </Flex>
         }
       </Flex>

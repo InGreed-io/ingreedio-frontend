@@ -29,10 +29,10 @@ export const ProductScreen = () => {
           }).catch((e) => {
             switch(e.status) {
             case 404:
-                setError("Product not found!");
-                break;
+              setError("Product not found!");
+              break;
             default:
-                setError("Cannot display product!");
+              setError("Cannot display product!");
               break;
             }
           });
@@ -41,7 +41,7 @@ export const ProductScreen = () => {
   , [productId, reviews, role]);
 
   if(error && error.length > 0) {
-    return <Center><Text>{error}</Text></Center>
+    return <Center><Text>{error}</Text></Center>;
   }
 
 

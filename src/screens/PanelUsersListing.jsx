@@ -24,7 +24,7 @@ export const PanelUsersListing = () => {
     } else {
       setIsAuthorized(true);
     }
-  }, [role, isAuthorized]);
+  }, [role, isAuthorized, navigate]);
 
   if(!isAuthorized) return null;
 

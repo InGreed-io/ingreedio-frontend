@@ -36,26 +36,26 @@ export const NavigationLinks = ({ flexDirection, role, isHidden = false, isPanel
         :
         <>
           { hasPanelUsersTabAccess(role) ?
-          <Link to="/panel/users">
-            <Button aria-label="Users">
+            <Link to="/panel/users">
+              <Button aria-label="Users">
               Users
-            </Button>
-          </Link>
-          : undefined }
+              </Button>
+            </Link>
+            : undefined }
           { hasPanelReviewsTabAccess(role) ?
-          <Link to="/panel/reported">
-            <Button aria-label="Reported Reviews">
+            <Link to="/panel/reported">
+              <Button aria-label="Reported Reviews">
               Reviews
-            </Button>
-          </Link>
-          : undefined }
+              </Button>
+            </Link>
+            : undefined }
           { hasPanelProductsTabAccess(role) ?
-          <Link to="/panel/products">
-            <Button aria-label="Products">
+            <Link to="/panel/products">
+              <Button aria-label="Products">
               Products
-            </Button>
-          </Link>
-          : undefined }
+              </Button>
+            </Link>
+            : undefined }
         </>
       }
     </ButtonGroup >
