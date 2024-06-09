@@ -13,12 +13,12 @@ import { useState } from "react";
 import { AsyncSelect } from "chakra-react-select";
 
 export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted, isEditable = false }) => {
-  const [details, setDetails] = useState(product);
+  if (!product) return <Center><Spinner /></Center>;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [details, setDetails] = useState(product);
   const [newTitle, setNewTitle] = useState(product?.name || "");
   const [newDesc, setNewDesc] = useState(product?.description || "");
-
-  if (!product) return <Center><Spinner /></Center>;
 
   const handleDeleteIngredient = (ingrId) => {
     const updatedIngredients = details.ingredients.filter(ingr => ingr !== ingrId);
