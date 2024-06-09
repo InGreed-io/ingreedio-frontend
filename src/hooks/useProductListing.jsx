@@ -23,7 +23,7 @@ const searchParamsFromSearchData = (searchData) => ({
 });
 
 function useProductListing(handleSearchParams = true) {
-  const { authLoading, authToken } = useOutletContext();
+  const { loading, token } = useOutletContext();
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [searchParams, setSearchParams] = useSearchParams();
   const [ingredients, setIngredients] = useState([]);
@@ -90,19 +90,19 @@ function useProductListing(handleSearchParams = true) {
 
   /* eslint-disable */
   useEffect(() => {
-    if (!authLoading) {
+    if (!loading) {
       const mappedSearchParams = mapSearchParams(searchParams);
       setDataLoading(true);
 
       Promise.all([
         fetchCategories(),
         fetchIngredients(mappedSearchParams),
-        authToken && fetchPreferences()
+        token && fetchPreferences()
       ]).then(() => {
         setDataLoading(false);
       });
     }
-  }, [authLoading, authToken]);
+  }, [loading, token]);
 
   useEffect(() => {
     if (!dataLoading) {
