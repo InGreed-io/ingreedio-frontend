@@ -69,7 +69,6 @@ export const Login = () => {
           transform="translate(-15%,190%)"
           borderRadius={50} />
 
-        {/* Form */}
         <AuthForm
           title="Login"
           onSubmit={handleSubmit}

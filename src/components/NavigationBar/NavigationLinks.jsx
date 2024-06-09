@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { hasAdminPanelAccess } from "../../utils/api";
 
 
-export const NavigationLinks = ({ flexDirection, role, isHidden = false }) => {
+export const NavigationLinks = ({ flexDirection, role, isHidden = false, isPanel = false }) => {
 
   return (
     <ButtonGroup flexDirection={flexDirection} gap={2} spacing={0} p={2} variant="link" >
-      {!hasAdminPanelAccess(role) ? (
+      {!isPanel ?
         <>
           <Link to="/about">
             <Button aria-label={`About Us${isHidden ? " Hidden" : ""}`}>
@@ -26,24 +26,32 @@ export const NavigationLinks = ({ flexDirection, role, isHidden = false }) => {
               Terms and Conditions
             </Button>
           </Link>
-        </>) : (
+          {hasAdminPanelAccess(role) ? (
+            <Link to="/panel">
+              <Button aria-label={`Panel${isHidden ? " Hidden" : ""}`}>
+                Admin Panel
+              </Button>
+            </Link>
+          ) : undefined}
+        </>
+        :
         <>
           <Link to="/panel/users">
             <Button aria-label="Users">
-            Users
+              Users
             </Button>
           </Link>
-          <Link to="/panel/reviews/reported">
+          <Link to="/panel/reported">
             <Button aria-label="Reported Reviews">
-            Reviews
+              Reviews
             </Button>
           </Link>
           <Link to="/panel/products">
             <Button aria-label="Products">
-            Products
+              Products
             </Button>
           </Link>
-        </>)
+        </>
       }
     </ButtonGroup >
   );

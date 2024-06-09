@@ -13,6 +13,8 @@ import Pricing from "./screens/Pricing";
 import AboutUs from "./screens/AboutUs";
 import { PanelReviewsListing } from "./screens/PanelReviewsListing";
 import {PanelUsersListing} from "./screens/PanelUsersListing";
+import { PanelLayout } from "./screens/PanelLayout";
+import { UserLayout } from "./screens/UserLayout";
 
 export const routerConfig = ([
   {
@@ -50,28 +52,40 @@ export const routerConfig = ([
         path: "/product/:productId",
         element: <ProductScreen />,
       },
+    ],
+  },
+  {
+    element: <UserLayout />,
+    path: "user",
+    children: [
       {
-        path: "/details",
+        path: "details",
         element: <Details />,
       },
       {
-        path: "/favorites",
+        path: "favorites",
         element: <FavoriteProductsListing />,
       },
+    ],
+  },
+  {
+    element: <PanelLayout />,
+    path: "panel",
+    children: [
       {
-        path: "/panel",
+        path: "",
         element: <Navigate to="/panel/products" />,
       },
       {
-        path: "/panel/products",
+        path: "products",
         element: <PanelProductListing />
       },
       {
-        path: "/panel/reviews/reported",
+        path: "reported",
         element: <PanelReviewsListing />
       },
       {
-        path: "/panel/users",
+        path: "users",
         element: <PanelUsersListing />
       },
     ],

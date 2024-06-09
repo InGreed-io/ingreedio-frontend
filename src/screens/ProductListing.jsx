@@ -4,13 +4,11 @@ import { Searchbar } from "../components/Searchbar";
 import { productsPerPageOptions, sortMethods } from "../utils/productListing";
 import { SingleSelect } from "../components/SingleSelect";
 import useProductListing from "../hooks/useProductListing";
-import { useContext, useState } from "react";
-import { AuthContext } from "../components/AuthProvider";
+import { useState } from "react";
 
 export const ProductListing = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const { loading, token } = useContext(AuthContext);
-  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(loading, token, true);
+  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(true);
 
   if (!dataLoaded) return <Center><Spinner /></Center>;
 
@@ -46,7 +44,7 @@ export const ProductListing = () => {
           withButton={false}
         />
       </Stack>
-      <ProductList searchData={searchData} productsPerPage={productsPerPage} isAuthorized={!!token} endpoint={"products"} />
+      <ProductList searchData={searchData} productsPerPage={productsPerPage} endpoint={"products"} />
     </Grid>
   );
 };

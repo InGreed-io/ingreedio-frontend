@@ -1,16 +1,11 @@
 import usePagination from "../hooks/usePagination";
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Flex, Button, Text, useToast, Input, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay } from "@chakra-ui/react";
 import { apiPatch } from "../utils/api";
 import { UserBox } from "../components/UserList/UserBox";
-import { useNavigate } from "react-router-dom";
-import { hasAdminPanelAccess } from "../utils/api";
-import { AuthContext } from "../components/AuthProvider";
 
 
 export const PanelUsersListing = () => {
-
-  const navigate = useNavigate();
   const toast = useToast();
   const [users, setUsers] = useState([]);
   const [query, setQuery] = useState({ emailQuery: "" });
@@ -19,14 +14,6 @@ export const PanelUsersListing = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const onClose = () => setIsDialogOpen(false);
   const cancelRef = useRef();
-
-  const { loading, token, role } = useContext(AuthContext);
-  
-  useEffect(() => {
-    if (!loading && (!token || !hasAdminPanelAccess(role))) {
-      navigate("/");
-    }
-  }, [token, role, loading, navigate]);
 
   const handleToggleActive = (userId, isDeactivated) => {
     const endpoint = `Panel/users/${userId}/${isDeactivated ? "activate" : "deactivate"}`;

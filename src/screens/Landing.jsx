@@ -1,12 +1,12 @@
 import { Stack, Text, Spacer } from "@chakra-ui/react";
 import { Searchbar } from "../components/Searchbar";
 import { initialSearchData, searchReducer } from "../reducers/searchReducer";
-import { useReducer, useState, useEffect, useContext } from "react";
+import { useReducer, useState, useEffect } from "react";
 import { apiGet } from "../utils/api";
-import { AuthContext } from "../components/AuthProvider";
+import { useOutletContext } from "react-router-dom";
 
 export const Landing = () => {
-  const { token, loading } = useContext(AuthContext);
+  const { token } = useOutletContext();
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -31,7 +31,6 @@ export const Landing = () => {
   }, [searchData.ingredients]);
 
   useEffect(() => {
-    if (!loading) {
       apiGet("user/preferences")
         .then(items => {
           items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
@@ -40,8 +39,7 @@ export const Landing = () => {
         .catch(() => {
           setPreferences(undefined);
         });
-    }
-  }, [loading, token]);
+  }, [token]);
 
   return (
     <>

@@ -17,14 +17,13 @@ import {
 } from "@chakra-ui/react";
 import { Form } from "react-router-dom";
 import Rating from "./Rating";
-import { useContext, useState } from "react";
-import { AuthContext } from "../AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { apiPost } from "../../utils/api";
 
 export const ReviewModal = ({ productId, setPageResetted }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loading, token } = useContext(AuthContext);
+  const { loading, token } = useOutletContext();
   const navigate = useNavigate();
   const [reviewError, setReviewError] = useState("");
 
