@@ -1,5 +1,5 @@
 import usePagination from "../hooks/usePagination";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { ReviewBox } from "../components/ProductDetails/ReviewBox";
 import { Flex, Button, Text, useToast } from "@chakra-ui/react";
 import { apiDelete } from "../utils/api";

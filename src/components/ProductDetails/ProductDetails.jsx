@@ -13,13 +13,12 @@ import { useState } from "react";
 import { AsyncSelect } from "chakra-react-select";
 
 export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, setPageResetted, isEditable = false }) => {
-  if (!product) return <Center><Spinner /></Center>;
-
   const [details, setDetails] = useState(product);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [newTitle, setNewTitle] = useState(product?.name || '');
-  const [newDesc, setNewDesc] = useState(product?.description || '');
+  const [newTitle, setNewTitle] = useState(product?.name || "");
+  const [newDesc, setNewDesc] = useState(product?.description || "");
+
+  if (!product) return <Center><Spinner /></Center>;
 
   const handleDeleteIngredient = (ingrId) => {
     const updatedIngredients = details.ingredients.filter(ingr => ingr !== ingrId);
@@ -28,22 +27,22 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
       ...prevDetails,
       ingredients: updatedIngredients,
     }));
-  }
+  };
 
-  const handleAddIngredient = (ingrId) => {
+  const handleAddIngredient = () => {
 
-  }
+  };
 
   const handleChangeTitleAndDesc = () => {
     onOpen();
-  }
+  };
 
   const handleUpdateDetails = () => {
     console.log("Updated Title:", newTitle);
     console.log("Updated Description:", newDesc);
     // update logic here
     onClose();
-  }
+  };
 
   return (
     <Flex
@@ -113,11 +112,11 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
         alignContent='center'>
         {details.ingredients ? (details.ingredients.map((p, index) => <IngredientBox key={index} name={p} isEditable={isEditable} onDelete={handleDeleteIngredient} />)) : ""}
         {isEditable ?
-      <AsyncSelect
-      placeholder='New ingredient..'
-      onChange={handleAddIngredient}
-      ></AsyncSelect>
-            : undefined}
+          <AsyncSelect
+            placeholder='New ingredient..'
+            onChange={handleAddIngredient}
+          ></AsyncSelect>
+          : undefined}
       </Flex>
       <Text
         fontFamily="Playfair Display"

@@ -31,14 +31,14 @@ export const Landing = () => {
   }, [searchData.ingredients]);
 
   useEffect(() => {
-      apiGet("user/preferences")
-        .then(items => {
-          items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
-          setPreferences(items);
-        })
-        .catch(() => {
-          setPreferences(undefined);
-        });
+    apiGet("user/preferences")
+      .then(items => {
+        items = items.map(({ id, name }) => ({ value: id.toString(), label: name }));
+        setPreferences(items);
+      })
+      .catch(() => {
+        setPreferences(undefined);
+      });
   }, [token]);
 
   return (

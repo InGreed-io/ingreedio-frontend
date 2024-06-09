@@ -5,7 +5,6 @@ import { useState } from "react";
 import { SingleSelect } from "../components/SingleSelect";
 import useProductListing from "../hooks/useProductListing";
 import { PanelProductList } from "../components/ProductList/PanelProductList";
-import { useOutletContext } from "react-router-dom";
 
 export const PanelProductListing = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);

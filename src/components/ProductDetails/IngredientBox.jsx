@@ -1,7 +1,7 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 
-export const IngredientBox = ({ id, name, isEditable = false, onDelete }) => {
+export const IngredientBox = ({ name, isEditable = false, onDelete }) => {
   return (
     <Flex
       bg="brand.secondary"
