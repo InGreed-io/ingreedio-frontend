@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const toast = useToast();
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     if (storedToken) {
       apiGet("user/details").then((response) => {
         setUsername(transformEmail(response.userName));
+        setUserId(response.id);
       }).catch((e) => {
         switch (e.status) {
         case 404:
@@ -53,6 +55,7 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         setRole(null);
         setUsername(null);
+        setUserId(null);
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("role");
       });
@@ -63,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   }, [token, role, toast]);
 
   return (
-    <AuthContext.Provider value={{ token, setToken, username, loading, role, setRole }}>
+    <AuthContext.Provider value={{ token, setToken, username, loading, role, setRole, userId }}>
       {children}
     </AuthContext.Provider>
   );

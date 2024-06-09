@@ -1,19 +1,32 @@
 import usePagination from "../hooks/usePagination";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Flex, Button, Text, useToast, Input, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay } from "@chakra-ui/react";
-import { apiPatch } from "../utils/api";
+import { apiPatch, hasPanelUsersTabAccess } from "../utils/api";
 import { UserBox } from "../components/UserList/UserBox";
-
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 export const PanelUsersListing = () => {
   const toast = useToast();
   const [users, setUsers] = useState([]);
   const [query, setQuery] = useState({ emailQuery: "" });
+  const [isAuthorized, setIsAuthorized] = useState(false);
   const [next, prev, page, maxPage] = usePagination("Panel/users", (contents) => setUsers(contents), query, 0, 8);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const onClose = () => setIsDialogOpen(false);
   const cancelRef = useRef();
+  const { role } = useOutletContext();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(!hasPanelUsersTabAccess(role)) {
+      navigate(-1);
+    } else {
+      setIsAuthorized(true);
+    }
+  }, [role, isAuthorized]);
+
+  if(!isAuthorized) return null;
 
   const handleToggleActive = (userId, isDeactivated) => {
     const endpoint = `Panel/users/${userId}/${isDeactivated ? "activate" : "deactivate"}`;
