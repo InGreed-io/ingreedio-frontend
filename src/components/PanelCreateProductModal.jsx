@@ -23,6 +23,7 @@ import { apiPostWithFormData, apiGet, mapToSelectObject } from "../utils/api";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { SingleSelect } from "./SingleSelect";
 import { AsyncMultiSelect } from "./AsyncMultiSelect";
+import { useOutletContext } from "react-router-dom";
 
 const fetchData = async (endpoint, params, callback, setError) => {
   try {
@@ -44,6 +45,9 @@ export const PanelCreateProductModal = ({ setPageResetted }) => {
   const [category, setCategory] = useState(undefined);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
+  const { role } = useOutletContext();
+
+  if(role === "Moderator") return null;
 
   const onDrop = (acceptedFiles, rejectedFiles) => {
     setError("");
