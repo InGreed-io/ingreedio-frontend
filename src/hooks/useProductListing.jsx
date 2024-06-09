@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
 import { searchReducer, initialSearchData } from "../reducers/searchReducer";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useOutletContext } from "react-router-dom";
 import { mapToSelectObject } from "../utils/api";
 import { apiGet } from "../utils/api";
 
@@ -22,7 +22,8 @@ const searchParamsFromSearchData = (searchData) => ({
   sortBy: searchData.sortBy || initialSearchData.sortBy,
 });
 
-function useProductListing(authLoading, authToken, handleSearchParams = true) {
+function useProductListing(handleSearchParams = true) {
+  const { loading, token } = useOutletContext();
   const [searchData, dispatchSearchData] = useReducer(searchReducer, initialSearchData);
   const [searchParams, setSearchParams] = useSearchParams();
   const [ingredients, setIngredients] = useState([]);
@@ -89,19 +90,19 @@ function useProductListing(authLoading, authToken, handleSearchParams = true) {
 
   /* eslint-disable */
   useEffect(() => {
-    if (!authLoading) {
+    if (!loading) {
       const mappedSearchParams = mapSearchParams(searchParams);
       setDataLoading(true);
 
       Promise.all([
         fetchCategories(),
         fetchIngredients(mappedSearchParams),
-        authToken && fetchPreferences()
+        token && fetchPreferences()
       ]).then(() => {
         setDataLoading(false);
       });
     }
-  }, [authLoading, authToken]);
+  }, [loading, token]);
 
   useEffect(() => {
     if (!dataLoading) {

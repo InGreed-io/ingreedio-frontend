@@ -1,26 +1,14 @@
 import { ProductList } from "../components/ProductList/ProductList";
-import { Grid, Stack, Text, Spinner, Center } from "@chakra-ui/react";
+import { Grid, Stack, Text } from "@chakra-ui/react";
 import { Searchbar } from "../components/Searchbar";
 import { productsPerPageOptions, sortMethods } from "../utils/productListing";
 import { SingleSelect } from "../components/SingleSelect";
 import useProductListing from "../hooks/useProductListing";
-import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../components/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const FavoriteProductsListing = () => {
   const [productsPerPage, setProductsPerPage] = useState(9);
-  const { loading, token } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const { ingredients, preferences, categories, dataLoaded, searchData, dispatchSearchData } = useProductListing(loading, token, false);
-
-  useEffect(() => {
-    if(!loading && !token) {
-      navigate("/");
-    }
-  }, [token, loading, navigate]);
-
-  if (!dataLoaded) return <Center><Spinner /></Center>;
+  const { ingredients, preferences, categories, searchData, dispatchSearchData } = useProductListing(false);
 
   return (
     <Grid templateColumns={{ base: "1fr", md: "30% 1fr"}} alignItems="flex-start">
@@ -54,7 +42,7 @@ export const FavoriteProductsListing = () => {
           withButton={false}
         />
       </Stack>
-      <ProductList searchData={searchData} productsPerPage={productsPerPage} isAuthorized={!!token} endpoint={"user/favourites"} />
+      <ProductList searchData={searchData} productsPerPage={productsPerPage} endpoint={"user/favourites"} />
     </Grid>
   );
 };

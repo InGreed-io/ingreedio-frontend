@@ -1,6 +1,4 @@
-import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../components/AuthProvider";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   Button, Flex, Heading, Divider, Text, Accordion, Switch, useDisclosure
 } from "@chakra-ui/react";
@@ -10,9 +8,7 @@ import { apiGet } from "../utils/api";
 
 
 export const Details = () => {
-
   const [preferences, setPreferences] = useState([]);
-  const { token, loading } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleAddPreference = () => {
@@ -36,10 +32,6 @@ export const Details = () => {
         setPreferences(body);
       });
   }, []);
-
-  if (loading || !token) {
-    return (<Navigate to="/" replace />);
-  }
 
   return (
     <Flex

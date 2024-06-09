@@ -4,12 +4,19 @@ import { NavigationBar } from "../components/NavigationBar/NavigationBar";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../components/AuthProvider";
 
+const authData = {
+  loading: false,
+  role: null,
+  token: null,
+  username: null
+};
+
 describe("NavigationBar Tests", () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
         <AuthProvider>
-          <NavigationBar />
+          <NavigationBar authData={authData} />
         </AuthProvider>
       </BrowserRouter>
     );

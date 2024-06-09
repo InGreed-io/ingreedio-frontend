@@ -3,25 +3,20 @@ import {
   Grid, Flex, IconButton, useToast
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
 import { NavigationLinks } from "./NavigationLinks";
 import { AccountSection } from "./AccountSection";
 
-export const NavigationBar = () => {
+export const NavigationBar = ({ isPanel = false, authData }) => {
   const [displayMenu, changeDisplayMenu] = useState("none");
   const toast = useToast();
-  const { username, setToken, loading, role, setRole } = useContext(AuthContext);
-  if (loading) {
-    return null;
-  }
 
   const logout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("role");
-    setToken(null);
-    setRole(null);
+    authData.setToken(null);
+    authData.setRole(null);
     toast({
       title: "Logged out",
       description: "Logged out successfuly.",
@@ -40,10 +35,10 @@ export const NavigationBar = () => {
           </Link>
         </Box>
         <Center>
-          <NavigationLinks flexDirection={"row"} role={role} />
+          <NavigationLinks flexDirection={"row"} role={authData.role} isPanel={isPanel} />
         </Center>
         <Box alignSelf="center" justifySelf="end">
-          <AccountSection username={username} logout={logout} />
+          <AccountSection username={authData.username} logout={logout} />
         </Box>
       </Grid>
       <Box display={{ base: "block", lg: "none" }}>
@@ -70,8 +65,8 @@ export const NavigationBar = () => {
           pb={15}
           mb={10}
         >
-          <NavigationLinks isHidden={true} flexDirection={"column"} role={role} />
-          <AccountSection isHidden={true} username={username} logout={logout} justifyContent="center" />
+          <NavigationLinks isHidden={true} flexDirection={"column"} role={authData.role} isPanel={isPanel} />
+          <AccountSection isHidden={true} username={authData.username} logout={logout} justifyContent="center" />
         </Box>
       </Box>
     </>

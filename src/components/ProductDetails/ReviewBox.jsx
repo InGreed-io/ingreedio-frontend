@@ -3,8 +3,10 @@ import { FlagRounded } from "@mui/icons-material";
 import { Icon } from "@chakra-ui/react";
 import { StaticRating } from "./Rating";
 import { apiPatch } from "../../utils/api";
+import { IconButton } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
-export const ReviewBox = ({ id, name, content, rating }) => {
+export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
   const toast = useToast();
 
   const reportReview = () => {
@@ -52,7 +54,8 @@ export const ReviewBox = ({ id, name, content, rating }) => {
       paddingLeft="20px"
       borderRadius="30px"
       maxWidth="35em"
-      marginBottom="2em">
+      marginBottom="2em"
+      boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)">
       <Flex
         flexDirection="row"
         justifyContent="space-between"
@@ -64,13 +67,24 @@ export const ReviewBox = ({ id, name, content, rating }) => {
           fontSize="24">
           {name}
         </Text>
-        <Flex justifyContent={"flex-end"}>
-          <Button p={0} bg={"brand.white"} onClick={reportReview}>
-            <Icon as={FlagRounded}
-              fontSize="2em"
-              color="brand.greenishGray" />
-          </Button>
-        </Flex>
+        {
+          isPanel ?
+            <IconButton
+              bg='red'
+              w='3em'
+              h='3em'
+              icon={<DeleteIcon />}
+              onClick={() => onDelete(id)}
+            />
+            :
+            <Flex justifyContent={"flex-end"}>
+              <Button p={0} bg={"brand.white"} onClick={reportReview}>
+                <Icon as={FlagRounded}
+                  fontSize="2em"
+                  color="brand.greenishGray" />
+              </Button>
+            </Flex>
+        }
       </Flex>
       <StaticRating size={6} rating={rating} />
       <Text
@@ -79,6 +93,7 @@ export const ReviewBox = ({ id, name, content, rating }) => {
         fontSize="24">
         {content}
       </Text>
+
     </Flex>
   );
 };

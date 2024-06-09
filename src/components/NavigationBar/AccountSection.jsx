@@ -9,7 +9,7 @@ export const AccountSection = ({ username, logout, justifyContent = "flex-start"
     <ButtonGroup justifyContent={justifyContent} gap="5">
       {username ?
         <>
-          <Link to="/favorites" style={{ alignSelf: "center" }}>
+          <Link to="/user/favorites" style={{ alignSelf: "center" }}>
             <IconButton
               icon={<Favorite />}
               boxSize={10}
@@ -22,7 +22,7 @@ export const AccountSection = ({ username, logout, justifyContent = "flex-start"
               }}
             />
           </Link>
-          <Link to="/details" style={{ alignSelf: "center" }}>
+          <Link to="/user/details" style={{ alignSelf: "center" }}>
             <Button variant="link" aria-label="User Details">
               {username}
             </Button>

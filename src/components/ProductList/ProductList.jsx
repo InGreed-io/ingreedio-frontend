@@ -3,10 +3,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { ProductCard } from "./ProductCard";
 import { useEffect, useRef, useState } from "react";
 import usePagination from "../../hooks/usePagination";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
-export const ProductList = ({ searchData, productsPerPage, isAuthorized, endpoint }) => {
+export const ProductList = ({ searchData, productsPerPage, endpoint }) => {
   const mountedRef = useRef(false);
+  const { token } = useOutletContext();
+  const isAuthorized = !!token;
   const [queryParams, setQueryParams] = useState(
     {
       query: searchData.query,
