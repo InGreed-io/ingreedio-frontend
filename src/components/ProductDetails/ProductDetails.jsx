@@ -195,12 +195,13 @@ export const ProductDetails = ({ product, reviews, prev, next, page, maxPage, se
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 fontSize: "15px"
               }),
-              downChevron: (provided) => ({
+              dropdownIndicator: (provided) => ({
                 ...provided,
-                visibility: "hidden"
+                display: "none"
               }),
-              input: (provided) => ({
+              inputContainer: (provided) => ({
                 ...provided,
+                width: "100%",
                 fontSize: "20px"
               }),
             }}
