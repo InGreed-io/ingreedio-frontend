@@ -91,7 +91,7 @@ export const Searchbar = ({ searchData, dispatchSearchData, ingredients, categor
             </FormControl>
           </Stack>
           <Stack minW={200} gap={0} flexBasis={300} flexGrow={3} flexShrink={1}>
-            <FormControl isRequired>
+            <FormControl>
               <AsyncMultiSelect
                 name="ingredients"
                 placeholder="Ingredients..."
