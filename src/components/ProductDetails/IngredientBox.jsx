@@ -17,13 +17,13 @@ export const IngredientBox = ({ id, name, isEditable = false, onDelete }) => {
       justifyContent="space-between">
       <Text
         fontWeight={500}>{name}</Text>
-      {isEditable ??
-        <button onClick={() => onDelete(id)}>
+      {isEditable ?
+        <button onClick={() => onDelete(name)}>
           <CloseIcon
             display='flex'
             alignSelf='center'
             boxSize={5} />
-        </button>
+        </button> : undefined
       }
     </Flex>
   );

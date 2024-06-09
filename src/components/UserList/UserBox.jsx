@@ -4,6 +4,8 @@ import { Person } from "@mui/icons-material";
 
 export const UserBox = ({ user, onOpenDialog }) => {
 
+  const role = user.role || "User";
+
   const roleColors = {
     "Admin": "red",
     "Moderator": "#779ECB",
@@ -11,7 +13,7 @@ export const UserBox = ({ user, onOpenDialog }) => {
     "default": "brand.greenishGray"
   };
 
-  const color = roleColors[user.role] || roleColors["default"];
+  const color = roleColors[role] || roleColors["default"];
 
   return (
     <Flex flexDir='row'
@@ -31,7 +33,7 @@ export const UserBox = ({ user, onOpenDialog }) => {
             fontWeight='900'>{user.email}</Text>
           <Text
             fontWeight='700'
-            color={color}>{user.role}</Text>
+            color={color}>{role}</Text>
         </Flex>
         <button onClick={() => onOpenDialog(user)}>
           <Flex flexDir='row' justifyContent='end' align='center'>
