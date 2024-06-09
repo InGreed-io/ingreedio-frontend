@@ -26,25 +26,25 @@ export const NavigationLinks = ({ flexDirection, role, isHidden = false }) => {
               Terms and Conditions
             </Button>
           </Link>
-    </>) : (
-      <>
-        <Link to="/panel/users">
-          <Button aria-label="Users">
+        </>) : (
+        <>
+          <Link to="/panel/users">
+            <Button aria-label="Users">
             Users
-          </Button>
-        </Link>
-        <Link to="/panel/reviews/reported">
-          <Button aria-label="Reported Reviews">
+            </Button>
+          </Link>
+          <Link to="/panel/reviews/reported">
+            <Button aria-label="Reported Reviews">
             Reviews
-          </Button>
-        </Link>
-        <Link to="/panel/products">
-          <Button aria-label="Products">
+            </Button>
+          </Link>
+          <Link to="/panel/products">
+            <Button aria-label="Products">
             Products
-          </Button>
-        </Link>
-      </>)
-}
+            </Button>
+          </Link>
+        </>)
+      }
     </ButtonGroup >
   );
 };

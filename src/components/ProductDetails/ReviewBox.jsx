@@ -22,23 +22,23 @@ export const ReviewBox = ({ id, name, content, rating, isPanel, onDelete }) => {
       })
       .catch((e) => {
         switch (e.status) {
-          case 401:
-            toast({
-              title: "Error.",
-              description: "You need to be logged in to post a review!",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
-            break;
-          default:
-            toast({
-              title: "Error.",
-              description: "Unexpected error occured!",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
+        case 401:
+          toast({
+            title: "Error.",
+            description: "You need to be logged in to post a review!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+        default:
+          toast({
+            title: "Error.",
+            description: "Unexpected error occured!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         }
 
       });
