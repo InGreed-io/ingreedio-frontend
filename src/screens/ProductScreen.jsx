@@ -28,7 +28,7 @@ export const ProductScreen = () => {
       });
 
   }
-    , [productId, reviews]);
+  , [productId, reviews, role]);
 
 
   return <ProductDetails product={product} reviews={reviews} prev={prev} next={next} setPageResetted={setPageResetted} maxPage={maxPage} page={page} isEditable={editable} />;

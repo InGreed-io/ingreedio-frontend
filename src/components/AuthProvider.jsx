@@ -31,23 +31,23 @@ export const AuthProvider = ({ children }) => {
         setUsername(transformEmail(response.userName));
       }).catch((e) => {
         switch (e.status) {
-          case 404:
-            toast({
-              title: "Logged Out",
-              description: "Cannot find user. Logged out.",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
-            break;
-          default:
-            toast({
-              title: "Logged Out",
-              description: "Authorization error occured. Logged out.",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
+        case 404:
+          toast({
+            title: "Logged Out",
+            description: "Cannot find user. Logged out.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+          break;
+        default:
+          toast({
+            title: "Logged Out",
+            description: "Authorization error occured. Logged out.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         }
 
         setToken(null);
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       setUsername(null);
     }
     setLoading(false);
-  }, [token, role]);
+  }, [token, role, toast]);
 
   return (
     <AuthContext.Provider value={{ token, setToken, username, loading, role, setRole }}>
