@@ -43,7 +43,7 @@ jobs:
           aws-region: ${{ inputs.aws-region }}
 
       - name: Sync built files to S3
-        run: aws s3 sync ./dist s3://$AWS_S3_BUCKET --delete
+        run: aws s3 sync ./dist s3://$AWS_S3_BUCKET --delete --exclude "images/*" --exclude "images/*/*"
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
 
